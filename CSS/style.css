@@ -1,0 +1,132 @@
+/* Global */
+:root {
+  /* Color */
+  --color-white: #ffffff;
+  --color-light-white: #eeeeee;
+  --color-dark-white: #bdbdbd;
+  --color-pink: #ff6863;
+  --color-dark-grey: #4d4d4d;
+  --color-grey: #616161;
+  --color-light-grey: #7c7979;
+  --color-blue: #73aace;
+  --color-yellow: #fff7d1;
+  --color-orange: #feb546;
+  --color-black: #000000;
+  --color-dark-green: #006B4F;
+  --color-green: #06D6A0;
+  --color-light-green: #50E2BC;
+
+  /* Font size */
+  --font-large: 34px;
+  --font-medium: 28px;
+  --font-regular: 18px;
+  --font-small: 16px;
+  --font-micro: 14px;
+
+  /* Font weight */
+  --weight-bold: 700;
+  --weight-semi-bold: 600;
+  --weight-regular: 400;
+
+  /* Font line-height */
+  --line-height-size: 1.8rem;
+
+  /* icon */
+  --icon-tab-size: 28px;
+
+  /* Animation */
+  --animation-duration: 0.3s;
+
+  /* Etc */
+  --border-radius-small-size: 4px;
+  --border-radius-large-size: 20px;
+}
+
+/* Typography */
+h1 {
+  font-size: var(--font-large);
+  font-weight: var(--weight-bold);
+  color: var(--color-black);
+  margin: 6px 0px;
+  font-family: 'BMDoHyeon', sans-serif;;
+}
+
+h2 {
+  font-size: var(--font-medium);
+  font-weight: var(--weight-semi-bold);
+  color: var(--color-black);
+  margin: 8px 0px;
+}
+
+h3 {
+  font-size: var(--font-regular);
+  font-weight: var(--weight-semi-bold);
+  color: var(--color-black);
+  margin: 8px 0px;
+}
+
+p {
+  font-size: var(--font-regular);
+  font-weight: var(--weight-regular);
+  color: var(--color-black);
+  margin: 4px 0px;
+}
+
+/* Universal tags */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  height: 100vh;
+  margin: 0;
+  cursor: default;
+}
+
+/* 태그 스타일 초기화 */
+a {
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 하단 네비게이션 영역 */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: #f8f8f8;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
+}
+
+.nav__tab-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav__tab-item a {
+  display: block;
+  padding: 8px 20px;
+}
+
+.nav__tab-item i {
+  color: rgb(141, 141, 141);
+  font-size: var(--icon-tab-size);
+}
