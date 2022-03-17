@@ -55,9 +55,9 @@ h1 {
 }
 
 h2 {
-  font-size: var(--font-medium);
-  font-weight: var(--weight-semi-bold);
-  color: var(--color-white-teal);
+  font-size: var(--font-small);
+  font-weight: var(--weight-regular);
+  color: var(--color-grey);
   margin: 0px;
 }
 
@@ -156,6 +156,50 @@ input {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   margin-right: 4px;
+}
+
+.book-list {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.book-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.book-item__img {
+  width: 85%;
+  height: 74px;
+}
+
+.book-item__img > img{
+  width: 85%;
+  height: 120px;
+  position: absolute;
+  top: -50px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.book-item__rating {
+  display: flex;
+}
+
+.book-item__rating i {
+  font-size: 14px;
+  color: goldenrod;
+}
+
+.book-item__title {
+  
 }
 
 /* 하단 네비게이션 영역 */
