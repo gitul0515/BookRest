@@ -23,16 +23,22 @@
     <script src="../JS/main.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>나의 서재</h1>
-      <i class="fa-solid fa-filter"></i>
-      <input type="text" placeholder="   등록한 책을 검색해보세요
-      ">
+    <header class="header">
+      <h1 class="header__title">나의 서재</h1>
+      <form class="header__search-form" action="" method="get">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          class="header__search" 
+          type="text" 
+          placeholder="등록한 책을 검색해보세요"
+          autofocus
+        >
+      </form>
     </header>
 
-    <section>
-
-    </section>
+    <main class="main">
+      <button class="sort-btn">제목 순서로</button>
+    </main>
 
     <footer class="footer">
       <nav class="footer__nav">
