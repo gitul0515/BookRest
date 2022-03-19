@@ -7,7 +7,7 @@
   --color-pink: #ff6863;
   --color-dark-grey: #515151;
   --color-grey: #616161;
-  --color-light-grey: #7c7979;
+  --color-light-grey: #7a7a7a;
   --color-blue: #73aace;
   --color-yellow: #fff7d1;
   --color-orange: #feb546;
@@ -20,7 +20,7 @@
   /* Font size */
   --font-large: 34px;
   --font-medium: 28px;
-  --font-regular: 18px;
+  --font-regular: 16px;
   --font-small: 14px;
   --font-micro: 12px;
 
@@ -51,13 +51,13 @@ h1 {
   font-family: 'BMDoHyeon', sans-serif;;
   font-weight: 500;
   color: var(--color-white-teal);
-  margin: 10px 0;
+  margin: 8px 0;
 }
 
 h2 {
   font-size: var(--font-small);
   font-weight: var(--weight-regular);
-  color: var(--color-grey);
+  color: var(--color-light-grey);
   margin: 0px;
 }
 
@@ -116,7 +116,7 @@ input {
 /* 헤더 영역 */
 .header {
   background-color: var(--color-teal);
-  padding: 15px;
+  padding: 10px;
 }
 
 .header__search-form {
@@ -140,14 +140,14 @@ input {
 
 /* 메인 영역 */
 .main {
-  padding: 15px;
+  padding: 10px;
   padding-top: 0;
 }
 
 .sort-btn {
   color: var(--color-dark-grey);
-  font-size: var(--font-small);
-  margin: 10px 0;
+  font-size: var(--font-regular);
+  margin-top: 20px;
 }
 
 .sort-btn::before {
@@ -155,7 +155,7 @@ input {
   display: inline-block;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  margin-right: 4px;
+  margin-right: 5px;
 }
 
 .book-list {
@@ -170,23 +170,32 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 31%;
   background-color: #f8f8f8;
   border-radius: 10px;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+  margin-bottom: 70px;
+  padding: 4px;
+}
+
+.book-item:nth-child(3n) {
+  margin-right: 0;
 }
 
 .book-item__img {
-  width: 85%;
+  width: 80%;
   height: 74px;
 }
 
 .book-item__img > img{
-  width: 85%;
+  width: 80%;
   height: 120px;
   position: absolute;
-  top: -50px;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  top: -45px;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
 .book-item__rating {
@@ -195,11 +204,16 @@ input {
 
 .book-item__rating i {
   font-size: 14px;
-  color: goldenrod;
+  color: #EFBC1D;
+  margin: 0 0.2px;
 }
 
 .book-item__title {
-  
+  width: 80%;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* 하단 네비게이션 영역 */
