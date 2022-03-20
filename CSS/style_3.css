@@ -287,13 +287,17 @@ input {
   align-items: center;
 }
 
-.nav__tab-item a {
+.nav__tab-item > button {
   display: block;
-  padding: 8px 20px;
+  padding: 10px 20px;
+}
+
+.nav__tab-item > button:active {
+  background-color: teal;
 }
 
 .nav__tab-item i {
-  color: var(--color-dark-white);
-  /* color: rgb(153, 153, 153); */
   font-size: var(--icon-tab-size);
+  color: var(--color-dark-white);
+  pointer-events: none;
 }

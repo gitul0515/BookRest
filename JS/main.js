@@ -1,3 +1,9 @@
+const nav = document.querySelector('.footer__nav');
+nav.addEventListener('click', e => {
+  console.log(e.target.id);
+});
+
+
 const body = document.querySelector('body');
 
 // 정렬 버튼
