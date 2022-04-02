@@ -1,30 +1,30 @@
-const tag = '[View]';
-
 export default {
-  init(el) {
-    if (!el) throw el;
-    this.el = el;
+  init(element) {
+    if (!element) {
+      throw element;
+    }
+    this.element = element;
     return this;
   },
 
   on(event, handler) {
-    this.el.addEventListener(event, handler);
+    this.element.addEventListener(event, handler);
     return this;
   },
 
   emit(event, data) {
-    const evt = new CustomEvent(event, { detail: data });
-    this.el.dispatchEvent(evt);
+    const customEvent = new CustomEvent(event, { detail: data });
+    this.element.dispatchEvent(customEvent);
     return this;
   },
 
   hide() {
-    this.el.style.display = 'none';
+    this.element.style.display = 'none';
     return this;
   },
 
   show() {
-    this.el.style.display = '';
+    this.element.style.display = '';
     return this;
   }
 }

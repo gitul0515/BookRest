@@ -2,24 +2,25 @@ import View from './View.js';
 
 const NavigationView = Object.create(View);
 
-NavigationView.setup = function(el) {
-  this.init(el);
+NavigationView.setup = function(element) {
+  this.init(element);
   this.bindEvents();
   return this;
 }
 
 NavigationView.bindEvents = function() {
-  this.el.addEventListener('click', e => this.onClick(e));
+  this.element.addEventListener('click', e => this.onClick(e));
 };
 
+/* 
+  a 태그를 클릭하면 페이지를 전환한다. 
+  클릭 이벤트가 발생했음을 MainController에게 알린다.  
+*/
 NavigationView.onClick = function(e) {
   if (!e.target.matches('#navigation > a')) {
     return;
   }
   e.preventDefault();
-  /* 클릭 시 스타일 변경 */
-
-  /* 해당 tab이 클릭되었음을 MainController에게 알린다. */
   const page = e.target.getAttribute('href').substr(1);
   this.emit('@click', { page });
 };

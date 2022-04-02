@@ -1,5 +1,5 @@
-import NavigationController from "./controllers/NavigationController.js"
+import MainController from "./controllers/MainController.js"
 
 document.addEventListener('DOMContentLoaded', () => {
-  NavigationController.init();
+  MainController.init();
 });
