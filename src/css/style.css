@@ -269,34 +269,31 @@ input {
   border-top: 1px solid var(--color-light-white);
 }
 
-/* 하단 네비게이션 영역 */
-#nav {
+/* 네비게이션 영역 */
+#navigation {
   position: fixed;
   bottom: 0;
   width: 100vw;
   background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 20px 20px 0 0;
   box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
   -webkit-box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
   -moz-box-shadow: 0px 0px 7px 0px rgba(179, 179, 179, 0.9);
 }
 
-.nav__tab-list {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.nav__tab-item a {
+#navigation > a {
   display: block;
   padding: 10px 20px;
 }
 
-.nav__tab-item a:active {
+#navigation > a:active {
   background-color: teal;
 }
 
-.nav__tab-item i {
+#navigation i {
   font-size: var(--icon-tab-size);
   color: var(--color-dark-white);
   pointer-events: none;
