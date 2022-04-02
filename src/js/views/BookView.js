@@ -20,8 +20,8 @@ BookView.render = function() {
 
 BookView.getHeaderHtml = function() {
   return `<header class="header">
-    <h1>나의 서재</h1>
-    <p>20권의 책을 다 읽으셨어요!</p>
+    <h1 class="header__title">나의 서재</h1>
+    <h3 class="header__message">20권의 책을 다 읽으셨어요!</h3>
   </header>`;
 };
 

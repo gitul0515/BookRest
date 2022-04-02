@@ -20,8 +20,8 @@ SettingView.render = function() {
 
 SettingView.getHeaderHtml = function() {
   return `<header class="header">
-    <h1>마이 페이지</h1>
-    <p>독서는 더 나은 나를 만드는 방법입니다.</p>
+    <h1 class="header__title">마이 페이지</h1>
+    <h3 class="header__message">독서는 더 나은 나를 만드는 방법입니다.</h3>
   </header>`;
 };
 

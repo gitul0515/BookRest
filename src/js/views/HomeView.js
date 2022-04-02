@@ -21,16 +21,16 @@ HomeView.render = function() {
 HomeView.getHeaderHtml = function() {
   return `<header class="header">
     <h1 class="header__title">북레스트</h1>
-    <p class="header__message">책과 함께 휴식을 취하세요 :)</p>
+    <h3 class="header__message">책과 함께 휴식을 취하세요 :)</h3>
   </header>`;
 };
 
 HomeView.getContentHtml = function() {
   return `<div class="content">
-    <button class="search-button">
+    <article class="search-tab">
       <h2>책을 추가해 보세요.</h2>
-      <p>읽고 있는 책이 있나요?</p>
-    </butt>
+      <h3>읽고 있는 책이 있나요?</h3>
+    </article>
   </div>`;
 };
 

@@ -20,8 +20,8 @@ NoteView.render = function() {
 
 NoteView.getHeaderHtml = function() {
   return `<header class="header">
-    <h1>나의 노트</h1>
-    <p>176개의 노트를 작성하셨군요!</p>
+    <h1 class="header__title">나의 노트</h1>
+    <h3 class="header__message">176개의 노트를 작성하셨군요!</h3>
   </header>`;
 };
 
