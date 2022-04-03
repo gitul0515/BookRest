@@ -1,4 +1,6 @@
 import View from './View.js';
+import HomeSearchView from './HomeSearchView.js';
+import HomeCalendarView from './HomeCalendarView.js';
 
 const HomeView = Object.create(View);
 
@@ -26,12 +28,10 @@ HomeView.getHeaderHtml = function() {
 };
 
 HomeView.getContentHtml = function() {
-  return `<div class="content">
-    <article class="search-tab">
-      <h2>책을 추가해 보세요.</h2>
-      <h3>읽고 있는 책이 있나요?</h3>
-    </article>
-  </div>`;
+  return `<div class="content content--home">
+            ${HomeSearchView.getHtml()}
+            ${HomeCalendarView.getHtml()} 
+          </div>`;
 };
 
 HomeView.createElement = function(string) {
