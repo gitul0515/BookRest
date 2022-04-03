@@ -4,11 +4,11 @@ const NavigationView = Object.create(View);
 
 NavigationView.setup = function(element) {
   this.init(element);
-  this.bindEvents();
+  this.bindEvent();
   return this;
 }
 
-NavigationView.bindEvents = function() {
+NavigationView.bindEvent = function() {
   this.element.addEventListener('click', e => this.onClick(e));
 };
 

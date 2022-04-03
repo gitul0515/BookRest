@@ -4,11 +4,11 @@ const SettingView = Object.create(View);
 
 SettingView.setup = function(element) {
   this.init(element);
-  this.bindEvents();
+  this.bindEvent();
   return this;
 };
 
-SettingView.bindEvents = function() {
+SettingView.bindEvent = function() {
 
 };
 

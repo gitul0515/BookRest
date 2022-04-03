@@ -1,16 +1,17 @@
 import View from './View.js';
-import HomeSearchView from './HomeSearchView.js';
-import HomeCalendarView from './HomeCalendarView.js';
+import HomeSearchTabView from './HomeSearchTabView.js';
+import HomeSearchPageView from './HomeSearchPageView.js';
+import HomeCalendarTabView from './HomeCalendarTabView.js';
 
 const HomeView = Object.create(View);
 
 HomeView.setup = function(element) {
   this.init(element);
-  this.bindEvents();
+  this.bindEvent();
   return this;
 }
 
-HomeView.bindEvents = function() {
+HomeView.bindEvent = function() {
 
 };
 
@@ -29,8 +30,9 @@ HomeView.getHeaderHtml = function() {
 
 HomeView.getContentHtml = function() {
   return `<div class="content content--home">
-            ${HomeSearchView.getHtml()}
-            ${HomeCalendarView.getHtml()} 
+            ${HomeSearchTabView.getHtml()}
+            ${HomeSearchPageView.getHtml()}
+            ${HomeCalendarTabView.getHtml()} 
           </div>`;
 };
 

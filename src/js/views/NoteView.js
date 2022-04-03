@@ -4,11 +4,11 @@ const NoteView = Object.create(View);
 
 NoteView.setup = function(element) {
   this.init(element);
-  this.bindEvents();
+  this.bindEvent();
   return this;
 }
 
-NoteView.bindEvents = function() {
+NoteView.bindEvent = function() {
 
 };
 

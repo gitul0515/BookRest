@@ -4,11 +4,11 @@ const BookView = Object.create(View);
 
 BookView.setup = function(element) {
   this.init(element);
-  this.bindEvents();
+  this.bindEvent();
   return this;
 }
 
-BookView.bindEvents = function() {
+BookView.bindEvent = function() {
 
 };
 

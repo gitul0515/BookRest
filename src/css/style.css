@@ -115,6 +115,8 @@ input {
 
 #page {
   width: 100%;
+  height: 100vh;
+  position: relative;
 }
 
 /* 헤더 영역 */
@@ -131,7 +133,7 @@ input {
   left: 0;
   width: 100vw;
   height: 190px;
-  border-radius: 0 0 60% 60%;
+  border-radius: 0 0 50% 50%;
 }
 
 .header__message {
@@ -197,7 +199,18 @@ input {
 
 .home__tab--calendar > i {
   font-size: 2.4rem;
-  color: rgb(224, 204, 19);
+  color: rgb(221, 201, 18);
+}
+
+.home__page--search {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999;
+  visibility: hidden;
 }
 
 .main {

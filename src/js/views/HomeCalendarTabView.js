@@ -1,12 +1,12 @@
 import View from './View.js';
 
-const HomeCalendarView = Object.create(View);
+const HomeCalendarTabView = Object.create(View);
 
-HomeCalendarView.setup = function(element) {
+HomeCalendarTabView.setup = function(element) {
 
 }
 
-HomeCalendarView.getHtml = function() {
+HomeCalendarTabView.getHtml = function() {
   return `<article class="home__tab home__tab--calendar">
     <div>
       <h2>독서 달력</h2>
@@ -16,4 +16,4 @@ HomeCalendarView.getHtml = function() {
   </article>`;
 }
 
-export default HomeCalendarView;
+export default HomeCalendarTabView;

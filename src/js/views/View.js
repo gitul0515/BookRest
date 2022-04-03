@@ -19,12 +19,12 @@ export default {
   },
 
   hide() {
-    this.element.style.display = 'none';
+    this.element.style.visibility = 'hidden';
     return this;
   },
 
   show() {
-    this.element.style.display = '';
+    this.element.style.visibility = 'visible';
     return this;
   }
 }

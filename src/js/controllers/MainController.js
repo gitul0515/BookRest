@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.js";
 import NoteView from "../views/NoteView.js";
 import BookView from "../views/BookView.js";
 import SettingView from "../views/SettingView.js";
+import HomeController from "./HomeController.js";
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -17,7 +18,7 @@ export default {
       .on('@click', e => this.onClick(e.detail.page))
 
     this.currentPage = 'home';
-    HomeView.render();
+    this.switchPage();
   },
 
   onClick(page) {
@@ -29,6 +30,7 @@ export default {
     switch (this.currentPage) {
       case 'home':
         HomeView.render();
+        HomeController.init();
         break;
       case 'note':
         NoteView.render();
