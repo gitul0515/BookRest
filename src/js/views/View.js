@@ -19,12 +19,13 @@ export default {
   },
 
   hide() {
-    this.element.style.visibility = 'hidden';
+    this.element.style.left = '100%';
     return this;
   },
 
   show() {
     this.element.style.visibility = 'visible';
+    this.element.style.left = '0';
     return this;
   }
 }

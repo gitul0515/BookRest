@@ -17,32 +17,40 @@ export default {
     NavigationView.setup(navigation)
       .on('@click', e => this.onClick(e.detail.page))
 
-    this.currentPage = 'home';
+    this.currentPage = '/';
     this.switchPage();
+    window.addEventListener('popstate', () => this.onPopstate());
   },
 
   onClick(page) {
     this.currentPage = page;
     this.switchPage();
+    history.pushState(null, null, this.currentPage);
   },
 
   switchPage() {
     switch (this.currentPage) {
-      case 'home':
+      case '/':
         HomeView.render();
         HomeController.init();
         break;
-      case 'note':
+      case '/note':
         NoteView.render();
         break;
-      case 'book':
+      case '/book':
         BookView.render();
         break;
-      case 'setting':
+      case '/setting':
         SettingView.render();
         break;
       default:
         throw new Error('invalid page');
     }
+  },
+
+  onPopstate() {
+    const { pathname } = location;
+    this.currentPage = pathname;
+    this.switchPage();
   }
 }

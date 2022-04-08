@@ -21,7 +21,7 @@ NavigationView.onClick = function(e) {
     return;
   }
   e.preventDefault();
-  const page = e.target.getAttribute('href').substr(1);
+  const page = e.target.getAttribute('href');
   this.emit('@click', { page });
 };
 

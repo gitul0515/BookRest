@@ -117,12 +117,13 @@ input {
   width: 100%;
   height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* 헤더 영역 */
 .header {
   background-color: var(--color-teal);
-  padding: 14px 10px;
+  padding: 14px;
   position: relative;
 }
 
@@ -141,23 +142,27 @@ input {
   font-size: 1rem;
 }
 
-.header__search-form {
+.search-form {
   position: relative;
 }
 
-.header__search-form > i {
+.search-form > i {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 8px;
+  left: 12px;
+  color: var(--color-light-grey);
 }
 
-.header__search {
+.search-form > input {
   width: 100%;
   padding: 8px;
-  font-size: var(--font-micro);
-  border-radius: var(--border-radius-small);
-  padding-left: 32px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  padding-left: 36px;
+  height: 37px;
+  line-height: 42px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* 메인 영역 */
@@ -205,12 +210,82 @@ input {
 .home__page--search {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 90%;
   width: 100%;
   height: 100%;
-  background-color: #fff;
   z-index: 999;
   visibility: hidden;
+  padding: 22px 14px;
+  background-color: #F7EFE4;
+  transition: left 0.3s ease;
+}
+
+.home__page--search > button > i {
+  font-size: 1.8rem;
+}
+
+.home__page--search > h1 {
+  color: var(--color-black);
+  margin: 30px 0;
+}
+
+.search-result {
+  margin: 80px 0 30px;
+}
+
+.search-result__item {
+  display: flex;
+  margin: 60px 0;
+  background-color: var(--color-white);
+  padding: 5px 10px;
+}
+
+.search-result__thumbnail {
+  width: 87px;
+  height: 84px;
+  margin-right: 14px;
+  position: relative;
+}
+
+.search-result__thumbnail > img {
+  display: block;
+  width: 87px;
+  height: 126px;
+  position: absolute;
+  top: -48px;
+  border-radius: 6px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.search-result__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-result__title {
+  width: 200px;
+  color: var(--color-black);
+  font-size: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.search-result__description > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result__authors {
+  font-size: 0.92rem;
+  color: var(--color-light-grey);
+  margin-bottom: -1px;
+}
+
+.search-result__publisher {
+  font-size: 0.92rem;
+  color: var(--color-dark-white);
 }
 
 .main {
