@@ -1,7 +1,9 @@
 import View from './View.js';
 import HomeSearchTabView from './HomeSearchTabView.js';
-import HomeSearchPageView from './HomeSearchPageView.js';
+import HomeSearchListView from './HomeSearchListView.js';
+import HomeSearchSaveView from './HomeSearchSaveView.js';
 import HomeCalendarTabView from './HomeCalendarTabView.js';
+
 
 const HomeView = Object.create(View);
 
@@ -31,8 +33,9 @@ HomeView.getHeaderHtml = function() {
 HomeView.getContentHtml = function() {
   return `<div class="content content--home">
             ${HomeSearchTabView.getHtml()}
-            ${HomeSearchPageView.getHtml()}
-            ${HomeCalendarTabView.getHtml()} 
+            ${HomeSearchListView.getHtml()}
+            ${HomeSearchSaveView.getHtml()}
+            ${HomeCalendarTabView.getHtml()}
           </div>`;
 };
 

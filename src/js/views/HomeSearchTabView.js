@@ -18,10 +18,10 @@ HomeSearchTabView.onClick = function() {
 }
 
 HomeSearchTabView.getHtml = function() {
-  return `<article class="home__tab home__tab--search">
+  return `<div class="home__tab home__search-tab">
     <h2>책을 추가해 보세요.</h2>
     <h3>읽고 있는 책이 있나요?</h3>
-  </article>`;
+  </div>`;
 }
 
 export default HomeSearchTabView;
