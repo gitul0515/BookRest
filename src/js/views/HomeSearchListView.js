@@ -26,16 +26,18 @@ HomeSearchListView.onPageHide = function() {
 
 HomeSearchListView.getHtml = function() {
   return `<div class="home__search-page--list">
-      <button><i class="fa-solid fa-arrow-left"></i></button>
+      <header>
+        <button><i class="fa-solid fa-arrow-left"></i></button>
+      </header>
       <h1>책을 찾아보세요!</h1>
       <form class="search-form" action="" method="get">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input 
-          type="text" 
-          placeholder="검색할 책을 입력해주세요."
-          autofocus
+        type="text" 
+        placeholder="검색할 책을 입력해주세요."
+        autofocus
         >
-    </form>
+      </form>
     <div class="search-result"></div>
   </div>`;
 }

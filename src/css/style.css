@@ -115,7 +115,7 @@ input {
 
 #page {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
@@ -212,7 +212,7 @@ input {
   top: 0;
   left: 100%;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   visibility: hidden;
   z-index: 998;
   padding: 22px 14px;
@@ -220,11 +220,18 @@ input {
   transition: left 0.3s ease;
 }
 
-.home__search-page--list > button > i {
+.home__search-page--list header {
+  position: sticky;
+  top: 22px;
+  left: 14px;
+  z-index: 999;
+}
+
+.home__search-page--list button i {
   font-size: 1.8rem;
 }
 
-.home__search-page--list > h1 {
+.home__search-page--list h1 {
   color: var(--color-black);
   margin: 30px 0;
 }
@@ -293,11 +300,89 @@ input {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  visibility: hidden;
+  min-height: 100vh;
   z-index: 999;
-  padding: 22px 14px;
+  padding: 22px 0px;
   background-color: #F7EFE4;
+}
+
+.home__search-page--save > header {
+  position: sticky;
+  top: 10px;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home__search-page--save > header > button {
+  padding: 12px 18px;
+  background-color: #ffffff;
+  border-radius: 0 26px 26px 0;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.home__search-page--save > header i {
+  font-size: 1.8rem;
+}
+
+.home__search-page--save > div {
+  padding: 20px 14px;
+}
+
+.search-page--save__container h1 {
+  color: var(--color-black);
+  margin: 20px 0;
+}
+
+#book-thumbnail {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+#book-thumbnail > img {
+  width: 100px;
+  height: 145px;
+  border-radius: 10px;
+}
+
+.search-page--save__form {
+
+}
+
+.search-page--save__form > label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.search-page--save__form > input {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  background-color: rgba(128, 128, 128, 0.15);
+  padding: 5px;
+  position: relative;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.search-page--save__form > button {
+  font-size: 1rem;
+  padding: 10px;
+  display: block;
+  float: right;
+  background-color: #fff;
+  color: black;
+  border-radius: 16px;
+  border-radius: 26px 0 0 26px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+.search-page--save__form > button > i {
+  font-size: 1.5rem;
+  color: teal;
+  margin-right: 6px;
+  transform: translateY(2px);
 }
 
 .main {
