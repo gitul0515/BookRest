@@ -28,5 +28,11 @@ export default {
     this.element.style.visibility = 'visible';
     this.element.style.left = '0';
     return this;
+  },
+
+  createElement(string) {
+    const temp = document.createElement('template');
+    temp.innerHTML = string;
+    return temp.content;
   }
 }

@@ -1,7 +1,7 @@
 import NavigationView from "../views/NavigationView.js";
 import HomeView from "../views/HomeView.js";
 import NoteView from "../views/NoteView.js";
-import BookView from "../views/BookView.js";
+import BookPageView from "../views/BookPageView.js";
 import SettingView from "../views/SettingView.js";
 import HomeController from "./HomeController.js";
 import BookController from "./BookController.js";
@@ -13,7 +13,7 @@ export default {
   init() {
     HomeView.setup(page);
     NoteView.setup(page);
-    BookView.setup(page);
+    BookPageView.setup(page);
     SettingView.setup(page);
     NavigationView.setup(navigation)
       .on('@click', e => this.onClick(e.detail.page))
@@ -39,7 +39,7 @@ export default {
         NoteView.render();
         break;
       case '/book':
-        BookView.render();
+        BookPageView.render();
         BookController.init();
         break;
       case '/setting':
