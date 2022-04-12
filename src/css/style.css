@@ -135,6 +135,7 @@ input {
   width: 100vw;
   height: 190px;
   border-radius: 0 0 50% 50%;
+  z-index: -1;
 }
 
 .header__message {
@@ -167,7 +168,7 @@ input {
 
 /* 메인 영역 */
 .content {
-
+  padding: 20px 14px;
 }
 
 .home__tab {
@@ -393,13 +394,13 @@ input {
   padding-top: 0;
 }
 
-.sort-btn {
-  color: var(--color-dark-grey);
-  font-size: var(--font-regular);
+.button--sort {
+  color: var(--color-white-teal);
+  font-size: 16px;
   margin-top: 20px;
 }
 
-.sort-btn::before {
+.button--sort::before {
   content: '\f884';
   display: inline-block;
   font-family: "Font Awesome 6 Free";

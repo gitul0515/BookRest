@@ -1,4 +1,5 @@
 import View from './View.js';
+import BookListView from './BookListView.js';
 
 const BookView = Object.create(View);
 
@@ -27,7 +28,16 @@ BookView.getHeaderHtml = function() {
 
 BookView.getContentHtml = function() {
   return `<div class="content">
-    <p>hello<p>
+    <form class="search-form" action="" method="get">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input 
+        type="text" 
+        placeholder="등록한 책을 검색해보세요"
+        autofocus
+      >
+    </form>
+    <button class="button--sort">제목 순서로</button>
+    ${BookListView.render()}
   </div>`;
 };
 

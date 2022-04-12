@@ -4,6 +4,7 @@ import NoteView from "../views/NoteView.js";
 import BookView from "../views/BookView.js";
 import SettingView from "../views/SettingView.js";
 import HomeController from "./HomeController.js";
+import BookController from "./BookController.js";
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -39,6 +40,7 @@ export default {
         break;
       case '/book':
         BookView.render();
+        BookController.init();
         break;
       case '/setting':
         SettingView.render();
