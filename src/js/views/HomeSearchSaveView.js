@@ -5,18 +5,22 @@ const HomeSearchSaveView = Object.create(View);
 
 HomeSearchSaveView.setup = function(element) {
   this.init(element);
+  this.backButton = this.element.querySelector('.back-button');
   this.bindEvent();
   return this;
 }
 
 HomeSearchSaveView.bindEvent = function() {
-
+  this.backButton.addEventListener('click', () => this.onHide());
 }
 
-HomeSearchSaveView.getHtml = function() {
+HomeSearchSaveView.getHtml = function(data) {
+  if (!data) {
+    return;
+  }
   return `<div class="home__search-page--save">
     <header>
-      <button><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="back-button"><i class="fa-solid fa-arrow-left"></i></button>
     </header>
     <div class="search-page--save__container">
       <h1>책 등록하기</h1>
@@ -39,14 +43,15 @@ HomeSearchSaveView.getHtml = function() {
   `
 }
 
-HomeSearchSaveView.show = function() {
-  this.element.style.visibility = 'visible';
+HomeSearchSaveView.onShow = function(data) {
+  this.show();
   HomeSearchListView.onPageHide();
+  HomeSearchSaveView.getHtml(data);
   return this;
 }
 
 HomeSearchSaveView.onHide = function() {
-
+  this.hide();
 }
 
 export default HomeSearchSaveView;

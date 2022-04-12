@@ -20,6 +20,7 @@ export default {
 
   hide() {
     this.element.style.left = '100%';
+    this.element.style.visibility = 'hidden';
     return this;
   },
 

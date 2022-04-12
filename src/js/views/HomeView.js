@@ -34,7 +34,6 @@ HomeView.getContentHtml = function() {
   return `<div class="content content--home">
             ${HomeSearchTabView.getHtml()}
             ${HomeSearchListView.getHtml()}
-            ${HomeSearchSaveView.getHtml()}
             ${HomeCalendarTabView.getHtml()}
           </div>`;
 };

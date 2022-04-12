@@ -1,7 +1,7 @@
 import HomeSearchTabView from "../views/HomeSearchTabView.js";
 import HomeSearchListView from "../views/HomeSearchListView.js";
-import HomeSearchSaveView from "../views/HomeSearchSaveView.js";
 import fetchBookData from "../service/api-search.js";
+import BookModel from "../models/BookModel.js";
 
 export default {
   init() {
@@ -10,7 +10,7 @@ export default {
     HomeSearchListView.setup(document.querySelector('.home__search-page--list'))
       .on('@submit', e => this.onSearch(e.detail.text))
       .on('@click', e => this.onClickItem(e.detail.bookData))
-    HomeSearchSaveView.setup(document.querySelector('.home__search-page--save'))
+    // HomeSearchSaveView.setup(document.querySelector('.home__search-page--save'))
   },
 
   onClickTab() {
@@ -22,7 +22,8 @@ export default {
     HomeSearchListView.render(data.documents);
   },
 
-  onClickItem(data) {
-    HomeSearchSaveView.show();
+  async onClickItem(newItem) {
+    const result = await BookModel.add(newItem);
+    console.log(result);
   }
 }
