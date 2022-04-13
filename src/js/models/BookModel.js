@@ -27,7 +27,7 @@ export default {
   add(newItem) {
     return new Promise(res => {
       setTimeout(() => {
-        this.data = [...this.data, newItem];
+        this.data = [...this.data, { ...newItem, rating: "8" }];
         res(this.data);
       }, 200);
     });
