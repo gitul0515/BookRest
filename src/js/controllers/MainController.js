@@ -1,5 +1,5 @@
 import NavigationView from "../views/NavigationView.js";
-import HomeView from "../views/HomeView.js";
+import HomePageView from "../views/HomePageView.js";
 import NoteView from "../views/NoteView.js";
 import BookPageView from "../views/BookPageView.js";
 import SettingView from "../views/SettingView.js";
@@ -11,14 +11,14 @@ const navigation = document.getElementById('navigation');
 
 export default {
   init() {
-    HomeView.setup(page);
+    HomePageView.setup(page);
     NoteView.setup(page);
     BookPageView.setup(page);
     SettingView.setup(page);
     NavigationView.setup(navigation)
       .on('@click', e => this.onClick(e.detail.page))
 
-    this.currentPage = '/';
+    this.currentPage = '/book';
     this.switchPage();
     window.addEventListener('popstate', () => this.onPopstate());
   },
@@ -32,7 +32,7 @@ export default {
   switchPage() {
     switch (this.currentPage) {
       case '/':
-        HomeView.render();
+        HomePageView.render();
         HomeController.init();
         break;
       case '/note':
