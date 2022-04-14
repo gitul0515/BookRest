@@ -6,15 +6,15 @@ import SettingView from "../views/SettingView.js";
 import HomeController from "./HomeController.js";
 import BookController from "./BookController.js";
 
-const page = document.getElementById('page');
+const app = document.getElementById('app');
 const navigation = document.getElementById('navigation');
 
 export default {
   init() {
-    HomePageView.setup(page);
-    NoteView.setup(page);
-    BookPageView.setup(page);
-    SettingView.setup(page);
+    HomePageView.setup(app);
+    NoteView.setup(app);
+    BookPageView.setup(app);
+    SettingView.setup(app);
     NavigationView.setup(navigation)
       .on('@click', e => this.onClick(e.detail.page))
 
