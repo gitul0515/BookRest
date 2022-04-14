@@ -25,9 +25,11 @@ export default {
     })
   },
 
-  // search(query) {
-  //   return data.filter(item => item.name.includes(query));
-  // }
+  search(query) {
+    return Promise.resolve(
+      data.filter(book => book.title.includes(query))
+    );
+  },
 
   add(newItem) {
     return new Promise(res => {

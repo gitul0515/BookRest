@@ -8,17 +8,17 @@ BookListView.setup = function(element) {
   return this;
 }
 
-BookListView.render = function(list) {
-  if (!Array.isArray(list) || list.length === 0) {
+BookListView.render = function(data) {
+  if (!Array.isArray(data) || data.length === 0) {
     return;
   }
-  const html = this.getHtml(list);
+  const html = this.getHtml(data);
   const element = this.createElement(html);
   this.element.replaceChildren(element);
 }
 
-BookListView.getHtml = function(list) {
-  return list.map(({title, rating, thumbnail}) => 
+BookListView.getHtml = function(data) {
+  return data.map(({title, rating, thumbnail}) => 
   `
     <li class="book-item">
       <div class="book-item__img" >

@@ -29,7 +29,8 @@ BookPageView.getHtml = function() {
           class="search-form__input"
           type="text" 
           placeholder="등록한 책을 검색해보세요"
-          autofocus
+          pattern=".{2,}" 
+          title="두 글자 이상 입력하세요"
         >
       </form>
       <button class="button--sort">제목 순서로</button>
@@ -49,7 +50,9 @@ BookPageView.bindEvent = function() {
 
 BookPageView.onSearch = function(e) {
   e.preventDefault();
-  console.log(this.input.value);
+  const { value } = this.input;
+  this.emit('@search', { value });
+  this.input.value = '';
 };
 
 export default BookPageView;
