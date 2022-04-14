@@ -11,16 +11,12 @@ const navigation = document.getElementById('navigation');
 
 export default {
   init() {
-    HomePageView.setup(app);
-    NoteView.setup(app);
-    BookPageView.setup(app);
-    SettingView.setup(app);
-    NavigationView.setup(navigation)
-      .on('@click', e => this.onClick(e.detail.page))
-
-    this.currentPage = '/book';
+    this.currentPage = '/';
     this.switchPage();
     window.addEventListener('popstate', () => this.onPopstate());
+
+    NavigationView.setup(navigation)
+      .on('@click', e => this.onClick(e.detail.page))
   },
 
   onClick(page) {
@@ -32,18 +28,18 @@ export default {
   switchPage() {
     switch (this.currentPage) {
       case '/':
-        HomePageView.render();
+        HomePageView.setup(app);
         HomeController.init();
         break;
       case '/note':
-        NoteView.render();
+        NoteView.setup(app);
         break;
       case '/book':
-        BookPageView.render();
+        BookPageView.setup(app);
         BookController.init();
         break;
       case '/setting':
-        SettingView.render();
+        SettingView.setup(app);
         break;
       default:
         throw new Error('invalid page');
