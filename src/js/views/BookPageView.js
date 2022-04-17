@@ -22,7 +22,7 @@ BookPageView.getHtml = function() {
       <h1 class="header__title">나의 서재</h1>
       <h3 class="header__message">20권의 책을 다 읽으셨어요!</h3>
     </header>
-    <div class="content">
+    <div class="content content--book">
       <form class="search-form" action="" method="get">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input 
@@ -35,6 +35,9 @@ BookPageView.getHtml = function() {
       </form>
       <button class="button--sort">제목 순서로</button>
       <ul class="book-list"></ul>
+    </div>
+    <div id="modal">
+      <div class="modal__content">hello</div>
     </div>
   `;
 };

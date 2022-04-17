@@ -27,7 +27,7 @@ export default {
 
   search(query) {
     return Promise.resolve(
-      data.filter(book => book.title.includes(query))
+      this.data.filter(book => book.title.includes(query))
     );
   },
 
@@ -39,5 +39,20 @@ export default {
         res(this.data);
       }, 200);
     });
+  },
+
+  getSortedList(sortBy) {
+    switch (sortBy) {
+      case 'title':
+        return Promise.resolve(this.data.sort((a, b) => a['title'].localeCompare(b['title'])));
+      case 'title-reverse':
+        return Promise.resolve(this.data.sort((a, b) => b['title'].localeCompare(a['title'])));
+      case 'high-rating':
+        return Promise.resolve(this.data.sort((a, b) => b['rating'].localeCompare(a['rating'])));
+      case 'low-rating':
+        return Promise.resolve(this.data.sort((a, b) => a['rating'].localeCompare(b['rating'])));
+      default:
+        break;
+    }
   }
 }

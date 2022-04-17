@@ -11,9 +11,10 @@ export default {
     BookListView
       .setup(document.querySelector('.book-list'));
     this.fetchBookList();
-    console.log(ModalView.element);
-    // ModalView
-    //   .on('@click', e => this.onModalClick(e.detail.target))
+
+    ModalView
+      .setup(document.getElementById('modal'))
+        .on('@click', e => this.onModalClick(e.detail.target))
   },
 
   async fetchBookList() {
@@ -30,7 +31,10 @@ export default {
     ModalView.show();
   },
 
-  onModalClick(target) {
-    console.log(target);
+  async onModalClick(target) {
+    const { sortBy } = target.dataset;
+    const data = await BookModel.getSortedList(sortBy);
+    BookListView.render(data);
+    ModalView.hide();
   }
 }

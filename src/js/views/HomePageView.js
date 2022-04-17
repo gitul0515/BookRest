@@ -4,7 +4,6 @@ import HomeSearchListView from './HomeSearchListView.js';
 import HomeSearchSaveView from './HomeSearchSaveView.js';
 import HomeCalendarTabView from './HomeCalendarTabView.js';
 
-
 const HomePageView = Object.create(View);
 
 HomePageView.setup = function(element) {
@@ -28,6 +27,9 @@ HomePageView.getHtml = function() {
       ${HomeSearchTabView.getHtml()}
       ${HomeSearchListView.getHtml()}
       ${HomeCalendarTabView.getHtml()}
+    </div>
+    <div id="modal">
+      <div class="modal__content">hello</div>
     </div>
   `;
 };

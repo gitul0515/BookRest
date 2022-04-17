@@ -1,6 +1,7 @@
 import HomeSearchTabView from "../views/HomeSearchTabView.js";
 import HomeSearchListView from "../views/HomeSearchListView.js";
-import fetchBookData from "../service/api-search.js";
+import ModalView from "../views/ModalView.js";
+import { fetchBookData } from "../service/api-search.js";
 import BookModel from "../models/BookModel.js";
 
 export default {
@@ -11,6 +12,9 @@ export default {
       .on('@submit', e => this.onSearch(e.detail.text))
       .on('@click', e => this.onClickItem(e.detail.bookData))
     // HomeSearchSaveView.setup(document.querySelector('.home__search-page--save'))
+
+    ModalView.setup(document.getElementById('modal'))
+      .on('@click', e => this.onModalClick(e.detail.target));
   },
 
   onClickTab() {
@@ -25,5 +29,9 @@ export default {
   async onClickItem(newItem) {
     const result = await BookModel.add(newItem);
     console.log(result);
+  },
+
+  onModalClick(target) {
+    console.log(target);
   }
 }
