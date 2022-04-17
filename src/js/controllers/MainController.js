@@ -1,4 +1,5 @@
 import NavigationView from "../views/NavigationView.js";
+import ModalView from "../views/ModalView.js";
 import HomePageView from "../views/HomePageView.js";
 import NoteView from "../views/NoteView.js";
 import BookPageView from "../views/BookPageView.js";
@@ -8,15 +9,17 @@ import BookController from "./BookController.js";
 
 const app = document.getElementById('app');
 const navigation = document.getElementById('navigation');
+const modal = document.getElementById('modal');
 
 export default {
   init() {
-    this.currentPage = '/';
+    this.currentPage = '/book';
     this.switchPage();
     window.addEventListener('popstate', () => this.onPopstate());
 
     NavigationView.setup(navigation)
-      .on('@click', e => this.onClick(e.detail.page))
+      .on('@click', e => this.onClick(e.detail.page));
+    ModalView.setup(modal);
   },
 
   onClick(page) {

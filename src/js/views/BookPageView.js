@@ -42,10 +42,12 @@ BookPageView.getHtml = function() {
 BookPageView.bindElement = function() {
   this.form = this.element.querySelector('.search-form');
   this.input = this.element.querySelector('.search-form__input');
+  this.button = this.element.querySelector('.button--sort');
 };
 
 BookPageView.bindEvent = function() {
   this.form.addEventListener('submit', e => this.onSearch(e));
+  this.button.addEventListener('click', e => this.onClick(e));
 };
 
 BookPageView.onSearch = function(e) {
@@ -54,5 +56,9 @@ BookPageView.onSearch = function(e) {
   this.emit('@search', { value });
   this.input.value = '';
 };
+
+BookPageView.onClick = function(e) {
+  this.emit('@sort');
+}
 
 export default BookPageView;
