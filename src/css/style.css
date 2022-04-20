@@ -48,7 +48,7 @@
 h1 {
   font-size: var(--font-large);
   font-weight: var(--weight-medium);
-  font-family: 'BMDoHyeon', sans-serif;;
+  font-family: 'BMDoHyeon', sans-serif;
   font-weight: 500;
   color: var(--color-white-teal);
   margin: 4px 0;
@@ -85,7 +85,7 @@ body {
   width: 100vw;
   margin: 0;
   cursor: default;
-  background-color: #F7EFE4;
+  background-color: #f7efe4;
 }
 
 /* 태그 스타일 초기화 */
@@ -218,7 +218,7 @@ input {
   visibility: hidden;
   z-index: 998;
   padding: 22px 14px;
-  background-color: #F7EFE4;
+  background-color: #f7efe4;
   transition: left 0.3s ease;
 }
 
@@ -306,7 +306,7 @@ input {
   visibility: hidden;
   z-index: 999;
   padding: 22px 0px;
-  background-color: #F7EFE4;
+  background-color: #f7efe4;
 }
 
 .home__search-page--save > header {
@@ -350,7 +350,6 @@ input {
 }
 
 .search-page--save__form {
-
 }
 
 .search-page--save__form > label {
@@ -404,7 +403,7 @@ input {
 .button--sort::before {
   content: '\f884';
   display: inline-block;
-  font-family: "Font Awesome 6 Free";
+  font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   margin-right: 5px;
 }
@@ -439,7 +438,7 @@ input {
   height: 74px;
 }
 
-.book-item__img > img{
+.book-item__img > img {
   width: 80%;
   height: 120px;
   position: absolute;
@@ -455,7 +454,7 @@ input {
 
 .book-item__rating i {
   font-size: 14px;
-  color: #EFBC1D;
+  color: #efbc1d;
   margin: 0 0.2px;
 }
 
@@ -465,6 +464,61 @@ input {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* 노트 영역 */
+.note__tab-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.note__tab-item {
+  width: 44vw;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  position: relative;
+}
+
+.note__tab-item > h2 {
+  font-weight: 400;
+  color: var(--color-white-teal);
+}
+.note__tab-item > h3 {
+  color: var(--color-white-teal);
+}
+
+.note__tab-item::before {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+.note__tab-item--random::before {
+  background: url(../asset/image/note/img-notes.png) no-repeat center center;
+  background-size: contain;
+  width: 55px;
+  height: 55px;
+  top: -32px;
+  left: 15px;
+}
+
+.note__tab-item--favorite::before {
+  background: url(../asset/image/note/img-love.png) no-repeat center center;
+  background-size: contain;
+  width: 62px;
+  height: 62px;
+  top: -35px;
+  left: 12px;
+}
+
+.note__list {
+  margin-top: 20px;
 }
 
 /* 모달 영역 */
@@ -503,7 +557,6 @@ input {
 }
 
 .modal__btn-item {
-
 }
 
 .modal__title {
