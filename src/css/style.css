@@ -397,7 +397,7 @@ input {
 .button--sort {
   color: var(--color-white-teal);
   font-size: 16px;
-  margin-top: 24px;
+  margin-top: 45px;
 }
 
 .button--sort::before {
@@ -409,7 +409,7 @@ input {
 }
 
 .book-list {
-  margin-top: 60px;
+  margin-top: 65px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -511,14 +511,53 @@ input {
 .note__tab-item--favorite::before {
   background: url(../asset/image/note/img-love.png) no-repeat center center;
   background-size: contain;
-  width: 62px;
-  height: 62px;
-  top: -35px;
+  width: 65px;
+  height: 65px;
+  top: -36px;
   left: 12px;
+  transform: rotate(-10deg);
 }
 
-.note__list {
-  margin-top: 20px;
+.note-list {
+  margin-top: 40px;
+}
+
+.note-item {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.note-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-item__label {
+  padding: 2px 14px;
+  background-color: #90caf8;
+  color: #f8f8f8;
+  opacity: 0.9;
+}
+
+.note-item__label > i {
+  font-size: 0.4rem;
+  transform: translateY(-1px);
+  margin-right: 2px;
+}
+
+.note-item__book-informaion {
+  display: flex;
+}
+
+.note-item__book-thumbnail {
+  width: 60px;
+}
+
+.note-item__created-at {
+  text-align: right;
 }
 
 /* 모달 영역 */
