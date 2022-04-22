@@ -113,6 +113,11 @@ input {
   border: 0;
 }
 
+.fa-solid,
+.fa-regular {
+  pointer-events: none;
+}
+
 #app {
   width: 100vw;
   min-height: 100vh;
@@ -123,7 +128,7 @@ input {
 /* 헤더 영역 */
 .header {
   background-color: var(--color-teal);
-  padding: 14px;
+  padding: 20px;
   position: relative;
 }
 
@@ -169,7 +174,7 @@ input {
 
 /* 메인 영역 */
 .content {
-  padding: 20px 14px;
+  padding: 20px;
 }
 
 .home__tab {
@@ -474,7 +479,7 @@ input {
 }
 
 .note__tab-item {
-  width: 44vw;
+  width: 42vw;
   height: 100px;
   display: flex;
   justify-content: center;
@@ -519,45 +524,128 @@ input {
 }
 
 .note-list {
-  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .note-item {
-  border: 1px solid black;
   border-radius: 10px;
-  padding: 10px;
+  padding: 14px;
   background-color: #f8f8f8;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 32px;
 }
 
 .note-item__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+
+.note-item__header::before {
+  content: '';
+  background: url(../asset/image/note/img-quotation-mark.png) no-repeat center
+    center;
+  background-size: contain;
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  top: -6px;
+  left: 4px;
+  opacity: 0.6;
 }
 
 .note-item__label {
-  padding: 2px 14px;
-  background-color: #90caf8;
+  width: 420px;
+  padding: 3px 20px;
+  background-color: #6fb5ee;
   color: #f8f8f8;
   opacity: 0.9;
+  text-align: center;
+  align-self: flex-end;
+  transform: translateX(-20px);
 }
 
 .note-item__label > i {
   font-size: 0.4rem;
   transform: translateY(-1px);
-  margin-right: 2px;
+  margin-right: 5px;
 }
 
 .note-item__book-informaion {
   display: flex;
+  justify-content: flex-end;
+}
+
+.note-item__book-title {
+  color: #000000;
+  font-size: 1rem;
+  text-align: right;
+  margin-bottom: -4px;
+}
+
+.note-item__book-author {
+  color: var(--color-light-grey);
+  font-size: 0.9rem;
+  text-align: right;
 }
 
 .note-item__book-thumbnail {
-  width: 60px;
+  max-width: 26%;
+  flex-shrink: 0;
+  margin-left: 14px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .note-item__created-at {
+  color: var(--color-dark-white);
+  font-size: 0.8rem;
   text-align: right;
+  margin-top: 4px;
+}
+
+.note-item__content {
+  position: relative;
+  padding: 40px 0;
+}
+
+.note-item__content > p {
+  font-family: 'Iropke Batang', serif;
+  font-size: 1rem;
+}
+
+.note-item__page {
+  font-family: 'Iropke Batang', serif;
+  color: var(--color-dark-grey);
+  font-size: 1rem;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+}
+
+.note-item__footer {
+  margin-top: 28px;
+  margin-bottom: -6px;
+}
+
+.note-item__btns {
+  position: relative;
+}
+
+.note-item__btn {
+  padding: 4px;
+  padding-bottom: 0;
+}
+
+.note-item__btn > i {
+  font-size: 1.2rem;
+  color: var(--color-dark-white);
+}
+
+.note-item__btn--options {
+  position: absolute;
+  right: 4px;
 }
 
 /* 모달 영역 */
