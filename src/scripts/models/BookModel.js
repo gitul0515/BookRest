@@ -14,7 +14,6 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
     notes: [
       {
         id: '1',
-        bookId: '8934972467 9788934972464',
         content: '집중하는 삶이 최선의 삶이다.',
         createdAt: '2022. 4. 20. 오후 3:17:28',
         page: 56,
@@ -23,7 +22,6 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
       },
       {
         id: '2',
-        bookId: '8934972467 9788934972464',
         content: '강렬한 집중, 최고의 성과',
         createdAt: '2022. 4. 21. 오후 3:17:28',
         page: 137,
@@ -37,8 +35,7 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
 export default {
   data,
 
-  list(query) {
-    // const searchResult = this.search(query);
+  list() {
     return new Promise((res) => {
       setTimeout(() => {
         res(this.data);
@@ -55,7 +52,7 @@ export default {
   add(newItem) {
     return new Promise((res) => {
       setTimeout(() => {
-        this.data = [...this.data, { ...newItem, rating: '8' }];
+        this.data = [...this.data, { ...newItem, rating: '8', notes: [] }];
         setItem(BOOK_MODEL_DATA_KEY, this.data);
         res(this.data);
       }, 200);
@@ -83,5 +80,23 @@ export default {
       default:
         break;
     }
+  },
+
+  getNoteList() {
+    return this.data.reduce((acc, book) => {
+      const { notes, title, authors, thumbnail, isbn } = book;
+      if (notes.length) {
+        notes.forEach((note) => {
+          acc.push({
+            ...note,
+            title,
+            authors,
+            thumbnail,
+            bookId: isbn,
+          });
+        });
+      }
+      return acc;
+    }, []);
   },
 };
