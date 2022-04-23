@@ -3,6 +3,7 @@ import NoteListView from '../views/NoteListView.js';
 
 export default {
   init() {
-    NoteListView.setup(document.querySelector('.note__list'));
+    NoteListView.setup(document.querySelector('.note-list')) //
+      .render();
   },
 };

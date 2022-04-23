@@ -30,7 +30,7 @@ NotePageView.getHtml = function () {
           <h3>노트 17개</h3>
         </a>
       </div>
-      <section class="note__list">note</section>
+      <ul class="note-list"></ul>
     </div>
     <div id="modal">
       <div class="modal__content">hello</div>

@@ -1,5 +1,4 @@
 import View from './View.js';
-import BookListView from './BookListView.js';
 
 const BookPageView = Object.create(View);
 

@@ -4,7 +4,6 @@ const BookListView = Object.create(View);
 
 BookListView.setup = function(element) {
   this.init(element);
-  console.log(this.element);
   return this;
 }
 
