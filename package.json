@@ -16,11 +16,5 @@
   "bugs": {
     "url": "https://github.com/gitul0515/BookNotesApp/issues"
   },
-  "homepage": "https://github.com/gitul0515/BookNotesApp#readme",
-  "dependencies": {
-    "express": "^4.17.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "homepage": "https://github.com/gitul0515/BookNotesApp#readme"
 }
