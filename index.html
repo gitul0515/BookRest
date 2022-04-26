@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookrest App</title>
 
-    <meta name="description" content="독서 기록 애플리케이션" />
-    <meta name="keywords" content="독서, 기록" />
+    <meta name="description" content="북레스트 - 독서 관리 애플리케이션입니다." />
+    <meta name="keywords" content="북레스트, 독서, 노트" />
     <meta name="author" content="권기홍" />
     <!-- Fonts -->
-    <link
-      href="https://webfontworld.github.io/woowahan/BMDoHyeon.css"
-      rel="stylesheet"
-    />
+    <link href="https://webfontworld.github.io/woowahan/BMDoHyeon.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
       rel="stylesheet"
@@ -22,21 +19,18 @@
       href="//cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css"
       rel="stylesheet"
     />
-    <!-- Fontawesome -->
-    <script
-      src="https://kit.fontawesome.com/fb9a82cb4a.js"
-      crossorigin="anonymous"
-    ></script>
+    <!-- CSS -->
     <link href="/src/styles/style.css" rel="stylesheet" />
-    <script type="module" src="/src/scripts/app.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-    <nav id="navigation">
-      <a href="/"><i class="fa-solid fa-plus"></i></a>
-      <a href="/book"><i class="fa-solid fa-book-open-reader"></i></a>
-      <a href="/note"><i class="fa-solid fa-pen-to-square"></i></a>
-      <a href="/setting"><i class="fa-solid fa-square-poll-horizontal"></i></a>
-    </nav>
+    <main id="app">
+      <div id="page"></div>
+      <nav id="navigation"></nav>
+    </main>
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/fb9a82cb4a.js" crossorigin="anonymous"></script>
+    <!-- Javascript -->
+    <script type="module" src="/src/scripts/app.js"></script>
   </body>
 </html>
