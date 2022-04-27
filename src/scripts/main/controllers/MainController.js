@@ -1,5 +1,6 @@
 import NavigationView from '../views/NavigationView.js';
 import HomePageView from '../views/HomePageView.js';
+import HomeSearchPageView from '../views/HomeSearchPageView.js';
 import NotePageView from '../views/NotePageView.js';
 import BookPageView from '../views/BookPageView.js';
 import SettingView from '../views/SettingView.js';
@@ -14,21 +15,25 @@ const navigation = document.getElementById('navigation');
 
 export default {
   init() {
-    this.currentPage = '/';
-    history.pushState(null, null, this.currentPage);
-    this.switchPage();
-
     NavigationView.setup(navigation) //
       .on('@click', (e) => this.onClick(e.detail.page));
 
-    window.addEventListener('popstate', () => this.onPopstate());
+    window.addEventListener('popstate', () => this.route());
+    this.route();
   },
 
-  switchPage() {
-    switch (this.currentPage) {
+  route() {
+    const path = window.location.pathname;
+    console.log(path);
+    switch (path) {
       case '/':
+      case '/home':
         HomePageView.setup(page);
         HomeController.init();
+        break;
+      case '/home/search':
+        HomeSearchPageView.setup(page);
+        console.log('me!', path);
         break;
       case '/book':
         BookPageView.setup(page);
@@ -48,14 +53,7 @@ export default {
   },
 
   onClick(page) {
-    this.currentPage = page;
-    history.pushState(null, null, this.currentPage);
-    this.switchPage();
-  },
-
-  onPopstate() {
-    const { pathname } = location;
-    this.currentPage = pathname;
-    this.switchPage();
+    history.pushState(null, null, page);
+    this.route();
   },
 };
