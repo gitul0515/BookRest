@@ -1,32 +1,31 @@
-import HomeSearchTabView from '../views/HomeSearchTabView.js';
-import HomeSearchListView from '../views/HomeSearchListView.js';
+import HomePageView from '../views/HomePageView.js';
+import HomeSearchPageView from '../views/HomeSearchPageView.js';
 import ModalView from '../views/ModalView.js';
 import { fetchBookData } from '../../service/api-search.js';
 import BookModel from '../models/BookModel.js';
+import MainController from './MainController.js';
 
 export default {
   init() {
-    HomeSearchTabView.setup(document.querySelector('.home__search-tab')).on(
-      '@click',
-      () => this.onClickTab()
-    );
-    HomeSearchListView.setup(document.querySelector('.home__search-page--list'))
-      .on('@submit', (e) => this.onSearch(e.detail.text))
-      .on('@click', (e) => this.onClickItem(e.detail.bookData));
-    // HomeSearchSaveView.setup(document.querySelector('.home__search-page--save'))
+    HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
+
+    // HomeSearchPageView.setup(document.querySelector('.home__search-page--list'))
+    //   .on('@submit', (e) => this.onSearch(e.detail.text))
+    //   .on('@click', (e) => this.onClickItem(e.detail.bookData));
 
     ModalView.setup(document.getElementById('modal')).on('@click', (e) =>
-      this.onModalClick(e.detail.target)
+      this.onModalClick(e.detail.target),
     );
   },
 
-  onClickTab() {
-    HomeSearchListView.show();
+  onClickTab(path) {
+    history.pushState(null, null, path);
+    MainController.route();
   },
 
   async onSearch(query) {
     const data = await fetchBookData(query);
-    HomeSearchListView.render(data.documents);
+    HomeSearchPageView.render(data.documents);
   },
 
   async onClickItem(newItem) {
