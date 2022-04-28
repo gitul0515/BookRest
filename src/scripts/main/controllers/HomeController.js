@@ -5,9 +5,16 @@ import { fetchBookData } from '../../service/api-search.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
+const page = document.getElementById('page');
+
 export default {
   init() {
     HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
+
+    HomeSearchPageView.setup(page) //
+      .on('@backToHome', () => this.onBackToHome());
+
+    // HomeSearchPageView.on('@backToHome', () => this.onBackToHome());
 
     // HomeSearchPageView.setup(document.querySelector('.home__search-page--list'))
     //   .on('@submit', (e) => this.onSearch(e.detail.text))
@@ -20,6 +27,11 @@ export default {
 
   onClickTab(path) {
     history.pushState(null, null, path);
+    MainController.route();
+  },
+
+  onBackToHome() {
+    history.pushState(null, null, '/home');
     MainController.route();
   },
 

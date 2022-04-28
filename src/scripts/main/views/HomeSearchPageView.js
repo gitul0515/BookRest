@@ -4,10 +4,6 @@ const HomeSearchPageView = Object.create(View);
 
 HomeSearchPageView.setup = function (element) {
   this.init(element);
-  this.render();
-  // this.bindElement();
-  // this.bindEvent();
-  // this.bookData = null;
   return this;
 };
 
@@ -15,49 +11,51 @@ HomeSearchPageView.render = function () {
   const html = this.getHtml();
   const element = this.createElement(html);
   this.element.replaceChildren(element);
+
+  this.bindElement();
+  this.bindEvent();
 };
 
 HomeSearchPageView.getHtml = function () {
-  // return `
-  //   <header>
-  //     <button><i class="fa-solid fa-arrow-left"></i></button>
-  //     우와 라우팅 성공했다!
-  //   </header>
-  // `;
-  return `<div>
-    <header>
-      <button><i class="fa-solid fa-arrow-left"></i></button>
+  return `
+    <header class="search-page__header">
+      <button class="search-page__btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
     </header>
-    <h1>책을 찾아보세요!</h1>
-    <form action="" method="get">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input
-      type="text"
-      placeholder="검색할 책을 입력해주세요."
-      autofocus
-      >
-    </form>
-    <div class="search-result"></div>
-  </div>`;
+    <div class="search-page__content">
+      <form class="search-page__form" action="" method="get">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+        class="search-page__input"
+        type="text"
+        placeholder="검색할 책을 입력해주세요."
+        autofocus
+        >
+      </form>
+      <h1 class="search-page__title">책을 찾아보세요!</h1>
+    </div>
+    <div class="search-page__list"></div>
+  `;
 };
 
 HomeSearchPageView.bindElement = function () {
-  this.icon = this.element.querySelector('i');
-  this.form = this.element.querySelector('form');
-  this.input = this.element.querySelector('input');
-  this.div = this.element.querySelector('.search-result');
+  this.btn = this.element.querySelector('.search-page__btn');
+
+  // this.form = this.element.querySelector('form');
+  // this.input = this.element.querySelector('input');
+  // this.div = this.element.querySelector('.search-result');
 };
 
 HomeSearchPageView.bindEvent = function () {
-  this.icon.addEventListener('click', () => this.onPageHide());
-  this.form.addEventListener('submit', (e) => this.onSubmit(e));
-  this.div.addEventListener('click', (e) => this.onClick(e));
+  this.btn.addEventListener('click', () => this.onPrevClick());
+
+  // this.form.addEventListener('submit', (e) => this.onSubmit(e));
+  // this.div.addEventListener('click', (e) => this.onClick(e));
 };
 
-HomeSearchPageView.createElement = function (string) {
-  const temp = document.createElement('template');
-  temp.innerHTML = string;
-  return temp.content;
+HomeSearchPageView.onPrevClick = function () {
+  this.emit('@backToHome');
 };
 
 // HomeSearchPageView.onPageHide = function () {

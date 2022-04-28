@@ -24,7 +24,6 @@ export default {
 
   route() {
     const path = window.location.pathname;
-    console.log(path);
     switch (path) {
       case '/':
       case '/home':
@@ -32,8 +31,7 @@ export default {
         HomeController.init();
         break;
       case '/home/search':
-        HomeSearchPageView.setup(page);
-        console.log('me!', path);
+        HomeSearchPageView.render(page);
         break;
       case '/book':
         BookPageView.setup(page);
