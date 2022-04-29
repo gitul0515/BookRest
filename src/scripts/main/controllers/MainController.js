@@ -9,6 +9,7 @@ import HomeController from './HomeController.js';
 import BookController from './BookController.js';
 import NoteController from './NoteController.js';
 import SettingController from './SettingController.js';
+import BookDetailPageView from '../views/BookDetailPageView.js';
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -24,30 +25,40 @@ export default {
 
   route() {
     const path = window.location.pathname;
-    switch (path) {
-      case '/':
-      case '/home':
-        HomePageView.setup(page);
-        HomeController.init();
-        break;
-      case '/home/search':
-        HomeSearchPageView.render(page);
-        break;
-      case '/book':
-        BookPageView.setup(page);
-        BookController.init();
-        break;
-      case '/note':
-        NotePageView.setup(page);
-        NoteController.init();
-        break;
-      case '/setting':
-        SettingView.setup(page);
-        SettingController.init();
-        break;
-      default:
-        throw new Error('invalid page');
+
+    if (path === '/' || path === '/home') {
+      HomePageView.setup(page);
+      HomeController.init();
+      NavigationView.show();
+      return;
     }
+    if (path === '/home/search') {
+      HomeSearchPageView.render(page);
+      NavigationView.hide();
+      return;
+    }
+    if (path === '/book') {
+      BookPageView.setup(page);
+      BookController.init();
+      NavigationView.show();
+      return;
+    }
+    if (path.indexOf('/book/') === 0) {
+      BookDetailPageView.render(page);
+      NavigationView.hide();
+      return;
+    }
+    if (path === '/note') {
+      NotePageView.setup(page);
+      NoteController.init();
+      return;
+    }
+    if (path === '/setting') {
+      SettingView.setup(page);
+      SettingController.init();
+      return;
+    }
+    throw new Error('invalid page');
   },
 
   onClick(page) {

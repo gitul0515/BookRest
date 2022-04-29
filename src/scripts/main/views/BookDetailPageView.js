@@ -4,16 +4,16 @@ const BookDetailPageView = Object.create(View);
 
 BookDetailPageView.setup = function (element) {
   this.init(element);
-  console.log(this.element);
-  // this.render();
-  this.bindElement();
-  this.bindEvent();
+  return this;
 };
 
 BookDetailPageView.render = function () {
   const html = this.getHtml();
   const element = this.createElement(html);
   this.element.replaceChildren(element);
+
+  this.bindElement();
+  this.bindEvent();
 };
 
 BookDetailPageView.getHtml = function () {
