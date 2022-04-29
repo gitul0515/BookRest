@@ -5,17 +5,21 @@ import ModalView from '../views/ModalView.js';
 import BookModel from '../models/BookModel.js';
 
 const app = document.getElementById('app');
+let initialize = false;
 
 export default {
   init() {
-    BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
-      .on('@sort', () => this.onSort());
-    BookListView.setup(document.querySelector('.book-list'));
-    BookDetailPageView.setup(app);
-    ModalView.setup(document.getElementById('modal')) //
-      .on('@click', (e) => this.onModalClick(e.detail.target));
-
-    this.fetchBookList();
+    if (!initialize) {
+      BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
+        .on('@sort', () => this.onSort())
+        .on('@detailPage', (e) => this.onDetailPage(e.detail.id));
+      BookListView.setup(document.querySelector('.book-list'));
+      BookDetailPageView.setup(app);
+      ModalView.setup(document.getElementById('modal')) //
+        .on('@click', (e) => this.onModalClick(e.detail.target));
+      this.fetchBookList();
+      initialize = true;
+    }
   },
 
   async fetchBookList() {
@@ -30,6 +34,11 @@ export default {
 
   onSort() {
     ModalView.show();
+  },
+
+  onDetailPage(id) {
+    console.log(id);
+    history.pushState(null, null, `/book/${id}`);
   },
 
   async onModalClick(target) {
