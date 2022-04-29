@@ -12,17 +12,9 @@ export default {
     HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
 
     HomeSearchPageView.setup(page) //
-      .on('@backToHome', () => this.onBackToHome());
-
-    // HomeSearchPageView.on('@backToHome', () => this.onBackToHome());
-
-    // HomeSearchPageView.setup(document.querySelector('.home__search-page--list'))
-    //   .on('@submit', (e) => this.onSearch(e.detail.text))
-    //   .on('@click', (e) => this.onClickItem(e.detail.bookData));
-
-    ModalView.setup(document.getElementById('modal')).on('@click', (e) =>
-      this.onModalClick(e.detail.target),
-    );
+      .on('@backToHome', () => this.onBackToHome())
+      .on('@search', (e) => this.onSearch(e.detail.text))
+      .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
   },
 
   onClickTab(path) {
@@ -37,15 +29,11 @@ export default {
 
   async onSearch(query) {
     const data = await fetchBookData(query);
-    HomeSearchPageView.render(data.documents);
+    HomeSearchPageView.renderList(data.documents);
   },
 
   async onClickItem(newItem) {
     const result = await BookModel.add(newItem);
     console.log(result);
-  },
-
-  onModalClick(target) {
-    console.log(target);
   },
 };
