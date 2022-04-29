@@ -3,23 +3,26 @@ import BookListView from '../views/BookListView.js';
 import BookDetailPageView from '../views/BookDetailPageView.js';
 import ModalView from '../views/ModalView.js';
 import BookModel from '../models/BookModel.js';
+import MainController from './MainController.js';
 
-const app = document.getElementById('app');
-let initialize = false;
+const page = document.getElementById('page');
+let isInitialize = false;
 
 export default {
   init() {
-    if (!initialize) {
-      BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
-        .on('@sort', () => this.onSort())
-        .on('@detailPage', (e) => this.onDetailPage(e.detail.id));
-      BookListView.setup(document.querySelector('.book-list'));
-      BookDetailPageView.setup(app);
-      ModalView.setup(document.getElementById('modal')) //
-        .on('@click', (e) => this.onModalClick(e.detail.target));
-      this.fetchBookList();
-      initialize = true;
-    }
+    BookDetailPageView.setup(page);
+    ModalView.setup(document.getElementById('modal'));
+    BookListView.setup(document.querySelector('.book-list'));
+    !isInitialize && this.addCustomEventListener();
+    this.fetchBookList();
+  },
+
+  addCustomEventListener() {
+    BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
+      .on('@sort', () => this.onSort())
+      .on('@detailPage', (e) => this.onDetailPage(e.detail.id));
+    ModalView.on('@click', (e) => this.onModalClick(e.detail.target));
+    isInitialize = true;
   },
 
   async fetchBookList() {
@@ -37,8 +40,8 @@ export default {
   },
 
   onDetailPage(id) {
-    console.log(id);
     history.pushState(null, null, `/book/${id}`);
+    MainController.route();
   },
 
   async onModalClick(target) {
