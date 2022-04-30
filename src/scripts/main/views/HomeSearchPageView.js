@@ -60,7 +60,7 @@ HomeSearchPageView.onSubmit = function (e) {
   e.preventDefault();
   const text = this.input.value;
   if (text.length > 1) {
-    this.emit('@search', { text });
+    this.emit('@search-api', { text });
     this.form.reset();
   }
 };
@@ -98,7 +98,7 @@ HomeSearchPageView.renderList = function (data) {
                 <span class="search-item__publisher">${publisher}</span>
               </div>
             </div>
-          <li/>`;
+          </li>`;
           })
           .join('')}
       </ul>
@@ -108,7 +108,6 @@ HomeSearchPageView.renderList = function (data) {
 };
 
 HomeSearchPageView.onClick = function (e) {
-  e.preventDefault();
   const li = e.target.closest('.search-item');
   if (li) {
     const index = parseInt(li.dataset.index, 10);

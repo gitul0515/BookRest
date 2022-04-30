@@ -5,18 +5,20 @@ import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
 const page = document.getElementById('page');
-let initialize = false;
+let isInitialize = false;
 
 export default {
   init() {
-    if (!initialize) {
-      HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
-      HomeSearchPageView.setup(page) //
-        .on('@backToHome', () => this.onBackToHome())
-        .on('@search', (e) => this.onSearch(e.detail.text))
-        .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
-      initialize = true;
-    }
+    HomeSearchPageView.setup(page);
+    !isInitialize && this.addCustomeEvent();
+  },
+
+  addCustomeEvent() {
+    HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
+    HomeSearchPageView.on('@backToHome', () => this.onBackToHome())
+      .on('@search-api', (e) => this.onSearch(e.detail.text))
+      .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
+    isInitialize = true;
   },
 
   onClickTab(path) {
