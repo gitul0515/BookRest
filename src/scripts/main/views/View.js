@@ -19,14 +19,12 @@ export default {
   },
 
   hide() {
-    this.element.style.left = '100%';
-    this.element.style.visibility = 'hidden';
+    this.element.style.display = 'none';
     return this;
   },
 
   show() {
-    this.element.style.visibility = 'visible';
-    this.element.style.left = '0';
+    this.element.style.display = 'block';
     return this;
   },
 
@@ -34,5 +32,5 @@ export default {
     const temp = document.createElement('template');
     temp.innerHTML = string;
     return temp.content;
-  }
-}
+  },
+};
