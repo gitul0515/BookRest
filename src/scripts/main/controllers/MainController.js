@@ -1,15 +1,14 @@
 import NavigationView from '../views/NavigationView.js';
 import HomePageView from '../views/HomePageView.js';
 import HomeSearchPageView from '../views/HomeSearchPageView.js';
-import NotePageView from '../views/NotePageView.js';
-import BookPageView from '../views/BookPageView.js';
-import SettingView from '../views/SettingView.js';
-
 import HomeController from './HomeController.js';
-import BookController from './BookController.js';
-import NoteController from './NoteController.js';
-import SettingController from './SettingController.js';
+import BookPageView from '../views/BookPageView.js';
 import BookDetailPageView from '../views/BookDetailPageView.js';
+import BookController from './BookController.js';
+import NotePageView from '../views/NotePageView.js';
+import NoteController from './NoteController.js';
+import SettingView from '../views/SettingView.js';
+import SettingController from './SettingController.js';
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -19,11 +18,11 @@ export default {
     NavigationView.setup(navigation) //
       .on('@click', (e) => this.onClick(e.detail.page));
 
-    window.addEventListener('popstate', () => this.route());
+    window.addEventListener('popstate', (e) => this.route(e));
     this.route();
   },
 
-  route() {
+  route(e) {
     const path = window.location.pathname;
 
     if (path === '/' || path === '/home') {
@@ -44,7 +43,10 @@ export default {
       return;
     }
     if (path.indexOf('/book/') === 0) {
-      BookDetailPageView.render(page);
+      if (e) {
+        const data = e.state;
+        BookDetailPageView.render(data);
+      }
       NavigationView.hide();
       return;
     }

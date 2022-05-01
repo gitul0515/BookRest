@@ -13,14 +13,15 @@ export default {
     BookDetailPageView.setup(page);
     ModalView.setup(document.getElementById('modal'));
     BookListView.setup(document.querySelector('.book-list'));
-    !isInitialize && this.addCustomEventListener();
+    !isInitialize && this.addCustomEvent();
     this.fetchBookList();
   },
 
-  addCustomEventListener() {
+  addCustomEvent() {
     BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
       .on('@sort', () => this.onSort())
       .on('@detailPage', (e) => this.onDetailPage(e.detail.id));
+    BookDetailPageView.on('@prevClick', () => this.onPrevClick());
     ModalView.on('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
@@ -39,8 +40,16 @@ export default {
     ModalView.show();
   },
 
-  onDetailPage(id) {
-    history.pushState(null, null, `/book/${id}`);
+  async onDetailPage(id) {
+    const data = await BookModel.getBook(id);
+    console.log(data);
+    BookDetailPageView.render(data);
+    history.pushState(data, null, `/book/${id}`);
+    MainController.route();
+  },
+
+  onPrevClick() {
+    history.pushState(null, null, '/book');
     MainController.route();
   },
 

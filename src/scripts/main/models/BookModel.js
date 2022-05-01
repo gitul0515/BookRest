@@ -4,10 +4,10 @@ const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 const data = getItem(BOOK_MODEL_DATA_KEY, [
   {
     title: '사피엔스',
+    id: '89349724679788934972464',
     authors: ['유발 하라리'],
     publisher: '김영사',
     datetime: '2015-11-24T00:00:00.000+09:00',
-    isbn: '89349724679788934972464',
     thumbnail:
       'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844',
     rating: '7',
@@ -44,9 +44,7 @@ export default {
   },
 
   search(query) {
-    return Promise.resolve(
-      this.data.filter((book) => book.title.includes(query))
-    );
+    return Promise.resolve(this.data.filter((book) => book.title.includes(query)));
   },
 
   add(newItem) {
@@ -56,7 +54,7 @@ export default {
           ...this.data,
           {
             ...newItem,
-            isbn: this.data.isbn.replace(' ', ''),
+            id: newItem.isbn.replace(' ', ''),
             rating: '8',
             notes: [],
           },
@@ -70,21 +68,13 @@ export default {
   getSortedList(sortBy) {
     switch (sortBy) {
       case 'title':
-        return Promise.resolve(
-          this.data.sort((a, b) => a['title'].localeCompare(b['title']))
-        );
+        return Promise.resolve(this.data.sort((a, b) => a['title'].localeCompare(b['title'])));
       case 'title-reverse':
-        return Promise.resolve(
-          this.data.sort((a, b) => b['title'].localeCompare(a['title']))
-        );
+        return Promise.resolve(this.data.sort((a, b) => b['title'].localeCompare(a['title'])));
       case 'high-rating':
-        return Promise.resolve(
-          this.data.sort((a, b) => b['rating'].localeCompare(a['rating']))
-        );
+        return Promise.resolve(this.data.sort((a, b) => b['rating'].localeCompare(a['rating'])));
       case 'low-rating':
-        return Promise.resolve(
-          this.data.sort((a, b) => a['rating'].localeCompare(b['rating']))
-        );
+        return Promise.resolve(this.data.sort((a, b) => a['rating'].localeCompare(b['rating'])));
       default:
         break;
     }
@@ -92,7 +82,7 @@ export default {
 
   getNoteList() {
     return this.data.reduce((acc, book) => {
-      const { notes, title, authors, thumbnail, isbn } = book;
+      const { notes, title, authors, thumbnail, id } = book;
       if (notes.length) {
         notes.forEach((note) => {
           acc.push({
@@ -100,11 +90,15 @@ export default {
             title,
             authors,
             thumbnail,
-            bookId: isbn,
+            bookId: id,
           });
         });
       }
       return acc;
     }, []);
+  },
+
+  getBook(id) {
+    return this.data.find((book) => book.id === id);
   },
 };
