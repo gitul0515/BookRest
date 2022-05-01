@@ -2,21 +2,21 @@ import View from './View.js';
 
 const BookPageView = Object.create(View);
 
-BookPageView.setup = function(element) {
+BookPageView.setup = function (element) {
   this.init(element);
   this.render();
   this.bindElement();
   this.bindEvent();
-}
+};
 
-BookPageView.render = function() {
+BookPageView.render = function () {
   const html = this.getHtml();
   const element = this.createElement(html);
   this.element.replaceChildren(element);
 };
 
-BookPageView.getHtml = function() {
-  return `
+BookPageView.getHtml = function () {
+  return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 서재</h1>
       <h3 class="header__message">20권의 책을 다 읽으셨어요!</h3>
@@ -41,26 +41,36 @@ BookPageView.getHtml = function() {
   `;
 };
 
-BookPageView.bindElement = function() {
+BookPageView.bindElement = function () {
   this.form = this.element.querySelector('.search-form');
   this.input = this.element.querySelector('.search-form__input');
   this.button = this.element.querySelector('.button--sort');
+  this.ul = this.element.querySelector('.book-list');
 };
 
-BookPageView.bindEvent = function() {
-  this.form.addEventListener('submit', e => this.onSearch(e));
-  this.button.addEventListener('click', e => this.onClick(e));
+BookPageView.bindEvent = function () {
+  this.form.addEventListener('submit', (e) => this.onSearch(e));
+  this.button.addEventListener('click', () => this.onClickBtn());
+  this.ul.addEventListener('click', (e) => this.onClickList(e));
 };
 
-BookPageView.onSearch = function(e) {
+BookPageView.onSearch = function (e) {
   e.preventDefault();
   const { value } = this.input;
   this.emit('@search', { value });
   this.input.value = '';
 };
 
-BookPageView.onClick = function(e) {
+BookPageView.onClickBtn = function () {
   this.emit('@sort');
-}
+};
+
+BookPageView.onClickList = function (e) {
+  const li = e.target.closest('li');
+  if (li) {
+    const { id } = li.dataset;
+    this.emit('@detailPage', { id });
+  }
+};
 
 export default BookPageView;
