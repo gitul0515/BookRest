@@ -13,8 +13,8 @@ NoteListView.render = function (data) {
   }
 
   const html = this.getHtml(data);
-  const element = this.createElement(html);
-  this.element.replaceChildren(element);
+  const node = this.createNode(html);
+  this.element.replaceChildren(node);
 };
 
 NoteListView.getHtml = function (data) {
@@ -30,7 +30,7 @@ NoteListView.getHtml = function (data) {
         page,
         readCount,
         isFavorite,
-      }) => `
+      }) => /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
           <h3 class="note-item__label">
@@ -69,7 +69,7 @@ NoteListView.getHtml = function (data) {
           </div>
         </footer>
       </li>
-    `
+    `,
     )
     .join('');
 };

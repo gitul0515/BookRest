@@ -28,9 +28,10 @@ export default {
     return this;
   },
 
-  createElement(string) {
+  createNode(string) {
     const temp = document.createElement('template');
     temp.innerHTML = string;
     return temp.content;
   },
 };
+

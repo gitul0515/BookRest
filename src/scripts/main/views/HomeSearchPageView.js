@@ -9,8 +9,8 @@ HomeSearchPageView.setup = function (element) {
 
 HomeSearchPageView.render = function () {
   const html = this.getHtml();
-  const element = this.createElement(html);
-  this.element.replaceChildren(element);
+  const node = this.createNode(html);
+  this.element.replaceChildren(node);
 
   this.bindElement();
   this.bindEvent();
@@ -103,8 +103,8 @@ HomeSearchPageView.renderList = function (data) {
           .join('')}
       </ul>
     `;
-  const element = this.createElement(html);
-  this.div.replaceChildren(element);
+  const node = this.createNode(html);
+  this.div.replaceChildren(node);
 };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.

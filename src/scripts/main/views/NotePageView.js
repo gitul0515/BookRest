@@ -9,12 +9,12 @@ NotePageView.setup = function (element) {
 
 NotePageView.render = function () {
   const html = this.getHtml();
-  const element = this.createElement(html);
-  this.element.replaceChildren(element);
+  const node = this.createNode(html);
+  this.element.replaceChildren(node);
 };
 
 NotePageView.getHtml = function () {
-  return `
+  return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 노트</h1>
       <h3 class="header__message">176개의 노트를 작성하셨군요!</h3>

@@ -32,8 +32,8 @@ ModalView.renderContent = function (html) {
   if (!html) {
     html = this.getContentHtml();
   }
-  const element = this.createElement(html);
-  this.content.replaceChildren(element);
+  const node = this.createNode(html);
+  this.content.replaceChildren(node);
 };
 
 ModalView.getContentHtml = function () {

@@ -11,8 +11,8 @@ BookPageView.setup = function (element) {
 
 BookPageView.render = function () {
   const html = this.getHtml();
-  const element = this.createElement(html);
-  this.element.replaceChildren(element);
+  const node = this.createNode(html);
+  this.element.replaceChildren(node);
 };
 
 BookPageView.getHtml = function () {

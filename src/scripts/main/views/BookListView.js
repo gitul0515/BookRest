@@ -12,15 +12,14 @@ BookListView.render = function (data) {
     return;
   }
   const html = this.getHtml(data);
-  const element = this.createElement(html);
-  this.element.replaceChildren(element);
+  const node = this.createNode(html);
+  this.element.replaceChildren(node);
 };
 
 BookListView.getHtml = function (data) {
   return data
     .map(
-      ({ title, rating, thumbnail, isbn: id }) =>
-        `
+      ({ title, rating, thumbnail, id }) => /* html */ ` 
     <li class="book-item" data-id=${id}>
       <div class="book-item__img" >
         <img src="${thumbnail}" alt="표지 이미지">
@@ -30,7 +29,7 @@ BookListView.getHtml = function (data) {
       </ul>
       <h3 class="book-item__title">${title}</h3>
     </li> 
-  `
+  `,
     )
     .join('');
 };
