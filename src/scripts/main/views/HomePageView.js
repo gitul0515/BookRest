@@ -16,7 +16,7 @@ HomePageView.render = function () {
 };
 
 HomePageView.getHtml = function () {
-  return `
+  return /* html */ `
     <header class="header">
       <h1 class="header__title">북레스트</h1>
       <h3 class="header__message">책과 함께 휴식을 취하세요 :)</h3>
@@ -50,7 +50,7 @@ HomePageView.bindEvent = function () {
     if (tab) {
       e.preventDefault();
       const path = tab.getAttribute('href');
-      this.emit('@clickTab', { path });
+      this.dispatch('@clickTab', { path });
     }
   });
 };

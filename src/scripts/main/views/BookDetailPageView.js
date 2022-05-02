@@ -59,7 +59,7 @@ BookDetailPageView.bindElement = function () {
 
 BookDetailPageView.bindEvent = function () {
   this.prevBtn.addEventListener('click', () => {
-    this.emit('@prevClick');
+    this.dispatch('@prevClick');
   });
 };
 

@@ -16,7 +16,7 @@ const navigation = document.getElementById('navigation');
 export default {
   init() {
     NavigationView.setup(navigation) //
-      .on('@click', (e) => this.onClick(e.detail.page));
+      .addEvent('@click', (e) => this.onClick(e.detail.page));
 
     window.addEventListener('popstate', (e) => this.route(e));
     this.route();

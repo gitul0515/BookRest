@@ -14,10 +14,10 @@ export default {
   },
 
   addCustomeEvent() {
-    HomePageView.on('@clickTab', (e) => this.onClickTab(e.detail.path));
-    HomeSearchPageView.on('@backToHome', () => this.onBackToHome())
-      .on('@search-api', (e) => this.onSearch(e.detail.text))
-      .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
+    HomePageView.addEvent('@clickTab', (e) => this.onClickTab(e.detail.path));
+    HomeSearchPageView.addEvent('@backToHome', () => this.onBackToHome()) 
+      .addEvent('@search-api', (e) => this.onSearch(e.detail.text))
+      .addEvent('@clickItem', (e) => this.onClickItem(e.detail.bookData));
     isInitialize = true;
   },
 

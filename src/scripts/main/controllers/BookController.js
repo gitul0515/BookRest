@@ -18,11 +18,11 @@ export default {
   },
 
   addCustomEvent() {
-    BookPageView.on('@search', (e) => this.onSearch(e.detail.value)) //
-      .on('@sort', () => this.onSort())
-      .on('@detailPage', (e) => this.onDetailPage(e.detail.id));
-    BookDetailPageView.on('@prevClick', () => this.onPrevClick());
-    ModalView.on('@click', (e) => this.onModalClick(e.detail.target));
+    BookPageView.addEvent('@search', (e) => this.onSearch(e.detail.value)) //
+      .addEvent('@sort', () => this.onSort())
+      .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
+    BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick());
+    ModalView.addEvent('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
 

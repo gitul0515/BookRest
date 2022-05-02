@@ -7,24 +7,24 @@ export default {
     return this;
   },
 
-  on(event, handler) {
+  addEvent(event, handler) {
     this.element.addEventListener(event, handler);
     return this;
   },
 
-  emit(event, data) {
+  dispatch(event, data) {
     const customEvent = new CustomEvent(event, { detail: data });
     this.element.dispatchEvent(customEvent);
     return this;
   },
 
-  hide() {
-    this.element.style.display = 'none';
+  show() {
+    this.element.style.display = 'block';
     return this;
   },
 
-  show() {
-    this.element.style.display = 'block';
+  hide() {
+    this.element.style.display = 'none';
     return this;
   },
 

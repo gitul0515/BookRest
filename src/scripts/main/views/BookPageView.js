@@ -57,19 +57,19 @@ BookPageView.bindEvent = function () {
 BookPageView.onSearch = function (e) {
   e.preventDefault();
   const { value } = this.input;
-  this.emit('@search', { value });
+  this.dispatch('@search', { value });
   this.input.value = '';
 };
 
 BookPageView.onClickBtn = function () {
-  this.emit('@sort');
+  this.dispatch('@sort');
 };
 
 BookPageView.onClickList = function (e) {
   const li = e.target.closest('li');
   if (li) {
     const { id } = li.dataset;
-    this.emit('@detailPage', { id });
+    this.dispatch('@detailPage', { id });
   }
 };
 

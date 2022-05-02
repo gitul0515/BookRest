@@ -17,7 +17,7 @@ HomeSearchPageView.render = function () {
 };
 
 HomeSearchPageView.getHtml = function () {
-  return `
+  return /* html */ `
     <header class="search-page__header">
       <button class="search-page__btn">
         <i class="fa-solid fa-arrow-left"></i>
@@ -53,14 +53,14 @@ HomeSearchPageView.bindEvent = function () {
 };
 
 HomeSearchPageView.onPrevClick = function () {
-  this.emit('@backToHome');
+  this.dispatch('@backToHome');
 };
 
 HomeSearchPageView.onSubmit = function (e) {
   e.preventDefault();
   const text = this.input.value;
   if (text.length > 1) {
-    this.emit('@search-api', { text });
+    this.dispatch('@search-api', { text });
     this.form.reset();
   }
 };
@@ -81,7 +81,7 @@ HomeSearchPageView.renderList = function (data) {
     return;
   }
 
-  const html = `
+  const html = /* html */ `
       <ul class="search-list">
         ${this.bookData
           .map(({ title, authors, publisher, thumbnail }, index) => {
@@ -91,7 +91,7 @@ HomeSearchPageView.renderList = function (data) {
             </div>
             <div class="search-item__description">
               <h2 class="search-item__title">
-                ${title.indexOf('(') === -1 ? title : title.slice(0, title.indexOf('('))}
+                ${this.getWithoutParenthesis(title)}
               </h2>
               <div>
                 <span class="search-item__authors">${authors[0]}</span>
@@ -107,12 +107,18 @@ HomeSearchPageView.renderList = function (data) {
   this.div.replaceChildren(element);
 };
 
+// title에서 괄호로 둘러싸인 부분을 제거한다.
+HomeSearchPageView.getWithoutParenthesis = function (title) {
+  const index = title.indexOf('(');
+  return index === -1 ? title : title.slice(0, index);
+};
+
 HomeSearchPageView.onClick = function (e) {
   const li = e.target.closest('.search-item');
   if (li) {
     const index = parseInt(li.dataset.index, 10);
     const bookData = this.bookData[index];
-    this.emit('@clickItem', { bookData });
+    this.dispatch('@clickItem', { bookData });
   }
 };
 

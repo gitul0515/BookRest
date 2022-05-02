@@ -10,7 +10,8 @@ NavigationView.setup = function (element) {
 };
 
 NavigationView.render = function () {
-  this.element.innerHTML = `
+  this.element.innerHTML = /* html */ 
+  `
     <a href="/"><i class="fa-solid fa-plus"></i></a>
     <a href="/book"><i class="fa-solid fa-book-open-reader"></i></a>
     <a href="/note"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -30,8 +31,16 @@ NavigationView.onClick = function (e) {
   if (e.target.matches('#navigation > a')) {
     e.preventDefault();
     const page = e.target.getAttribute('href');
-    this.emit('@click', { page });
+    this.dispatch('@click', { page });
   }
+};
+
+NavigationView.show = function () {
+  this.element.classList.remove('hide');
+};
+
+NavigationView.hide = function () {
+  this.element.classList.add('hide');
 };
 
 export default NavigationView;
