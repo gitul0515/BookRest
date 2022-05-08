@@ -1,21 +1,28 @@
 /* Global */
 :root {
   /* Color */
-  --color-white: #ffffff;
-  --color-light-white: #dddddd;
+  --color-pure-white: #ffffff;
+  --color-white: #f8f8f8;
+  --color-light-white: #f8f8f8b0;
   --color-dark-white: #9c9c9c;
-  --color-pink: #ff6863;
   --color-dark-grey: #515151;
   --color-grey: #616161;
   --color-light-grey: #7a7a7a;
-  --color-blue: #73aace;
+  --color-transparent-grey: #7a7a7a2d;
+  --color-blue: #2196f3;
   --color-yellow: #fff7d1;
   --color-orange: #feb546;
   --color-black: #000000;
-  --color-teal: #00897b;
+  --color-teal: #138d81;
   --color-light-teal: #4ebaaa;
-  --color-dark-teal: #005b4f;
+  --color-dark-teal: #118374;
   --color-white-teal: #def3f1;
+  --color-background: #f7efe4;
+  --color-border: #cacace36;
+
+  --color-primary: #7a7a7a;
+  --color-secondary: #8c8d96;
+  --color-tertiary: #b2b3b9;
 
   /* Font size */
   --font-large: 34px;
@@ -84,7 +91,7 @@ body {
   width: 100vw;
   margin: 0;
   cursor: default;
-  background-color: #f7efe4;
+  background-color: var(--color-background);
 }
 
 /* 태그 스타일 초기화 */
@@ -117,14 +124,15 @@ input {
   pointer-events: none;
 }
 
-#app {
-}
-
 #page {
   width: 100vw;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+i {
+  pointer-events: none;
 }
 
 /* 헤더 영역 */
@@ -143,9 +151,6 @@ input {
   height: 230px;
   border-radius: 0 0 34% 34%;
   z-index: -1;
-}
-
-.header__title {
 }
 
 .header__message {
@@ -338,7 +343,7 @@ input {
   visibility: hidden;
   z-index: 999;
   padding: 22px 0px;
-  background-color: #f7efe4;
+  background-color: var(--color-background);
 }
 
 .home__search-page--save > header {
@@ -379,9 +384,6 @@ input {
   width: 100px;
   height: 145px;
   border-radius: 10px;
-}
-
-.search-page--save__form {
 }
 
 .search-page--save__form > label {
@@ -531,7 +533,6 @@ input {
 
 .note__tab-item::before {
   content: '';
-  display: block;
   position: absolute;
 }
 
@@ -715,6 +716,11 @@ input {
 
 .detail-page__title {
   margin-top: 30px;
+  word-break: keep-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .detail-page__informaion {
@@ -749,8 +755,117 @@ input {
   margin-top: 2px;
 }
 
-/* 모달 영역 */
+.detail-page__btn--add {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 16%;
+  bottom: 0;
+  transform: translateY(50%);
+}
 
+.detail-page__btn--add > i {
+  font-size: 26px;
+  color: var(--color-dark-teal);
+}
+
+.detail-page__content {
+  padding: 20px;
+}
+
+.detail-page__content .button--sort {
+  color: var(--color-grey);
+}
+
+.detail-page__content .note-item__header {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.detail-page__content .note-item__label {
+  transform: translate(20px, -2px);
+}
+
+.detail-page__not-found-message {
+  color: var(--color-grey);
+  margin-top: 30px;
+}
+
+/* 노트 편집기 영역 */
+.editor__header {
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-tertiary);
+}
+
+.editor__btn--esc {
+  padding: 10px;
+}
+
+.editor__btn--esc > i {
+  font-size: 24px;
+}
+
+.editor__btn--save {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+.editor__content {
+  padding: 14px;
+}
+
+.editor__note-information > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.editor__btn--label {
+  padding: 4px 16px;
+  border-radius: 12px;
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+
+.editor__btn--label > i {
+  margin-right: 2px;
+  font-size: 11px;
+  transform: translateY(-1px);
+}
+
+.editor__btn--page {
+  padding: 4px 16px;
+  border: 1px solid var(--color-transparent-grey);
+  border-radius: 12px;
+  color: var(--color-light-grey);
+  background-color: var(--color-pure-white);
+}
+
+.editor__created-at {
+  display: inline;
+  font-size: 15px;
+  color: var(--color-primary);
+  position: relative;
+}
+
+.editor__created-at::after {
+  content: '';
+  width: 100%;
+  height: 7px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: var(--color-transparent-grey);
+}
+
+/* 모달 영역 */
 #modal {
   position: fixed;
   top: 0;
