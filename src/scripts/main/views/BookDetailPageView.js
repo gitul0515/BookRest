@@ -20,8 +20,8 @@ BookDetailPageView.getHtml = function (data) {
   if (!data) {
     throw new Error('책 data가 존재하지 않습니다.');
   }
-
-  const { title, authors, publisher, thumbnail, notes } = data;
+  this.data = data;
+  const { title, authors, publisher, thumbnail, notes } = this.data;
   return /* html */ `
     <header class="detail-page__header">
       <div class="detail-page__btns"> 
@@ -42,6 +42,9 @@ BookDetailPageView.getHtml = function (data) {
           <span class="detail-page__publisher">${publisher}</span>
         </div>
       </div>
+      <button class="detail-page__btn--add">
+        <i class="fa-solid fa-file-circle-plus"></i>
+      </button>
     </header>
     <section class="detail-page__content">
       ${
@@ -49,7 +52,7 @@ BookDetailPageView.getHtml = function (data) {
           ? `<ul class="detail-page__note-list">
               ${this.getNoteListHtml(notes)}
             </ul>`
-          : `<p class="detail-page__not-found-message">불러올 노트가 없어요...
+          : `<p class="detail-page__not-found-message">저장한 노트가 없어요...
           <br>지금 첫 노트를 작성해 보세요 :)
           </p>`
       }
@@ -58,14 +61,11 @@ BookDetailPageView.getHtml = function (data) {
 };
 
 BookDetailPageView.getNoteListHtml = function (notes) {
-  console.log(notes);
-  if (!notes) {
-    throw new Error('notes가 존재하지 않습니다.');
-  }
-  let html = `<button class="button--sort">나중에 작성한 노트부터</button>`;
-  html += notes
-    .map(
-      ({ id, createdAt, content, page }) => /* html */ `
+  let result = `<button class="button--sort">나중에 작성한 노트부터</button>`;
+  result += notes
+    .map((note) => {
+      const { id, createdAt, content, page } = note;
+      return /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
           <h3 class="note-item__label">
@@ -95,10 +95,10 @@ BookDetailPageView.getNoteListHtml = function (notes) {
           </div>
         </footer>
       </li>
-  `,
-    )
+  `;
+    })
     .join('');
-  return html;
+  return result;
 };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.
@@ -109,11 +109,17 @@ BookDetailPageView.getWithoutParenthesis = function (title) {
 
 BookDetailPageView.bindElement = function () {
   this.prevBtn = this.element.querySelector('.detail-page__btn--prev');
+  this.addBtn = this.element.querySelector('.detail-page__btn--add');
 };
 
 BookDetailPageView.bindEvent = function () {
   this.prevBtn.addEventListener('click', () => {
     this.dispatch('@prevClick');
+  });
+
+  this.addBtn.addEventListener('click', () => {
+    const { notes } = this.data;
+    this.dispatch('@addClick', { notes });
   });
 };
 

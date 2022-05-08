@@ -18,6 +18,8 @@ export default {
     NavigationView.setup(navigation) //
       .addEvent('@click', (e) => this.onClick(e.detail.page));
 
+    history.pushState(null, null, '/book');
+
     window.addEventListener('popstate', (e) => this.route(e));
     this.route();
   },
@@ -42,11 +44,15 @@ export default {
       NavigationView.show();
       return;
     }
-    if (path.indexOf('/book/') === 0) {
+    if (path === '/book/detail') {
       if (e) {
         const data = e.state;
         BookDetailPageView.render(data);
       }
+      NavigationView.hide();
+      return;
+    }
+    if (path === '/book/new-editor') {
       NavigationView.hide();
       return;
     }

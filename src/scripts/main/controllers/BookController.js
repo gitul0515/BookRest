@@ -1,6 +1,7 @@
 import BookPageView from '../views/BookPageView.js';
 import BookListView from '../views/BookListView.js';
 import BookDetailPageView from '../views/BookDetailPageView.js';
+import NoteEditorPageView from '../views/NoteEditorPageView.js';
 import ModalView from '../views/ModalView.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
@@ -10,9 +11,11 @@ let isInitialize = false;
 
 export default {
   init() {
-    BookDetailPageView.setup(page);
-    ModalView.setup(document.getElementById('modal'));
     BookListView.setup(document.querySelector('.book-list'));
+    BookDetailPageView.setup(page);
+    NoteEditorPageView.setup(page);
+    ModalView.setup(document.getElementById('modal'));
+
     !isInitialize && this.addCustomEvent();
     this.fetchBookList();
   },
@@ -21,7 +24,8 @@ export default {
     BookPageView.addEvent('@search', (e) => this.onSearch(e.detail.value)) //
       .addEvent('@sort', () => this.onSort())
       .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
-    BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick());
+    BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
+      .addEvent('@addClick', (e) => this.onAddClick(e.detail.notes));
     ModalView.addEvent('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
@@ -42,14 +46,19 @@ export default {
 
   async onDetailPage(id) {
     const data = await BookModel.getBook(id);
-    console.log(data);
     BookDetailPageView.render(data);
-    history.pushState(data, null, `/book/${id}`);
+    history.pushState(data, null, `/book/detail`);
     MainController.route();
   },
 
   onPrevClick() {
     history.pushState(null, null, '/book');
+    MainController.route();
+  },
+
+  onAddClick(notes) {
+    NoteEditorPageView.render(notes, true);
+    history.pushState(notes, null, '/book/new-editor');
     MainController.route();
   },
 
