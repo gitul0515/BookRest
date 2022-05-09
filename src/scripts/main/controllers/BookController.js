@@ -25,7 +25,8 @@ export default {
       .addEvent('@sort', () => this.onSort())
       .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
     BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
-      .addEvent('@addClick', (e) => this.onAddClick(e.detail.notes));
+      .addEvent('@addClick', (e) => this.onAddClick(e.detail.data));
+    NoteEditorPageView.addEvent('@escClick', (e) => this.onEscClick(e.detail.id));
     ModalView.addEvent('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
@@ -47,7 +48,7 @@ export default {
   async onDetailPage(id) {
     const data = await BookModel.getBook(id);
     BookDetailPageView.render(data);
-    history.pushState(data, null, `/book/detail`);
+    history.pushState(data, null, `/book/detail/${id}`);
     MainController.route();
   },
 
@@ -56,10 +57,14 @@ export default {
     MainController.route();
   },
 
-  onAddClick(notes) {
-    NoteEditorPageView.render(notes, true);
-    history.pushState(notes, null, '/book/new-editor');
+  onAddClick(data) {
+    NoteEditorPageView.render(data);
+    history.pushState(data, null, '/book/new-editor');
     MainController.route();
+  },
+
+  onEscClick(id) {
+    this.onDetailPage(id); 
   },
 
   async onModalClick(target) {

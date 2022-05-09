@@ -7,15 +7,18 @@ NoteEditorPageView.setup = function (element) {
   return this;
 };
 
-NoteEditorPageView.render = function (notes) {
-  if (!Array.isArray(notes)) {
-    throw new TypeError('notes의 타입이 Array가 아닙니다.');
+NoteEditorPageView.render = function (data) {
+  if (!data) {
+    throw new Error('data가 존재하지 않습니다.');
   }
-  this.notes = notes;
+  this.data = data;
 
   const html = this.getHtml();
   const node = this.createNode(html);
   this.element.replaceChildren(node);
+
+  this.bindElement();
+  this.bindEvent();
 };
 
 NoteEditorPageView.getHtml = function () {
@@ -38,9 +41,20 @@ NoteEditorPageView.getHtml = function () {
           </div>
           <p class="editor__created-at">2022년 5월 8일 23:21</p>
         </section>
+        <textarea class="editor__input" placeholder="노트 내용을 입력해보세요."></textarea>
       </section>
     </section>
   `;
 };
 
+NoteEditorPageView.bindElement = function () {
+  this.escBtn = this.element.querySelector('.editor__btn--esc');
+};
+
+NoteEditorPageView.bindEvent = function () {
+  this.escBtn.addEventListener('click', () => {
+    const { id } = this.data;
+    this.dispatch('@escClick', { id });
+  });
+};
 export default NoteEditorPageView;
