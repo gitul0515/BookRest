@@ -25,8 +25,8 @@ export default {
       .addEvent('@sort', () => this.onSort())
       .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
     BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
-      .addEvent('@addClick', (e) => this.onAddClick(e.detail.data));
-    NoteEditorPageView.addEvent('@escClick', (e) => this.onEscClick(e.detail.id));
+      .addEvent('@addClick', (e) => this.onAddClick(e.detail.notes));
+    NoteEditorPageView.addEvent('@escClick', () => this.onEscClick());
     ModalView.addEvent('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
@@ -57,14 +57,15 @@ export default {
     MainController.route();
   },
 
-  onAddClick(data) {
-    NoteEditorPageView.render(data);
-    history.pushState(data, null, '/book/new-editor');
+  onAddClick(notes) {
+    NoteEditorPageView.render(notes);
+    history.pushState(null, null, '/book/new-editor');
     MainController.route();
   },
 
-  onEscClick(id) {
-    this.onDetailPage(id); 
+  // FIXME: url 관련된 버그 있음
+  onEscClick() {
+    history.back();
   },
 
   async onModalClick(target) {

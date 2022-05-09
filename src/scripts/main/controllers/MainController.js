@@ -44,7 +44,7 @@ export default {
       NavigationView.show();
       return;
     }
-    if (path === '/book/detail') {
+    if (path.indexOf('/book/detail') === 0) {
       if (e) {
         const data = e.state;
         BookDetailPageView.render(data);
