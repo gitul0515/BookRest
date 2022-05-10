@@ -5,7 +5,6 @@ const ModalView = Object.create(View);
 ModalView.setup = function (element) {
   this.init(element);
   this.bindElement();
-  this.renderContent();
   this.bindEvent();
   return this;
 };
@@ -25,29 +24,18 @@ ModalView.onClick = function ({ target }) {
   }
   if (target.matches('.modal__tab-item')) {
     this.dispatch('@click', { target });
+    console.log(target);
+    this.hide();
   }
 };
 
-ModalView.renderContent = function (html) {
+ModalView.render = function (html) {
   if (!html) {
-    html = this.getContentHtml();
+    throw new Error('html이 존재하지 않습니다.');
   }
   const node = this.createNode(html);
   this.content.replaceChildren(node);
-};
-
-ModalView.getContentHtml = function () {
-  return /* html */ `
-    <h2 class="modal__title">정렬 방법을 선택해주세요</h2>
-    <ul class="modal__tab-list">
-      <li class="modal__tab-item" data-sort-by="new">최근에 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-by="old">먼저 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-by="title">제목 순서로</li>
-      <li class="modal__tab-item" data-sort-by="title-reverse">제목 역순으로</li>
-      <li class="modal__tab-item" data-sort-by="high-rating">높은 별점부터</li>
-      <li class="modal__tab-item" data-sort-by="low-rating">낮은 별점부터</li>
-    </ul>
-  `;
+  this.show();
 };
 
 ModalView.show = function () {

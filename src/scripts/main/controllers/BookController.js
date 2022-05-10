@@ -22,7 +22,7 @@ export default {
 
   addCustomEvent() {
     BookPageView.addEvent('@search', (e) => this.onSearch(e.detail.value)) //
-      .addEvent('@sort', () => this.onSort())
+      .addEvent('@sort', (e) => this.onSort(e.detail.modalHtml))
       .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
     BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
       .addEvent('@addClick', (e) => this.onAddClick(e.detail.id));
@@ -42,8 +42,8 @@ export default {
     BookListView.render(data);
   },
 
-  onSort() {
-    ModalView.show();
+  onSort(html) {
+    ModalView.render(html);
   },
 
   async onDetailPage(id) {
