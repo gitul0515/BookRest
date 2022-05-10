@@ -1,4 +1,5 @@
 import { getItem, setItem } from '../../utils/storage.js';
+import { getCurrentTime } from '../../utils/date.js';
 const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 
 const data = getItem(BOOK_MODEL_DATA_KEY, [
@@ -15,7 +16,7 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
       {
         id: '1',
         content: '집중하는 삶이 최선의 삶이다.',
-        createdAt: '2022. 4. 20. 오후 3:17:28',
+        createdAt: getCurrentTime(),
         page: 56,
         readCount: 0,
         isFavorite: false,
@@ -23,7 +24,7 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
       {
         id: '2',
         content: '강렬한 집중, 최고의 성과',
-        createdAt: '2022. 4. 21. 오후 3:17:28',
+        createdAt: getCurrentTime(),
         page: 137,
         readCount: 0,
         isFavorite: false,
@@ -43,11 +44,15 @@ export default {
     });
   },
 
+  getBook(id) {
+    return this.data.find((book) => book.id === id);
+  },
+
   search(query) {
     return Promise.resolve(this.data.filter((book) => book.title.includes(query)));
   },
 
-  add(newItem) {
+  addBook(newItem) {
     return new Promise((res) => {
       setTimeout(() => {
         this.data = [
@@ -98,7 +103,9 @@ export default {
     }, []);
   },
 
-  getBook(id) {
-    return this.data.find((book) => book.id === id);
-  },
+  async addNote(id, newNote) {
+    const book = await this.getBook(id);
+    book.notes.push(newNote);
+    setItem(BOOK_MODEL_DATA_KEY, this.data);
+  }
 };

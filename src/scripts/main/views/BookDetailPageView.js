@@ -72,11 +72,11 @@ BookDetailPageView.getNoteListHtml = function (notes) {
             <i class="fa-solid fa-thumbtack"></i>
             책 속 문장
           </h3>
-          <p class="note-item__created-at">${createdAt.substring(0, 12)}</p>
+          <p class="note-item__created-at">${createdAt}</p>
         </header>
         <section class="note-item__content">
           <p>${content}</p>
-          <span class="note-item__page">p. ${page}</span>
+          <span class="note-item__page">${page === 0 ? '' : `p. ${page}`}</span>
         </section>
         <footer class="note-item__footer">
           <div class="note-item__btns">
@@ -118,8 +118,8 @@ BookDetailPageView.bindEvent = function () {
   });
 
   this.addBtn.addEventListener('click', () => {
-    const { notes } = this.data;
-    this.dispatch('@addClick', { notes });
+    const { id } = this.data;
+    this.dispatch('@addClick', { id });
   });
 };
 
