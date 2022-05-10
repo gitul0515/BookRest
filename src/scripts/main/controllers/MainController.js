@@ -9,6 +9,7 @@ import NotePageView from '../views/NotePageView.js';
 import NoteController from './NoteController.js';
 import SettingView from '../views/SettingView.js';
 import SettingController from './SettingController.js';
+import BookModel from '../models/BookModel.js';
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -20,7 +21,7 @@ export default {
 
     history.pushState(null, null, '/book');
 
-    window.addEventListener('popstate', (e) => this.route(e));
+    window.addEventListener('popstate', () => this.route());
     this.route();
   },
 
@@ -44,11 +45,10 @@ export default {
       NavigationView.show();
       return;
     }
-    if (path.indexOf('/book/detail') === 0) {
-      if (e) {
-        const data = e.state;
-        BookDetailPageView.render(data);
-      }
+    if (path.indexOf('/book/detail/') === 0) {
+      const id = path.split('/')[3];
+      const book = BookModel.getBook(id);
+      BookDetailPageView.render(book);
       NavigationView.hide();
       return;
     }

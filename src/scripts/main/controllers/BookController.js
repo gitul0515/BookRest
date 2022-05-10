@@ -47,9 +47,7 @@ export default {
   },
 
   async onDetailPage(id) {
-    const book = await BookModel.getBook(id);
-    BookDetailPageView.render(book);
-    history.pushState(book, null, `/book/detail/${id}`);
+    history.pushState(null, null, `/book/detail/${id}`);
     MainController.route();
   },
 
@@ -69,11 +67,9 @@ export default {
     history.back();
   },
 
-  async onSaveClick(id, newNote) {
-    await BookModel.addNote(id, newNote);
-    const book = await BookModel.getBook(id);
-    BookDetailPageView.render(book);
-    history.replaceState(book, null, `/book/detail/${id}`);
+  onSaveClick(id, newNote) {
+    BookModel.addNote(id, newNote);
+    history.replaceState(null, null, `/book/detail/${id}`);
     MainController.route();
   },
 
