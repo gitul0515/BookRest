@@ -24,7 +24,6 @@ ModalView.onClick = function ({ target }) {
   }
   if (target.matches('.modal__tab-item')) {
     this.dispatch('@click', { target });
-    console.log(target);
     this.hide();
   }
 };
@@ -48,10 +47,10 @@ ModalView.hide = function () {
   this.content.classList.remove('show-up');
 };
 
-ModalView.createNode = function(string) {
+ModalView.createNode = function (string) {
   const template = document.createElement('template');
   template.innerHTML = string;
   return template.content;
-}
+};
 
 export default ModalView;

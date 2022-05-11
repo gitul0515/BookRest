@@ -2,7 +2,6 @@ import BookPageView from '../views/BookPageView.js';
 import BookListView from '../views/BookListView.js';
 import BookDetailPageView from '../views/BookDetailPageView.js';
 import NoteEditPageView from '../views/NoteEditPageView.js';
-import ModalView from '../views/ModalView.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
@@ -14,7 +13,6 @@ export default {
     BookListView.setup(document.querySelector('.book-list'));
     BookDetailPageView.setup(page);
     NoteEditPageView.setup(page);
-    ModalView.setup(document.getElementById('modal'));
 
     !isInitialize && this.addCustomEvent();
     this.fetchBookList();
@@ -22,13 +20,11 @@ export default {
 
   addCustomEvent() {
     BookPageView.addEvent('@search', (e) => this.onSearch(e.detail.value)) //
-      .addEvent('@sort', (e) => this.onSort(e.detail.modalHtml))
       .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
     BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
       .addEvent('@addClick', (e) => this.onAddClick(e.detail.id));
     NoteEditPageView.addEvent('@escClick', () => this.onEscClick()) //
       .addEvent('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
-    ModalView.addEvent('@click', (e) => this.onModalClick(e.detail.target));
     isInitialize = true;
   },
 
@@ -40,10 +36,6 @@ export default {
   async onSearch(value) {
     const data = await BookModel.search(value);
     BookListView.render(data);
-  },
-
-  onSort(html) {
-    ModalView.render(html);
   },
 
   async onDetailPage(id) {
@@ -71,12 +63,5 @@ export default {
     BookModel.addNote(id, newNote);
     history.replaceState(null, null, `/book/detail/${id}`);
     MainController.route();
-  },
-
-  async onModalClick(target) {
-    const { sortBy } = target.dataset;
-    const data = await BookModel.getSortedList(sortBy);
-    BookListView.render(data);
-    ModalView.hide();
   },
 };

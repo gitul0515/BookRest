@@ -4,12 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bookrest App</title>
-
     <meta name="description" content="북레스트 - 독서 관리 애플리케이션입니다." />
     <meta name="keywords" content="북레스트, 독서, 노트" />
     <meta name="author" content="권기홍" />
-    <!-- Fonts -->
+    <title>Bookrest App</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
@@ -22,18 +20,17 @@
       rel="stylesheet"
       href="//cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css"
     />
-    <!-- CSS -->
     <link href="/src/styles/style.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/fb9a82cb4a.js" crossorigin="anonymous"></script>
+    <script type="module" src="/src/scripts/app.js"></script>
   </head>
   <body>
     <main id="app">
       <div id="page"></div>
       <nav id="navigation"></nav>
+      <div id="modal">
+        <div class="modal__content"></div>
+      </div>
     </main>
-
-    <!-- Fontawesome -->
-    <script src="https://kit.fontawesome.com/fb9a82cb4a.js" crossorigin="anonymous"></script>
-    <!-- Javascript -->
-    <script type="module" src="/src/scripts/app.js"></script>
   </body>
 </html>

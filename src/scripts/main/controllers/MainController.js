@@ -1,4 +1,3 @@
-import NavigationView from '../views/NavigationView.js';
 import HomePageView from '../views/HomePageView.js';
 import HomeSearchPageView from '../views/HomeSearchPageView.js';
 import HomeController from './HomeController.js';
@@ -9,6 +8,8 @@ import NotePageView from '../views/NotePageView.js';
 import NoteController from './NoteController.js';
 import SettingView from '../views/SettingView.js';
 import SettingController from './SettingController.js';
+import ModalController from './ModalController.js';
+import NavigationView from '../views/NavigationView.js';
 import BookModel from '../models/BookModel.js';
 
 const page = document.getElementById('page');
@@ -16,16 +17,15 @@ const navigation = document.getElementById('navigation');
 
 export default {
   init() {
+    ModalController.init();
     NavigationView.setup(navigation) //
       .addEvent('@click', (e) => this.onClick(e.detail.page));
-
-    history.pushState(null, null, '/book');
 
     window.addEventListener('popstate', () => this.route());
     this.route();
   },
 
-  route(e) {
+  route() {
     const path = window.location.pathname;
 
     if (path === '/' || path === '/home') {

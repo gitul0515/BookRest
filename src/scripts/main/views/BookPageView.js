@@ -1,4 +1,5 @@
 import View from './View.js';
+import ModalView from './ModalView.js';
 
 const BookPageView = Object.create(View);
 
@@ -34,9 +35,6 @@ BookPageView.getHtml = function () {
       <button class="button--sort">제목 순서로</button>
       <ul class="book-list"></ul>
     </div>
-    <div id="modal">
-      <div class="modal__content">hello</div>
-    </div>
   `;
 };
 
@@ -61,18 +59,18 @@ BookPageView.onSearch = function (e) {
 };
 
 BookPageView.onClickBtn = function () {
-  const modalHtml = /* html */ `
+  const html = /* html */ `
     <h2 class="modal__title">정렬 방법을 선택해주세요</h2>
     <ul class="modal__tab-list">
-      <li class="modal__tab-item" data-sort-by="new">최근에 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-by="old">먼저 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-by="title">제목 순서로</li>
-      <li class="modal__tab-item" data-sort-by="title-reverse">제목 역순으로</li>
-      <li class="modal__tab-item" data-sort-by="high-rating">높은 별점부터</li>
-      <li class="modal__tab-item" data-sort-by="low-rating">낮은 별점부터</li>
+      <li class="modal__tab-item" data-sort-book-by="new">최근에 읽은 책부터</li>
+      <li class="modal__tab-item" data-sort-book-by="old">먼저 읽은 책부터</li>
+      <li class="modal__tab-item" data-sort-book-by="title">제목 순서로</li>
+      <li class="modal__tab-item" data-sort-book-by="title-reverse">제목 역순으로</li>
+      <li class="modal__tab-item" data-sort-book-by="high-rating">높은 별점부터</li>
+      <li class="modal__tab-item" data-sort-book-by="low-rating">낮은 별점부터</li>
     </ul>
   `;
-  this.dispatch('@sort', { modalHtml });
+  ModalView.render(html);
 };
 
 BookPageView.onClickList = function (e) {
