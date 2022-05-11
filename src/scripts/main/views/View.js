@@ -1,7 +1,7 @@
 export default {
   init(element) {
     if (!element) {
-      throw element;
+      throw new Error(`element가 존재하지 않습니다.`);
     }
     this.element = element;
     return this;
@@ -18,20 +18,25 @@ export default {
     return this;
   },
 
-  show() {
-    this.element.style.display = 'block';
-    return this;
-  },
+  replaceChildren(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    this.element.replaceChildren(template.content);
+  }
 
-  hide() {
-    this.element.style.display = 'none';
-    return this;
-  },
+  // createNode(string) {
+  //   const template = document.createElement('template');
+  //   template.innerHTML = string;
+  //   return template.content;
+  // },
 
-  createNode(string) {
-    const temp = document.createElement('template');
-    temp.innerHTML = string;
-    return temp.content;
-  },
+  // show() {
+  //   this.element.style.display = 'block';
+  //   return this;
+  // },
+
+  // hide() {
+  //   this.element.style.display = 'none';
+  //   return this;
+  // },
 };
-

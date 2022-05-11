@@ -12,8 +12,7 @@ BookListView.render = function (data) {
     return;
   }
   const html = this.getHtml(data);
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  BookListView.replaceChildren(html);
 };
 
 BookListView.getHtml = function (data) {

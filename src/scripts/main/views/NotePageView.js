@@ -9,8 +9,7 @@ NotePageView.setup = function (element) {
 
 NotePageView.render = function () {
   const html = this.getHtml();
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  NotePageView.replaceChildren(html);
 };
 
 NotePageView.getHtml = function () {

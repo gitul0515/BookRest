@@ -9,8 +9,7 @@ HomeSearchPageView.setup = function (element) {
 
 HomeSearchPageView.render = function () {
   const html = this.getHtml();
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  HomeSearchPageView.replaceChildren(html);
 
   this.bindElement();
   this.bindEvent();
@@ -121,5 +120,11 @@ HomeSearchPageView.onClick = function (e) {
     this.dispatch('@clickItem', { bookData });
   }
 };
+
+HomeSearchPageView.createNode = function(string) {
+  const template = document.createElement('template');
+  template.innerHTML = string;
+  return template.content;
+}
 
 export default HomeSearchPageView;

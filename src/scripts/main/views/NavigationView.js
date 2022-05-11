@@ -15,7 +15,7 @@ NavigationView.render = function () {
     <a href="/"><i class="fa-solid fa-plus"></i></a>
     <a href="/book"><i class="fa-solid fa-book-open-reader"></i></a>
     <a href="/note"><i class="fa-solid fa-pen-to-square"></i></a>
-    <a href="/setting"><i class="fa-solid fa-square-poll-horizontal"></i></a
+    <a href="/setting"><i class="fa-solid fa-square-poll-horizontal"></i></a>
   `;
 };
 

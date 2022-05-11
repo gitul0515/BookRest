@@ -9,8 +9,7 @@ BookDetailPageView.setup = function (element) {
 
 BookDetailPageView.render = function (data) {
   const html = this.getHtml(data);
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  BookDetailPageView.replaceChildren(html);
 
   this.bindElement();
   this.bindEvent();

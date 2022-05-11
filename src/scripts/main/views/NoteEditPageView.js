@@ -13,8 +13,7 @@ NoteEditPageView.render = function (id) {
   this.bookId = id;
 
   const html = this.getHtml();
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  NoteEditPageView.replaceChildren(html);
 
   this.bindElement();
   this.bindEvent();

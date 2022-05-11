@@ -9,8 +9,7 @@ SettingView.setup = function (element) {
 
 SettingView.render = function () {
   const html = this.getHtml();
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  SettingView.replaceChildren(html);
 };
 
 SettingView.getHtml = function () {

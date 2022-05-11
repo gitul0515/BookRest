@@ -48,4 +48,10 @@ ModalView.hide = function () {
   this.content.classList.remove('show-up');
 };
 
+ModalView.createNode = function(string) {
+  const template = document.createElement('template');
+  template.innerHTML = string;
+  return template.content;
+}
+
 export default ModalView;

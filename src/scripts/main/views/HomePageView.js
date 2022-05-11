@@ -11,8 +11,7 @@ HomePageView.setup = function (element) {
 
 HomePageView.render = function () {
   const html = this.getHtml();
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  HomePageView.replaceChildren(html);
 };
 
 HomePageView.getHtml = function () {

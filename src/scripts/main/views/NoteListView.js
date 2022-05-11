@@ -11,26 +11,14 @@ NoteListView.render = function (data) {
   if (!Array.isArray(data) || data.length === 0) {
     return;
   }
-
   const html = this.getHtml(data);
-  const node = this.createNode(html);
-  this.element.replaceChildren(node);
+  NoteListView.replaceChildren(html);
 };
 
 NoteListView.getHtml = function (data) {
   return data
     .map(
-      ({
-        id,
-        title,
-        authors,
-        thumbnail,
-        createdAt,
-        content,
-        page,
-        readCount,
-        isFavorite,
-      }) => /* html */ `
+      ({ id, title, authors, thumbnail, createdAt, content, page }) => /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
           <h3 class="note-item__label">
@@ -40,17 +28,17 @@ NoteListView.getHtml = function (data) {
           <div class="note-item__information">
             <div class="note-item__book-informaion">
               <div>
-                <h3 class="note-item__book-title">${title}</h3>
+                <h3 class="note-item__book-title">${this.getWithoutParenthesis(title)}</h3>
                 <span class="note-item__book-author">${authors}</span>
               </div>
               <img class="note-item__book-thumbnail" src="${thumbnail}"/>
             </div>
-            <p class="note-item__created-at">${createdAt.substring(0, 12)}</p>
+            <p class="note-item__created-at">${createdAt}</p>
           </div>
         </header>
         <section class="note-item__content">
           <p>${content}</p>
-          <span class="note-item__page">p. ${page}</span>
+          <span class="note-item__page">${page === 0 ? '' : `p. ${page}`}</span>
         </section>
         <footer class="note-item__footer">
           <div class="note-item__btns">
@@ -72,6 +60,11 @@ NoteListView.getHtml = function (data) {
     `,
     )
     .join('');
+};
+
+NoteListView.getWithoutParenthesis = function (title) {
+  const index = title.indexOf('(');
+  return index === -1 ? title : title.slice(0, index);
 };
 
 export default NoteListView;
