@@ -40,7 +40,7 @@ export default {
     return new Promise((res) => {
       setTimeout(() => {
         res(this.data);
-      }, 0);
+      });
     });
   },
 
@@ -66,7 +66,7 @@ export default {
         ];
         setItem(BOOK_MODEL_DATA_KEY, this.data);
         res(this.data);
-      }, 0);
+      });
     });
   },
 
@@ -109,21 +109,39 @@ export default {
     setItem(BOOK_MODEL_DATA_KEY, this.data);
   },
 
+  getNote(id) {
+    let result;
+    this.data.forEach(({ notes }) => {
+      if (notes.length) {
+        notes.forEach((note) => {
+          if (note.id === id) {
+            result = note;
+          }
+        });
+      }
+    });
+    return result;
+  },
+
   addReadCount(id) {
     return new Promise((res) => {
       setTimeout(() => {
-        this.data.forEach(({ notes }) => {
-          if (notes.length) {
-            notes.forEach((note) => {
-              if (note.id === id) {
-                note.readCount += 1;
-              }
-            });
-          }
-        });
+        const note = this.getNote(id);
+        note.readCount += 1;
         setItem(BOOK_MODEL_DATA_KEY, this.data);
         res(this.data);
-      }, 0);
+      });
+    });
+  },
+
+  toggleFavorite(id) {
+    return new Promise((res) => {
+      setTimeout(() => {
+        const note = this.getNote(id);
+        note.isFavorite = !note.isFavorite;
+        setItem(BOOK_MODEL_DATA_KEY, this.data);
+        res(this.data);
+      });
     });
   },
 };
