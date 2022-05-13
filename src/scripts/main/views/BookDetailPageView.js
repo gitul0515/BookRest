@@ -63,7 +63,7 @@ BookDetailPageView.getNoteListHtml = function (notes) {
   let result = `<button class="button--sort">나중에 작성한 노트부터</button>`;
   result += notes
     .map((note) => {
-      const { id, createdAt, content, page } = note;
+      const { id, createdAt, content, page, readCount } = note;
       return /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
@@ -74,8 +74,13 @@ BookDetailPageView.getNoteListHtml = function (notes) {
           <p class="note-item__created-at">${createdAt}</p>
         </header>
         <section class="note-item__content">
-          <p>${content}</p>
-          <span class="note-item__page">${page === 0 ? '' : `p. ${page}`}</span>
+          <p class="note-item__text">${content}</p>
+          <div>
+            <span class="note-item__read-count">${
+              readCount > 0 ? `${readCount}번 읽었어요.` : ``
+            }</span>
+            <span class="note-item__page">${page > 0 ? `p. ${page}` : ''}</span>
+          </div>
         </section>
         <footer class="note-item__footer">
           <div class="note-item__btns">

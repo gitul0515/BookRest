@@ -66,7 +66,7 @@ export default {
         ];
         setItem(BOOK_MODEL_DATA_KEY, this.data);
         res(this.data);
-      }, 200);
+      }, 0);
     });
   },
 
@@ -103,9 +103,27 @@ export default {
     }, []);
   },
 
-  async addNote(id, newNote) {
-    const book = await this.getBook(id);
+  addNote(id, newNote) {
+    const book = this.getBook(id);
     book.notes.push(newNote);
     setItem(BOOK_MODEL_DATA_KEY, this.data);
-  }
+  },
+
+  addReadCount(id) {
+    return new Promise((res) => {
+      setTimeout(() => {
+        this.data.forEach(({ notes }) => {
+          if (notes.length) {
+            notes.forEach((note) => {
+              if (note.id === id) {
+                note.readCount += 1;
+              }
+            });
+          }
+        });
+        setItem(BOOK_MODEL_DATA_KEY, this.data);
+        res(this.data);
+      }, 0);
+    });
+  },
 };

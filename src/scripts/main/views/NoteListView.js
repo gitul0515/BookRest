@@ -4,21 +4,37 @@ const NoteListView = Object.create(View);
 
 NoteListView.setup = function (element) {
   this.init(element);
+  this.bindEvent();
   return this;
 };
 
-NoteListView.render = function (data) {
-  if (!Array.isArray(data) || data.length === 0) {
+NoteListView.bindEvent = function () {
+  this.element.addEventListener('click', (e) => this.onClick(e));
+};
+
+NoteListView.render = function (notes) {
+  if (!Array.isArray(notes) || notes.length === 0) {
     return;
   }
-  const html = this.getHtml(data);
+  this.notes = notes;
+  const html = this.getHtml();
   NoteListView.replaceChildren(html);
 };
 
-NoteListView.getHtml = function (data) {
-  return data
+NoteListView.getHtml = function () {
+  return this.notes
     .map(
-      ({ id, title, authors, thumbnail, createdAt, content, page }) => /* html */ `
+      ({
+        id,
+        title,
+        authors,
+        thumbnail,
+        createdAt,
+        content,
+        page,
+        readCount,
+        isFavorite,
+      }) => /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
           <h3 class="note-item__label">
@@ -37,8 +53,13 @@ NoteListView.getHtml = function (data) {
           </div>
         </header>
         <section class="note-item__content">
-          <p>${content}</p>
-          <span class="note-item__page">${page === 0 ? '' : `p. ${page}`}</span>
+          <p class="note-item__text">${content}</p>
+          <div>
+            <span class="note-item__read-count">${
+              readCount > 0 ? `${readCount}번 읽었어요.` : ``
+            }</span>
+            <span class="note-item__page">${page > 0 ? `p. ${page}` : ' '}</span>
+          </div>
         </section>
         <footer class="note-item__footer">
           <div class="note-item__btns">
@@ -65,6 +86,23 @@ NoteListView.getHtml = function (data) {
 NoteListView.getWithoutParenthesis = function (title) {
   const index = title.indexOf('(');
   return index === -1 ? title : title.slice(0, index);
+};
+
+NoteListView.onClick = function ({ target }) {
+  const noteItem = target.closest('.note-item');
+  if (noteItem) {
+    const id = noteItem.dataset.id;
+    if (target.matches('.note-item__btn--count')) {
+      const newNotes = this.notes.map((note) => {
+        if (note.id === id) {
+          note.readCount += 1;
+        }
+        return note;
+      });
+      this.render(newNotes); // 낙관적 업데이트
+      this.dispatch('@count', { id }); // 북모델(데이터베이스) 갱신
+    }
+  }
 };
 
 export default NoteListView;
