@@ -608,14 +608,19 @@ i {
 }
 
 .note-item__book-informaion > div {
+  text-align: right;
   flex-shrink: 0;
 }
 
 .note-item__book-title {
-  color: #000000;
+  width: 100px;
+  color: var(--color-black);
   font-size: 1rem;
   text-align: right;
   margin-bottom: -4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .note-item__book-author {
@@ -640,27 +645,33 @@ i {
   margin-top: 5px;
 }
 
-.note-item__content {
-  position: relative;
+.note-item__text {
   padding: 40px 0;
-}
-
-.note-item__content > p {
   font-family: 'Iropke Batang', serif;
   font-size: 1rem;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.note-item__text + div {
+  height: 21px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-item__read-count {
+  color: var(--color-light-grey);
+  font-size: 0.9rem;
 }
 
 .note-item__page {
   font-family: 'Iropke Batang', serif;
   color: var(--color-dark-grey);
   font-size: 1rem;
-  position: absolute;
-  right: 10px;
-  bottom: 0;
 }
 
 .note-item__footer {
-  margin-top: 28px;
+  margin-top: 6px;
   margin-bottom: -6px;
 }
 
@@ -676,6 +687,20 @@ i {
 .note-item__btn > i {
   font-size: 1.2rem;
   color: var(--color-dark-white);
+  color: rgb(190, 190, 190);
+}
+
+.note-item__btn > .fa-check.active {
+  color: var(--color-teal);
+}
+
+.note-item__btn > .fa-heart {
+  transition: 0.5s;
+}
+
+.note-item__btn > .fa-heart.active {
+  transform: rotateX(360deg);
+  color: red;
 }
 
 .note-item__btn--options {
@@ -844,7 +869,7 @@ i {
   padding: 4px 16px;
   border: 1px solid var(--color-transparent-grey);
   border-radius: 12px;
-  color: var(--color-light-grey);
+  color: var(--color-dark-grey);
   background-color: var(--color-pure-white);
 }
 
@@ -863,6 +888,14 @@ i {
   left: 0;
   bottom: 0;
   background-color: var(--color-transparent-grey);
+}
+
+.editor__input {
+  width: 100%;
+  min-height: 100px;
+  border: 0;
+  outline: none;
+  margin: 20px 0;
 }
 
 /* 모달 영역 */

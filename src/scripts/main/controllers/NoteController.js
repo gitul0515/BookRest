@@ -15,7 +15,8 @@ export default {
   },
 
   addCustomEvent() {
-    NoteListView.addEvent('@count', (e) => this.onClickCount(e.detail.id));
+    NoteListView.addEvent('@count', (e) => this.onCount(e.detail.id)) //
+      .addEvent('@favorite', (e) => this.onFavorite(e.detail.id));
   },
 
   async fetchNoteList() {
@@ -23,8 +24,12 @@ export default {
     NoteListView.render(data);
   },
 
-  async onClickCount(id) {
-    const res = await BookModel.addReadCount(id);
+  async onCount(id) {
+    await BookModel.addReadCount(id);
+  },
+
+  async onFavorite(id) {
+    const res = await BookModel.toggleFavorite(id);
     console.log(res);
   },
 };

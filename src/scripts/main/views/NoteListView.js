@@ -1,4 +1,5 @@
 import View from './View.js';
+import { toggleClass } from '../../utils/className.js';
 
 const NoteListView = Object.create(View);
 
@@ -64,13 +65,21 @@ NoteListView.getHtml = function () {
         <footer class="note-item__footer">
           <div class="note-item__btns">
             <button class="note-item__btn note-item__btn--count">
-              <i class="fa-solid fa-check"></i>
+              ${
+                readCount > 0
+                  ? `<i class="fa-solid fa-check active"></i>`
+                  : `<i class="fa-solid fa-check"></i>`
+              }
             </button>
             <button class="note-item__btn note-item__btn--favorite">
-              <i class="fa-regular fa-heart"></i>
+              ${
+                isFavorite
+                  ? `<i class="fa-solid fa-heart active"></i>`
+                  : `<i class="fa-regular fa-heart"></i>`
+              }
             </button>
             <button class="note-item__btn note-item__btn--comment">
-              <i class="fa-regular fa-comment"></i>
+              <i class="fa-regular fa-comment-dots"></i>
             </button>
             <button class="note-item__btn note-item__btn--options">
               <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -100,7 +109,15 @@ NoteListView.onClick = function ({ target }) {
         return note;
       });
       this.render(newNotes); // 낙관적 업데이트
-      this.dispatch('@count', { id }); // 북모델(데이터베이스) 갱신
+      this.dispatch('@count', { id }); // 데이터베이스(북모델) 갱신
+      return;
+    }
+    if (target.matches('.note-item__btn--favorite')) {
+      // favorite 버튼 클릭 시, heartIcon의 스타일을 변경한다.
+      const heartIcon = target.querySelector('.fa-heart');
+      toggleClass(heartIcon, 'fa-regular', 'fa-solid', 'active');
+      this.dispatch('@favorite', { id }); // 데이터베이스(북모델) 갱신
+      return;
     }
   }
 };
