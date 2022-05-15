@@ -59,18 +59,49 @@ BookPageView.onSearch = function (e) {
 };
 
 BookPageView.onClickBtn = function () {
-  const html = /* html */ `
-    <h2 class="modal__title">정렬 방법을 선택해주세요</h2>
-    <ul class="modal__tab-list">
-      <li class="modal__tab-item" data-sort-book-by="new">최근에 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-book-by="old">먼저 읽은 책부터</li>
-      <li class="modal__tab-item" data-sort-book-by="title">제목 순서로</li>
-      <li class="modal__tab-item" data-sort-book-by="title-reverse">제목 역순으로</li>
-      <li class="modal__tab-item" data-sort-book-by="high-rating">높은 별점부터</li>
-      <li class="modal__tab-item" data-sort-book-by="low-rating">낮은 별점부터</li>
-    </ul>
-  `;
-  ModalView.render(html);
+  // const html = /* html */ `
+  //   <h2 class="modal__title">정렬 방법을 선택해주세요</h2>
+  //   <ul class="modal__tab-list">
+  //     <li class="modal__tab-item" data-sort-book-by="new">최근에 읽은 책부터</li>
+  //     <li class="modal__tab-item" data-sort-book-by="old">먼저 읽은 책부터</li>
+  //     <li class="modal__tab-item" data-sort-book-by="title">제목 순서로</li>
+  //     <li class="modal__tab-item" data-sort-book-by="title-reverse">제목 역순으로</li>
+  //     <li class="modal__tab-item" data-sort-book-by="high-rating">높은 별점부터</li>
+  //     <li class="modal__tab-item" data-sort-book-by="low-rating">낮은 별점부터</li>
+  //   </ul>
+  // `;
+  // ModalView.render(html, 'list');
+  const modalContent = {
+    title: '정렬 방법을 선택해주세요.',
+    key: 'sort-book-by',
+    items: [
+      {
+        title: '최근에 읽은 책부터',
+        value: 'new',
+      },
+      {
+        title: '먼저 읽은 책부터',
+        value: 'old',
+      },
+      {
+        title: '제목 순서로',
+        value: 'title',
+      },
+      {
+        title: '제목 역순으로',
+        value: 'title-reverse',
+      },
+      {
+        title: '높은 별점부터',
+        value: 'high-rating',
+      },
+      {
+        title: '낮은 별점부터',
+        value: 'low-rating',
+      },
+    ],
+  };
+  ModalView.render('list-6', modalContent);
 };
 
 BookPageView.onClickList = function (e) {

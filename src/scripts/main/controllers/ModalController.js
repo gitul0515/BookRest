@@ -1,22 +1,25 @@
 import ModalView from '../views/ModalView.js';
-import BookListView from '../views/BookListView.js';
-import BookModel from '../models/BookModel.js';
+import BookController from './BookController.js';
 
 const modal = document.getElementById('modal');
 
 export default {
   init() {
     ModalView.setup(modal) //
-      .addEvent('@click', (e) => this.onClick(e.detail.target));
+      .addEvent('@click', (e) => this.onClick(e.detail.target))
+      .addEvent('@submit', (e) => this.onSubmit(e.detail.value, e.detail.dataset));
   },
 
-  async onClick({ dataset }) {
+  onClick({ dataset }) {
     if ('sortBookBy' in dataset) {
-      const { sortBookBy } = dataset;
-      const data = await BookModel.getSortedList(sortBookBy);
-      BookListView.render(data);
+      const by = dataset.sortBookBy;
+      BookController.sortBook(by);
       ModalView.hide();
       return;
     }
+  },
+
+  onSubmit(value, dataset) {
+    console.log(value, dataset);
   },
 };

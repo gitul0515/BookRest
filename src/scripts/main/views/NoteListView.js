@@ -1,4 +1,5 @@
 import View from './View.js';
+import ModalView from './ModalView.js';
 import { toggleClass } from '../../utils/className.js';
 
 const NoteListView = Object.create(View);
@@ -117,6 +118,38 @@ NoteListView.onClick = function ({ target }) {
       const heartIcon = target.querySelector('.fa-heart');
       toggleClass(heartIcon, 'fa-regular', 'fa-solid', 'active');
       this.dispatch('@favorite', { id }); // 데이터베이스(북모델) 갱신
+      return;
+    }
+    if (target.matches('.note-item__btn--comment')) {
+      const modalContent = {
+        id,
+        title: '메모하기',
+        key: 'note-memo',
+        placeholder: '이 노트에 대한 생각을 적어보세요.',
+        buttonIcon: 'fa-solid fa-pen-to-square',
+      };
+      ModalView.render('form', modalContent);
+      return;
+    }
+    if (target.matches('.note-item__btn--options')) {
+      const modalContent = {
+        id,
+        title: '작업을 선택해주세요.',
+        key: 'note-option',
+        items: [
+          {
+            title: '노트 읽은 횟수 초기화',
+            value: 'init',
+            icon: 'fa-solid fa-arrow-rotate-left',
+          },
+          {
+            title: '노트 삭제',
+            value: 'remove',
+            icon: 'fa-solid fa-trash',
+          },
+        ],
+      };
+      ModalView.render('list-2', modalContent);
       return;
     }
   }
