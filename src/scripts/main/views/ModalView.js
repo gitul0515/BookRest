@@ -51,6 +51,9 @@ ModalView.render = function (type, content) {
   if (type === 'form') {
     html = this.getFormHtml(content);
   }
+  if (type === 'alert') {
+    html = this.getAlertHtml(content);
+  }
   const node = this.createNode(html);
   this.content.replaceChildren(node);
 
@@ -88,6 +91,10 @@ ModalView.getFormHtml = function (content) {
     </button>
   </form>
 `;
+};
+
+ModalView.getAlertHtml = function (content) {
+  return `<p class="modal__message">${content.message}</p>`;
 };
 
 ModalView.setStyle = function (type) {

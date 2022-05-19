@@ -3,6 +3,7 @@ import HomeSearchPageView from '../views/HomeSearchPageView.js';
 import { fetchBookData } from '../../service/api-search.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
+import ModalView from '../views/ModalView.js';
 
 const page = document.getElementById('page');
 let isInit = false;
@@ -46,7 +47,14 @@ export default {
   },
 
   async onClickItem(newItem) {
-    await BookModel.addBook(newItem);
+    try {
+      await BookModel.addBook(newItem);
+      ModalView.render('alert', { message: '책을 서재에 저장했어요 🙌' });
+    } catch (e) {
+      if (e.message === 'DUPLICATE_ID') {
+        ModalView.render('alert', { message: '이미 등록한 책이네요 👀' });
+      }
+    }
     MainController.setNumberOfBooks(+1);
   },
 };
