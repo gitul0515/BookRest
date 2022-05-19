@@ -1,4 +1,5 @@
 import View from './View.js';
+import BookPageView from './BookPageView.js';
 
 const BookListView = Object.create(View);
 
@@ -12,7 +13,7 @@ BookListView.render = function (data) {
     return;
   }
   const html = this.getHtml(data);
-  BookListView.replaceChildren(html);
+  this.replaceChildren(html);
 };
 
 BookListView.getHtml = function (data) {
@@ -21,7 +22,7 @@ BookListView.getHtml = function (data) {
       ({ title, rating, thumbnail, id }) => /* html */ ` 
     <li class="book-item" data-id=${id}>
       <div class="book-item__img" >
-        <img src="${thumbnail}" alt="표지 이미지">
+        <img src="${thumbnail}" alt="책 표지 이미지" onerror="this.src='/src/asset/image/book/book-no.jpg'">
       </div>
       <ul class="book-item__rating">
         ${this.getRatingHtml(rating)}

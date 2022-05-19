@@ -9,7 +9,7 @@ HomeSearchPageView.setup = function (element) {
 
 HomeSearchPageView.render = function () {
   const html = this.getHtml();
-  HomeSearchPageView.replaceChildren(html);
+  this.replaceChildren(html);
 
   this.bindElement();
   this.bindEvent();
@@ -86,7 +86,7 @@ HomeSearchPageView.renderList = function (data) {
           .map(({ title, authors, publisher, thumbnail }, index) => {
             return `<li class="search-item" data-index=${index}>
             <div class="search-item__thumbnail" >
-              <img src=${thumbnail}>
+              <img src=${thumbnail} alt="책 표지 이미지" onerror="this.src='/src/asset/image/book/book-no.jpg'">
             </div>
             <div class="search-item__description">
               <h2 class="search-item__title">
@@ -121,10 +121,10 @@ HomeSearchPageView.onClick = function (e) {
   }
 };
 
-HomeSearchPageView.createNode = function(string) {
+HomeSearchPageView.createNode = function (string) {
   const template = document.createElement('template');
   template.innerHTML = string;
   return template.content;
-}
+};
 
 export default HomeSearchPageView;
