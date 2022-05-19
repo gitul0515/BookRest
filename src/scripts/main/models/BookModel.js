@@ -53,6 +53,10 @@ export default {
   },
 
   addBook(newItem) {
+    const id = newItem.isbn.replace(' ', '');
+    if (this.isDuplicate(id)) {
+      return;
+    }
     return new Promise((res) => {
       setTimeout(() => {
         this.data = [
@@ -68,6 +72,10 @@ export default {
         res(this.data);
       });
     });
+  },
+
+  isDuplicate(id) {
+    return this.data.some((book) => book.id === id);
   },
 
   getSortedList(sortBy) {
