@@ -15,11 +15,14 @@ import BookModel from '../models/BookModel.js';
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
 
+let numberOfBooks = BookModel.totalNumberOfBooks;
+let numberOfNotes = BookModel.totalNumberOfNotes;
+
 export default {
   init() {
     ModalController.init();
     NavigationView.setup(navigation) //
-      .addEvent('@click', (e) => this.onClick(e.detail.page));
+      .on('@click', (e) => this.onClick(e.detail.page));
 
     window.addEventListener('popstate', () => this.route());
     this.route();
@@ -40,7 +43,7 @@ export default {
       return;
     }
     if (path === '/book') {
-      BookPageView.setup(page);
+      BookPageView.setup(page, numberOfBooks);
       BookController.init();
       NavigationView.show();
       return;
@@ -57,7 +60,7 @@ export default {
       return;
     }
     if (path === '/note') {
-      NotePageView.setup(page);
+      NotePageView.setup(page, numberOfNotes);
       NoteController.init();
       return;
     }
@@ -72,5 +75,13 @@ export default {
   onClick(page) {
     history.pushState(null, null, page);
     this.route();
+  },
+
+  setNumberOfBooks(number) {
+    numberOfBooks += number;
+  },
+
+  setNumberOfNotes(number) {
+    numberOfNotes += number;
   },
 };

@@ -6,26 +6,35 @@ import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
 const page = document.getElementById('page');
-let isInitialize = false;
+let isInit = false;
 
 export default {
   init() {
-    BookListView.setup(document.querySelector('.book-list'));
-    BookDetailPageView.setup(page);
-    NoteEditPageView.setup(page);
-
-    !isInitialize && this.addCustomEvent();
+    if (!isInit) {
+      this.setupView();
+      this.addCustomEvent();
+      isInit = true;
+    }
     this.fetchBookList();
   },
 
+  setupView() {
+    BookDetailPageView.setup(page);
+    NoteEditPageView.setup(page);
+  },
+
+  // prettier-ignore
   addCustomEvent() {
-    BookPageView.addEvent('@search', (e) => this.onSearch(e.detail.value)) //
-      .addEvent('@detailPage', (e) => this.onDetailPage(e.detail.id));
-    BookDetailPageView.addEvent('@prevClick', () => this.onPrevClick()) //
-      .addEvent('@addClick', (e) => this.onAddClick(e.detail.id));
-    NoteEditPageView.addEvent('@escClick', () => this.onEscClick()) //
-      .addEvent('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
-    isInitialize = true;
+    BookPageView
+      .on('@search', (e) => this.onSearch(e.detail.value))
+      .on('@detailPage', (e) => this.onDetailPage(e.detail.id),
+    );
+    BookDetailPageView
+      .on('@prevClick', () => this.onPrevClick()) 
+      .on('@addClick', (e) => this.onAddClick(e.detail.id));
+    NoteEditPageView
+      .on('@escClick', () => this.onEscClick()) 
+      .on('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
   },
 
   async fetchBookList() {
@@ -63,5 +72,11 @@ export default {
     BookModel.addNote(id, newNote);
     history.replaceState(null, null, `/book/detail/${id}`);
     MainController.route();
+    MainController.setNumberOfNotes(+1);
+  },
+
+  async sortBook(by) {
+    const data = await BookModel.getSortedList(by);
+    BookListView.render(data);
   },
 };

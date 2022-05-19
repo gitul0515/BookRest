@@ -5,20 +5,29 @@ import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
 const page = document.getElementById('page');
-let isInitialize = false;
+let isInit = false;
 
 export default {
   init() {
-    HomeSearchPageView.setup(page);
-    !isInitialize && this.addCustomeEvent();
+    if (!isInit) {
+      this.setupInnerPage();
+      this.addCustomEvent();
+      isInit = true;
+    }
   },
 
-  addCustomeEvent() {
-    HomePageView.addEvent('@clickTab', (e) => this.onClickTab(e.detail.path));
-    HomeSearchPageView.addEvent('@backToHome', () => this.onBackToHome()) 
-      .addEvent('@search-api', (e) => this.onSearch(e.detail.text))
-      .addEvent('@clickItem', (e) => this.onClickItem(e.detail.bookData));
-    isInitialize = true;
+  setupInnerPage() {
+    HomeSearchPageView.setup(page);
+  },
+
+  // prettier-ignore
+  addCustomEvent() {
+    HomePageView
+      .on('@clickTab', (e) => this.onClickTab(e.detail.path));
+    HomeSearchPageView
+      .on('@backToHome', () => this.onBackToHome())
+      .on('@search-api', (e) => this.onSearch(e.detail.text))
+      .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
   },
 
   onClickTab(path) {
@@ -37,7 +46,7 @@ export default {
   },
 
   async onClickItem(newItem) {
-    console.log('click!');
-    const result = await BookModel.add(newItem);
+    await BookModel.addBook(newItem);
+    MainController.setNumberOfBooks(+1);
   },
 };

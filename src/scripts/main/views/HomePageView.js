@@ -6,12 +6,12 @@ HomePageView.setup = function (element) {
   this.init(element);
   this.render();
   this.bindElement();
-  this.bindEvent();
+  this.setEvent();
 };
 
 HomePageView.render = function () {
   const html = this.getHtml();
-  HomePageView.replaceChildren(html);
+  this.replaceChildren(html);
 };
 
 HomePageView.getHtml = function () {
@@ -33,9 +33,6 @@ HomePageView.getHtml = function () {
         <i class="fa-solid fa-calendar-days"></i>
       </a>
     </div>
-    <div id="modal">
-      <div class="modal__content">hello</div>
-    </div>
   `;
 };
 
@@ -43,7 +40,7 @@ HomePageView.bindElement = function () {
   this.content = this.element.querySelector('.content');
 };
 
-HomePageView.bindEvent = function () {
+HomePageView.setEvent = function () {
   this.content.addEventListener('click', (e) => {
     const tab = e.target.closest('.home__tab');
     if (tab) {

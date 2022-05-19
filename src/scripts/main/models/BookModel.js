@@ -36,6 +36,18 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
 export default {
   data,
 
+  get totalNumberOfBooks() {
+    return this.data.length;
+  },
+
+  get totalNumberOfNotes() {
+    let result = 0;
+    this.data.forEach((book) => {
+      result += book.notes.length;
+    });
+    return result;
+  },
+
   list() {
     return new Promise((res) => {
       setTimeout(() => {
