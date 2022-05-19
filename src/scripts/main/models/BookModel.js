@@ -34,15 +34,19 @@ const data = getItem(BOOK_MODEL_DATA_KEY, [
 ]);
 
 export default {
-  data,
+  state: data,
+
+  setState(nextState) {
+    this.state = nextState;
+  },
 
   get totalNumberOfBooks() {
-    return this.data.length;
+    return this.state.length;
   },
 
   get totalNumberOfNotes() {
     let result = 0;
-    this.data.forEach((book) => {
+    this.state.forEach((book) => {
       result += book.notes.length;
     });
     return result;
@@ -51,62 +55,64 @@ export default {
   list() {
     return new Promise((res) => {
       setTimeout(() => {
-        res(this.data);
+        res(this.state);
       });
     });
   },
 
   getBook(id) {
-    return this.data.find((book) => book.id === id);
+    return this.state.find((book) => book.id === id);
   },
 
   search(query) {
-    return Promise.resolve(this.data.filter((book) => book.title.includes(query)));
+    return Promise.resolve(this.state.filter((book) => book.title.includes(query)));
   },
 
   addBook(newItem) {
     const id = newItem.isbn.replace(' ', '');
-    if (this.isDuplicate(id)) {
-      return;
-    }
-    return new Promise((res) => {
+    return new Promise((result, reject) => {
       setTimeout(() => {
-        this.data = [
-          ...this.data,
+        if (this.isDuplicate(id)) {
+          reject(new Error('DUPLICATE_ID'));
+          return;
+        }
+        const nextState = [
+          ...this.state,
           {
             ...newItem,
-            id: newItem.isbn.replace(' ', ''),
+            id,
             rating: '8',
             notes: [],
           },
         ];
-        setItem(BOOK_MODEL_DATA_KEY, this.data);
-        res(this.data);
+        this.setState(nextState);
+        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        result(this.state);
       });
     });
   },
 
   isDuplicate(id) {
-    return this.data.some((book) => book.id === id);
+    return this.state.some((book) => book.id === id);
   },
 
   getSortedList(sortBy) {
     switch (sortBy) {
       case 'title':
-        return Promise.resolve(this.data.sort((a, b) => a['title'].localeCompare(b['title'])));
+        return Promise.resolve(this.state.sort((a, b) => a['title'].localeCompare(b['title'])));
       case 'title-reverse':
-        return Promise.resolve(this.data.sort((a, b) => b['title'].localeCompare(a['title'])));
+        return Promise.resolve(this.state.sort((a, b) => b['title'].localeCompare(a['title'])));
       case 'high-rating':
-        return Promise.resolve(this.data.sort((a, b) => b['rating'].localeCompare(a['rating'])));
+        return Promise.resolve(this.state.sort((a, b) => b['rating'].localeCompare(a['rating'])));
       case 'low-rating':
-        return Promise.resolve(this.data.sort((a, b) => a['rating'].localeCompare(b['rating'])));
+        return Promise.resolve(this.state.sort((a, b) => a['rating'].localeCompare(b['rating'])));
       default:
         break;
     }
   },
 
   getNoteList() {
-    return this.data.reduce((acc, book) => {
+    return this.state.reduce((acc, book) => {
       const { notes, title, authors, thumbnail, id } = book;
       if (notes.length) {
         notes.forEach((note) => {
@@ -126,12 +132,12 @@ export default {
   addNote(id, newNote) {
     const book = this.getBook(id);
     book.notes.push(newNote);
-    setItem(BOOK_MODEL_DATA_KEY, this.data);
+    setItem(BOOK_MODEL_DATA_KEY, this.state);
   },
 
   getNote(id) {
     let result;
-    this.data.forEach(({ notes }) => {
+    this.state.forEach(({ notes }) => {
       if (notes.length) {
         notes.forEach((note) => {
           if (note.id === id) {
@@ -148,8 +154,8 @@ export default {
       setTimeout(() => {
         const note = this.getNote(id);
         note.readCount += 1;
-        setItem(BOOK_MODEL_DATA_KEY, this.data);
-        res(this.data);
+        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        res(this.state);
       });
     });
   },
@@ -159,8 +165,8 @@ export default {
       setTimeout(() => {
         const note = this.getNote(id);
         note.isFavorite = !note.isFavorite;
-        setItem(BOOK_MODEL_DATA_KEY, this.data);
-        res(this.data);
+        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        res(this.state);
       });
     });
   },
