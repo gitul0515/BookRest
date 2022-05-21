@@ -1,16 +1,20 @@
 import View from './View.js';
+import { setupIntersectionObserver } from '../../utils/intersectionObserver.js';
 
 const HomeSearchPageView = Object.create(View);
 
 HomeSearchPageView.setup = function (element) {
   this.init(element);
-  return this;
+  this.searchWord = null;
+  this.searchPage = 1;
+  this.observer = setupIntersectionObserver(() => {
+    console.log('관찰대상 감지!');
+  });
 };
 
 HomeSearchPageView.render = function () {
   const html = this.getHtml();
   this.replaceChildren(html);
-
   this.bindElement();
   this.bindEvent();
 };
@@ -24,7 +28,7 @@ HomeSearchPageView.getHtml = function () {
     </header>
     <div class="search-page__content">
       <h1 class="search-page__title">책을 찾아보세요!</h1>
-      <form class="search-page__form" action="" method="get">
+      <form class="search-page__form">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input
         class="search-page__input"
@@ -57,20 +61,19 @@ HomeSearchPageView.onPrevClick = function () {
 
 HomeSearchPageView.onSubmit = function (e) {
   e.preventDefault();
-  const text = this.input.value;
-  if (text.length > 1) {
-    this.dispatch('@search-api', { text });
+  const word = this.input.value;
+  console.log(this.searchWord);
+  if (word.length > 1) {
+    this.dispatch('@search-api', { word });
     this.form.reset();
   }
 };
 
 HomeSearchPageView.renderList = function (data) {
   this.bookData = data;
-
   if (!this.bookData) {
     return;
   }
-
   if (this.bookData.length === 0) {
     this.div.innerHTML = `
       <p>
@@ -79,31 +82,37 @@ HomeSearchPageView.renderList = function (data) {
       </p>`;
     return;
   }
-
-  const html = /* html */ `
-      <ul class="search-list">
-        ${this.bookData
-          .map(({ title, authors, publisher, thumbnail }, index) => {
-            return `<li class="search-item" data-index=${index}>
-            <div class="search-item__thumbnail" >
-              <img src=${thumbnail} alt="책 표지 이미지" onerror="this.src='/src/asset/image/book/book-no.jpg'">
-            </div>
-            <div class="search-item__description">
-              <h2 class="search-item__title">
-                ${this.getWithoutParenthesis(title)}
-              </h2>
-              <div>
-                <span class="search-item__authors">${authors[0]}</span>
-                <span class="search-item__publisher">${publisher}</span>
-              </div>
-            </div>
-          </li>`;
-          })
-          .join('')}
-      </ul>
-    `;
+  const html = this.getListHtml();
   const node = this.createNode(html);
   this.div.replaceChildren(node);
+
+  const lastItem = this.div.querySelector('.search-item:last-child');
+  this.observer.observe(lastItem);
+};
+
+HomeSearchPageView.getListHtml = function () {
+  return /* html */ `
+  <ul class="search-list">
+    ${this.bookData
+      .map(({ title, authors, publisher, thumbnail }, index) => {
+        return `<li class="search-item" data-index=${index}>
+        <div class="search-item__thumbnail" >
+          <img src=${thumbnail} alt="책 표지 이미지" onerror="this.src='/src/asset/image/book/book-no.jpg'">
+        </div>
+        <div class="search-item__description">
+          <h2 class="search-item__title">
+            ${this.getWithoutParenthesis(title)}
+          </h2>
+          <div>
+            <span class="search-item__authors">${authors[0]}</span>
+            <span class="search-item__publisher">${publisher}</span>
+          </div>
+        </div>
+      </li>`;
+      })
+      .join('')}
+  </ul>
+  `;
 };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.
@@ -125,6 +134,23 @@ HomeSearchPageView.createNode = function (string) {
   const template = document.createElement('template');
   template.innerHTML = string;
   return template.content;
+};
+
+/* 
+  IntersectionObserver
+  : 관찰하는 대상(마지막 li 요소)가 뷰포트에 들어오면 서버에 데이터를 요청한다. 
+*/
+HomeSearchPageView.setIntersectionObserver = function () {
+  const observerOption = {
+    threshold: 0.5,
+  };
+  this.observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log('탐지 완료!');
+      }
+    });
+  }, observerOption);
 };
 
 export default HomeSearchPageView;

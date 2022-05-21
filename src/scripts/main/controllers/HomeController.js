@@ -27,7 +27,7 @@ export default {
       .on('@clickTab', (e) => this.onClickTab(e.detail.path));
     HomeSearchPageView
       .on('@backToHome', () => this.onBackToHome())
-      .on('@search-api', (e) => this.onSearch(e.detail.text))
+      .on('@search-api', (e) => this.onSearch(e.detail.word))
       .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
   },
 
