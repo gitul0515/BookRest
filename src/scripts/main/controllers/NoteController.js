@@ -14,9 +14,11 @@ export default {
     this.fetchNoteList();
   },
 
+  // prettier-ignore
   addCustomEvent() {
-    NoteListView.addEvent('@count', (e) => this.onCount(e.detail.id)) //
-      .addEvent('@favorite', (e) => this.onFavorite(e.detail.id));
+    NoteListView
+      .on('@count', (e) => this.onCount(e.detail.id))
+      .on('@favorite', (e) => this.onFavorite(e.detail.id));
   },
 
   async fetchNoteList() {
@@ -25,11 +27,34 @@ export default {
   },
 
   async onCount(id) {
+    const newNotes = NoteListView.notes.map((note) => {
+      if (note.id === id) {
+        note.readCount += 1;
+      }
+      return note;
+    });
+    NoteListView.render(newNotes);
     await BookModel.addReadCount(id);
   },
 
   async onFavorite(id) {
-    const res = await BookModel.toggleFavorite(id);
-    console.log(res);
+    await BookModel.toggleFavorite(id);
+  },
+
+  async initReadCount(id) {
+    const newNotes = NoteListView.notes.map((note) => {
+      if (note.id === id) {
+        note.readCount = 0;
+      }
+      return note;
+    });
+    NoteListView.render(newNotes);
+    await BookModel.initReadCount(id);
+  },
+
+  async removeNote(id) {
+    const newNotes = NoteListView.notes.filter((note) => note.id !== id);
+    NoteListView.render(newNotes);
+    await BookModel.removeNote(id);
   },
 };

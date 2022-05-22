@@ -170,4 +170,31 @@ export default {
       });
     });
   },
+
+  initReadCount(id) {
+    return new Promise((res) => {
+      setTimeout(() => {
+        const note = this.getNote(id);
+        note.readCount = 0;
+        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        res(this.state);
+      });
+    });
+  },
+
+  removeNote(id) {
+    return new Promise((res) => {
+      this.state.forEach(({ notes }) => {
+        if (notes.length) {
+          notes.forEach((note, index) => {
+            if (note.id === id) {
+              notes.splice(index, 1);
+            }
+          });
+        }
+      });
+      setItem(BOOK_MODEL_DATA_KEY, this.state);
+      res(this.state);
+    });
+  },
 };

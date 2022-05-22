@@ -15,12 +15,17 @@ NoteListView.bindEvent = function () {
 };
 
 NoteListView.render = function (notes) {
-  if (!Array.isArray(notes) || notes.length === 0) {
+  if (!Array.isArray(notes)) {
     return;
   }
   this.notes = notes;
-  const html = this.getHtml();
-  NoteListView.replaceChildren(html);
+  let html;
+  if (notes.length) {
+    html = this.getHtml();
+  } else {
+    html = this.getNotFoundHtml();
+  }
+  this.replaceChildren(html);
 };
 
 NoteListView.getHtml = function () {
@@ -103,14 +108,7 @@ NoteListView.onClick = function ({ target }) {
   if (noteItem) {
     const id = noteItem.dataset.id;
     if (target.matches('.note-item__btn--count')) {
-      const newNotes = this.notes.map((note) => {
-        if (note.id === id) {
-          note.readCount += 1;
-        }
-        return note;
-      });
-      this.render(newNotes); // 낙관적 업데이트
-      this.dispatch('@count', { id }); // 데이터베이스(북모델) 갱신
+      this.dispatch('@count', { id });
       return;
     }
     if (target.matches('.note-item__btn--favorite')) {
@@ -153,6 +151,10 @@ NoteListView.onClick = function ({ target }) {
       return;
     }
   }
+};
+
+NoteListView.getNotFoundHtml = function () {
+  return ``;
 };
 
 export default NoteListView;
