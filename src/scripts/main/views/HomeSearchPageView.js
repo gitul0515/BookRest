@@ -1,15 +1,22 @@
 import View from './View.js';
 import { setupIntersectionObserver } from '../../utils/intersectionObserver.js';
+import { throttle } from '../../utils/throttle.js';
 
 const HomeSearchPageView = Object.create(View);
 
 HomeSearchPageView.setup = function (element) {
   this.init(element);
+  this.initState();
+  const innerFunc = throttle(() => this.addNextPage(), 200);
+  this.observer = setupIntersectionObserver(() => innerFunc());
+  this.lastItem = null;
+};
+
+HomeSearchPageView.initState = function () {
   this.searchWord = null;
+  this.searchResult = [];
   this.searchPage = 1;
-  this.observer = setupIntersectionObserver(() => {
-    console.log('관찰대상 감지!');
-  });
+  this.isEndPage = false;
 };
 
 HomeSearchPageView.render = function () {
@@ -38,7 +45,7 @@ HomeSearchPageView.getHtml = function () {
         >
       </form>
     </div>
-    <div class="search-page__list-container"></div>
+    <ul class="search-list"></ul>
   `;
 };
 
@@ -46,13 +53,13 @@ HomeSearchPageView.bindElement = function () {
   this.btn = this.element.querySelector('.search-page__btn');
   this.form = this.element.querySelector('.search-page__form');
   this.input = this.element.querySelector('.search-page__input');
-  this.div = this.element.querySelector('.search-page__list-container');
+  this.ul = this.element.querySelector('.search-list');
 };
 
 HomeSearchPageView.bindEvent = function () {
   this.btn.addEventListener('click', () => this.onPrevClick());
   this.form.addEventListener('submit', (e) => this.onSubmit(e));
-  this.div.addEventListener('click', (e) => this.onClick(e));
+  this.ul.addEventListener('click', (e) => this.onClick(e));
 };
 
 HomeSearchPageView.onPrevClick = function () {
@@ -62,57 +69,75 @@ HomeSearchPageView.onPrevClick = function () {
 HomeSearchPageView.onSubmit = function (e) {
   e.preventDefault();
   const word = this.input.value;
-  console.log(this.searchWord);
   if (word.length > 1) {
-    this.dispatch('@search-api', { word });
+    this.ul.innerHTML = '';
+    this.searchWord = word;
+    this.searchPage = 1;
+    this.dispatch('@search-api', { word, page: this.searchPage });
     this.form.reset();
   }
 };
 
-HomeSearchPageView.renderList = function (data) {
-  this.bookData = data;
-  if (!this.bookData) {
+HomeSearchPageView.addNextPage = function () {
+  if (!this.isEndPage) {
+    this.searchPage += 1;
+    this.dispatch('@search-api', { word: this.searchWord, page: this.searchPage });
+  }
+};
+
+HomeSearchPageView.renderList = function (data, meta) {
+  if (!data) {
     return;
   }
-  if (this.bookData.length === 0) {
-    this.div.innerHTML = `
+  if (data.length === 0) {
+    this.ul.innerHTML = `
       <p>
         결과가 없어요.<br>
         다시 한 번 검색해 보시겠어요?
       </p>`;
     return;
   }
-  const html = this.getListHtml();
+  const html = this.getListHtml(data);
   const node = this.createNode(html);
-  this.div.replaceChildren(node);
+  this.ul.appendChild(node);
+  this.searchResult = [...this.searchResult, ...data];
+  this.isEndPage = meta['is_end'];
 
-  const lastItem = this.div.querySelector('.search-item:last-child');
-  this.observer.observe(lastItem);
+  const nextItem = this.ul.querySelector('.search-item:last-child');
+  if (nextItem) {
+    if (this.lastItem) {
+      this.observer.unobserve(this.lastItem);
+    }
+    this.lastItem = nextItem;
+    this.observer.observe(this.lastItem);
+  }
 };
 
-HomeSearchPageView.getListHtml = function () {
-  return /* html */ `
-  <ul class="search-list">
-    ${this.bookData
-      .map(({ title, authors, publisher, thumbnail }, index) => {
-        return `<li class="search-item" data-index=${index}>
-        <div class="search-item__thumbnail" >
-          <img src=${thumbnail} alt="책 표지 이미지" onerror="this.src='/src/asset/image/book/book-no.jpg'">
-        </div>
-        <div class="search-item__description">
-          <h2 class="search-item__title">
-            ${this.getWithoutParenthesis(title)}
-          </h2>
-          <div>
-            <span class="search-item__authors">${authors[0]}</span>
-            <span class="search-item__publisher">${publisher}</span>
+HomeSearchPageView.getListHtml = function (data) {
+  return data
+    .map(({ title, authors, publisher, thumbnail, isbn }) => {
+      return /* html */ `
+        <li class="search-item" data-id=${isbn.replace(' ', '')}>
+          <div class="search-item__thumbnail" >
+            <img 
+              src=${thumbnail} 
+              alt="책 표지 이미지" 
+              onerror="this.src='/src/asset/image/book/book-no.jpg'"
+            >
           </div>
-        </div>
-      </li>`;
-      })
-      .join('')}
-  </ul>
-  `;
+          <div class="search-item__description">
+            <h2 class="search-item__title">
+              ${this.getWithoutParenthesis(title)}
+            </h2>
+            <div>
+              <span class="search-item__authors">${authors[0]}</span>
+              <span class="search-item__publisher">${publisher}</span>
+            </div>
+          </div>
+        </li>
+      `;
+    })
+    .join('');
 };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.
@@ -124,8 +149,8 @@ HomeSearchPageView.getWithoutParenthesis = function (title) {
 HomeSearchPageView.onClick = function (e) {
   const li = e.target.closest('.search-item');
   if (li) {
-    const index = parseInt(li.dataset.index, 10);
-    const bookData = this.bookData[index];
+    const { id } = li.dataset;
+    const bookData = this.searchResult.find((book) => book.isbn.replace(' ', '') === id);
     this.dispatch('@clickItem', { bookData });
   }
 };
@@ -134,23 +159,6 @@ HomeSearchPageView.createNode = function (string) {
   const template = document.createElement('template');
   template.innerHTML = string;
   return template.content;
-};
-
-/* 
-  IntersectionObserver
-  : 관찰하는 대상(마지막 li 요소)가 뷰포트에 들어오면 서버에 데이터를 요청한다. 
-*/
-HomeSearchPageView.setIntersectionObserver = function () {
-  const observerOption = {
-    threshold: 0.5,
-  };
-  this.observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        console.log('탐지 완료!');
-      }
-    });
-  }, observerOption);
 };
 
 export default HomeSearchPageView;
