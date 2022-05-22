@@ -112,10 +112,9 @@ NoteListView.onClick = function ({ target }) {
       return;
     }
     if (target.matches('.note-item__btn--favorite')) {
-      // favorite 버튼 클릭 시, heartIcon의 스타일을 변경한다.
       const heartIcon = target.querySelector('.fa-heart');
       toggleClass(heartIcon, 'fa-regular', 'fa-solid', 'active');
-      this.dispatch('@favorite', { id }); // 데이터베이스(북모델) 갱신
+      this.dispatch('@favorite', { id });
       return;
     }
     if (target.matches('.note-item__btn--comment')) {

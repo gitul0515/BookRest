@@ -155,7 +155,7 @@ export default {
         const note = this.getNote(id);
         note.readCount += 1;
         setItem(BOOK_MODEL_DATA_KEY, this.state);
-        res(this.state);
+        res(this.getNoteList());
       });
     });
   },
@@ -177,7 +177,7 @@ export default {
         const note = this.getNote(id);
         note.readCount = 0;
         setItem(BOOK_MODEL_DATA_KEY, this.state);
-        res(this.state);
+        res(this.getNoteList());
       });
     });
   },
@@ -194,7 +194,7 @@ export default {
         }
       });
       setItem(BOOK_MODEL_DATA_KEY, this.state);
-      res(this.state);
+      res(this.getNoteList());
     });
   },
 };
