@@ -1,27 +1,28 @@
 import View from './View.js';
 import ModalView from './ModalView.js';
 import BookListView from './BookListView.js';
+import BM from '../models/BookModel.js';
 
 const BookPageView = Object.create(View);
 
-BookPageView.setup = function (element, totalNumber) {
+BookPageView.setup = function (element) {
   this.init(element);
-  this.render(totalNumber);
+  this.render();
   this.bindElement();
   this.bindEvent();
   BookListView.setup(this.ul);
 };
 
-BookPageView.render = function (totalNumber) {
-  const html = this.getHtml(totalNumber);
+BookPageView.render = function () {
+  const html = this.getHtml();
   BookPageView.replaceChildren(html);
 };
 
-BookPageView.getHtml = function (totalNumber) {
+BookPageView.getHtml = function () {
   return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 서재</h1>
-      <h3 class="header__message">${totalNumber}권의 책을 다 읽으셨어요!</h3>
+      <h3 class="header__message">${BM.numberOfBooks}권의 책을 다 읽으셨어요!</h3>
     </header>
     <div class="content content--book">
       <form class="search-form" action="" method="get">

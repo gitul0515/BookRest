@@ -15,9 +15,6 @@ import BookModel from '../models/BookModel.js';
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
 
-let numberOfBooks = BookModel.totalNumberOfBooks;
-let numberOfNotes = BookModel.totalNumberOfNotes;
-
 export default {
   init() {
     ModalController.init();
@@ -31,7 +28,7 @@ export default {
   route() {
     const path = window.location.pathname;
 
-    if (path === '/' || path === '/home') {
+    if (path === '/' || path === '/home' || path === '/index.html') {
       HomePageView.setup(page);
       HomeController.init();
       NavigationView.show();
@@ -43,7 +40,7 @@ export default {
       return;
     }
     if (path === '/book') {
-      BookPageView.setup(page, numberOfBooks);
+      BookPageView.setup(page);
       BookController.init();
       NavigationView.show();
       return;
@@ -60,7 +57,7 @@ export default {
       return;
     }
     if (path === '/note') {
-      NotePageView.setup(page, numberOfNotes);
+      NotePageView.setup(page);
       NoteController.init();
       return;
     }
@@ -75,13 +72,5 @@ export default {
   onClick(page) {
     history.pushState(null, null, page);
     this.route();
-  },
-
-  setNumberOfBooks(number) {
-    numberOfBooks += number;
-  },
-
-  setNumberOfNotes(number) {
-    numberOfNotes += number;
   },
 };
