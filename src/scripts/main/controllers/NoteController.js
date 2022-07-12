@@ -1,24 +1,35 @@
+import NotePageView from '../views/NotePageView.js';
 import NoteListView from '../views/NoteListView.js';
 import NoteEditPageView from '../views/NoteEditPageView.js';
+import FavoriteNotePage from '../views/FavoriteNotePage.js';
 import BookModel from '../models/BookModel.js';
+import MainController from './MainController.js';
 
 const page = document.getElementById('page');
 let isInitialize = false;
 
 export default {
   init() {
-    NoteListView.setup(document.querySelector('.note-list')).render();
+    NoteListView.setup(document.querySelector('.note-list'));
     NoteEditPageView.setup(page);
-
+    FavoriteNotePage.setup(page);
     !isInitialize && this.addCustomEvent();
     this.fetchNoteList();
   },
 
   // prettier-ignore
   addCustomEvent() {
+    NotePageView
+      .on('@clickNoteTab', (e) => this.onClickTab(e.detail.path));
     NoteListView
       .on('@count', (e) => this.addReadCount(e.detail.id))
       .on('@favorite', (e) => this.toggleFavorite(e.detail.id));
+    isInitialize = true;
+  },
+
+  onClickTab(path) {
+    history.pushState(null, null, path);
+    MainController.route();
   },
 
   async fetchNoteList() {

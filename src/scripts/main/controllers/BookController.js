@@ -11,20 +11,20 @@ let isInit = false;
 export default {
   init() {
     if (!isInit) {
-      this.setupView();
-      this.addCustomEvent();
+      this.setupPage();
+      this.addEvent();
       isInit = true;
     }
-    this.fetchBookList();
+    this.getBooks();
   },
 
-  setupView() {
+  setupPage() {
     BookDetailPageView.setup(page);
     NoteEditPageView.setup(page);
   },
 
   // prettier-ignore
-  addCustomEvent() {
+  addEvent() {
     BookPageView
       .on('@search', (e) => this.onSearch(e.detail.value))
       .on('@detailPage', (e) => this.onDetailPage(e.detail.id),
@@ -37,13 +37,13 @@ export default {
       .on('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
   },
 
-  async fetchBookList() {
-    const data = await BookModel.list();
+  getBooks() {
+    const data = BookModel.getBooks();
     BookListView.render(data);
   },
 
-  async onSearch(value) {
-    const data = await BookModel.search(value);
+  onSearch(query) {
+    const data = BookModel.searchBooks(query);
     BookListView.render(data);
   },
 
@@ -72,11 +72,11 @@ export default {
     BookModel.addNote(id, newNote);
     history.replaceState(null, null, `/book/detail/${id}`);
     MainController.route();
-    MainController.setNumberOfNotes(+1);
   },
 
-  async sortBook(by) {
-    const data = await BookModel.getSortedList(by);
+  sortBooks(sortBy, title) {
+    const data = BookModel.sortBooks(sortBy);
     BookListView.render(data);
+    BookPageView.setSortButtonText(title);
   },
 };

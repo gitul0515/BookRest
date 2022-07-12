@@ -12,20 +12,19 @@ export default {
   },
 
   onClick({ dataset }) {
-    console.log(dataset);
     if ('sortBookBy' in dataset) {
-      const by = dataset.sortBookBy;
-      BookController.sortBook(by);
+      const { sortBookBy, title } = dataset;
+      BookController.sortBooks(sortBookBy, title);
       ModalView.hide();
       return;
     }
     if ('noteOption' in dataset) {
       const { id, noteOption } = dataset;
       switch (noteOption) {
-        case 'init': // 노트 읽은 횟수 초기화
+        case 'init':
           NoteController.initReadCount(id);
           break;
-        case 'remove': // 노트 삭제
+        case 'remove':
           NoteController.removeNote(id);
           break;
         default:

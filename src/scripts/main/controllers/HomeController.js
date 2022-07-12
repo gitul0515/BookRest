@@ -26,8 +26,8 @@ export default {
     HomePageView
       .on('@clickTab', (e) => this.onClickTab(e.detail.path));
     HomeSearchPageView
-      .on('@backToHome', () => this.onBackToHome())
-      .on('@search-api', (e) => this.onSearch(e.detail.word))
+      .on('@clickPrev', () => this.onclickPrev())
+      .on('@search-api', (e) => this.onSearch(e.detail.word, e.detail.page))
       .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
   },
 
@@ -36,14 +36,14 @@ export default {
     MainController.route();
   },
 
-  onBackToHome() {
+  onclickPrev() {
     history.pushState(null, null, '/home');
     MainController.route();
   },
 
-  async onSearch(query) {
-    const data = await fetchBookData(query);
-    HomeSearchPageView.renderList(data.documents);
+  async onSearch(word, page) {
+    const { documents, meta } = await fetchBookData(word, page);
+    HomeSearchPageView.renderList(documents, meta);
   },
 
   async onClickItem(newItem) {
@@ -55,6 +55,5 @@ export default {
         ModalView.render('alert', { message: '이미 등록한 책이네요 👀' });
       }
     }
-    MainController.setNumberOfBooks(+1);
   },
 };

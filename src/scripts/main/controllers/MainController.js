@@ -5,6 +5,7 @@ import BookPageView from '../views/BookPageView.js';
 import BookDetailPageView from '../views/BookDetailPageView.js';
 import BookController from './BookController.js';
 import NotePageView from '../views/NotePageView.js';
+import FavoriteNotePage from '../views/FavoriteNotePage.js';
 import NoteController from './NoteController.js';
 import SettingView from '../views/SettingView.js';
 import SettingController from './SettingController.js';
@@ -18,7 +19,7 @@ const navigation = document.getElementById('navigation');
 export default {
   init() {
     ModalController.init();
-    NavigationView.setup(navigation) //
+    NavigationView.setup(navigation) 
       .on('@click', (e) => this.onClick(e.detail.page));
 
     window.addEventListener('popstate', () => this.route());
@@ -27,6 +28,7 @@ export default {
 
   route() {
     const path = window.location.pathname;
+    console.log(path);
 
     if (path === '/' || path === '/home' || path === '/index.html') {
       HomePageView.setup(page);
@@ -61,12 +63,16 @@ export default {
       NoteController.init();
       return;
     }
+    if (path === '/note/favorite') {
+      FavoriteNotePage.render();
+      NavigationView.hide();
+      return;
+    }
     if (path === '/setting') {
       SettingView.setup(page);
       SettingController.init();
       return;
     }
-    throw new Error('invalid page');
   },
 
   onClick(page) {
