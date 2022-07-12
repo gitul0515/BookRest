@@ -7,7 +7,7 @@ export default {
     return this;
   },
 
-  addEvent(event, handler) {
+  on(event, handler) {
     this.element.addEventListener(event, handler);
     return this;
   },
@@ -22,21 +22,5 @@ export default {
     const template = document.createElement('template');
     template.innerHTML = html;
     this.element.replaceChildren(template.content);
-  }
-
-  // createNode(string) {
-  //   const template = document.createElement('template');
-  //   template.innerHTML = string;
-  //   return template.content;
-  // },
-
-  // show() {
-  //   this.element.style.display = 'block';
-  //   return this;
-  // },
-
-  // hide() {
-  //   this.element.style.display = 'none';
-  //   return this;
-  // },
+  },
 };
