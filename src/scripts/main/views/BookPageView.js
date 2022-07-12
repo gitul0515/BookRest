@@ -1,7 +1,7 @@
 import View from './View.js';
 import ModalView from './ModalView.js';
 import BookListView from './BookListView.js';
-import BM from '../models/BookModel.js';
+import BookModel from '../models/BookModel.js';
 
 const BookPageView = Object.create(View);
 
@@ -22,7 +22,7 @@ BookPageView.getHtml = function () {
   return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 서재</h1>
-      <h3 class="header__message">${BM.numberOfBooks}권의 책을 다 읽으셨어요!</h3>
+      <h3 class="header__message">${BookModel.getNumberOfBooks()}권의 책을 다 읽으셨어요!</h3>
     </header>
     <div class="content content--book">
       <form class="search-form" action="" method="get">
@@ -44,13 +44,13 @@ BookPageView.getHtml = function () {
 BookPageView.bindElement = function () {
   this.form = this.element.querySelector('.search-form');
   this.input = this.element.querySelector('.search-form__input');
-  this.button = this.element.querySelector('.button--sort');
+  this.sortButton = this.element.querySelector('.button--sort');
   this.ul = this.element.querySelector('.book-list');
 };
 
 BookPageView.bindEvent = function () {
   this.form.addEventListener('submit', (e) => this.onSearch(e));
-  this.button.addEventListener('click', () => this.onClickBtn());
+  this.sortButton.addEventListener('click', () => this.onClickButton());
   this.ul.addEventListener('click', (e) => this.onClickList(e));
 };
 
@@ -61,7 +61,7 @@ BookPageView.onSearch = function (e) {
   this.input.value = '';
 };
 
-BookPageView.onClickBtn = function () {
+BookPageView.onClickButton = function () {
   const modalContent = {
     title: '정렬 방법을 선택해주세요.',
     key: 'sort-book-by',
@@ -101,6 +101,10 @@ BookPageView.onClickList = function (e) {
     const { id } = li.dataset;
     this.dispatch('@detailPage', { id });
   }
+};
+
+BookPageView.setSortButtonText = function (sortBy) {
+  this.sortButton.textContent = sortBy;
 };
 
 export default BookPageView;
