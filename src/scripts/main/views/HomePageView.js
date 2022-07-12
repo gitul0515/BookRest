@@ -20,9 +20,9 @@ HomePageView.getHtml = function () {
       <h1 class="header__title">북레스트</h1>
       <h3 class="header__message">책과 함께 휴식을 취하세요 :)</h3>
     </header>
-    <div class="content content--home">
-      <a class="home__tab home__search-tab" href="/home/search">
-        <h2>책을 추가해 보세요.</h2>
+    <div class="home__tabs">
+      <a class="home__tab home__tab--search" href="/home/search">
+        <h2>책을 검색해 보세요.</h2>
         <h3>읽고 있는 책이 있나요?</h3>
       </a>
       <a class="home__tab home__tab--calendar" href="/home/calendar">
@@ -37,18 +37,20 @@ HomePageView.getHtml = function () {
 };
 
 HomePageView.bindElement = function () {
-  this.content = this.element.querySelector('.content');
+  this.tabs = this.element.querySelector('.home__tabs');
 };
 
 HomePageView.setEvent = function () {
-  this.content.addEventListener('click', (e) => {
-    const tab = e.target.closest('.home__tab');
-    if (tab) {
-      e.preventDefault();
-      const path = tab.getAttribute('href');
-      this.dispatch('@clickTab', { path });
-    }
-  });
+  this.tabs.addEventListener('click', (e) => this.onClickTab(e));
+};
+
+HomePageView.onClickTab = function (e) {
+  const tab = e.target.closest('.home__tab');
+  if (tab) {
+    e.preventDefault();
+    const path = tab.getAttribute('href');
+    this.dispatch('@clickTab', { path });
+  }
 };
 
 export default HomePageView;

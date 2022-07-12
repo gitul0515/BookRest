@@ -7,7 +7,7 @@ const HomeSearchPageView = Object.create(View);
 HomeSearchPageView.setup = function (element) {
   this.init(element);
   this.initState();
-  const innerFunc = throttle(() => this.addNextPage(), 200);
+  const innerFunc = throttle(() => this.addNextPage(), 0);
   this.observer = setupIntersectionObserver(() => innerFunc());
   this.lastItem = null;
 };
@@ -63,7 +63,7 @@ HomeSearchPageView.bindEvent = function () {
 };
 
 HomeSearchPageView.onPrevClick = function () {
-  this.dispatch('@backToHome');
+  this.dispatch('@clickPrev');
 };
 
 HomeSearchPageView.onSubmit = function (e) {
