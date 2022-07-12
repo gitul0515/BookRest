@@ -1,71 +1,43 @@
 import { getItem, setItem } from '../../utils/storage.js';
-import { getCurrentTime } from '../../utils/date.js';
-const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
+import { initialData } from '../../../data/dummy.js';
 
-const data = getItem(BOOK_MODEL_DATA_KEY, [
-  {
-    title: '사피엔스',
-    id: '89349724679788934972464',
-    authors: ['유발 하라리'],
-    publisher: '김영사',
-    datetime: '2015-11-24T00:00:00.000+09:00',
-    thumbnail:
-      'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844',
-    rating: '7',
-    notes: [
-      {
-        id: '1',
-        content: '집중하는 삶이 최선의 삶이다.',
-        createdAt: getCurrentTime(),
-        page: 56,
-        readCount: 0,
-        isFavorite: false,
-      },
-      {
-        id: '2',
-        content: '강렬한 집중, 최고의 성과',
-        createdAt: getCurrentTime(),
-        page: 137,
-        readCount: 0,
-        isFavorite: false,
-      },
-    ],
-  },
-]);
+export const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 
 export default {
-  state: data,
+  books: getItem(BOOK_MODEL_DATA_KEY, initialData),
 
-  setState(nextState) {
-    this.state = nextState;
-  },
-
-  get totalNumberOfBooks() {
-    return this.state.length;
-  },
-
-  get totalNumberOfNotes() {
-    let result = 0;
-    this.state.forEach((book) => {
-      result += book.notes.length;
-    });
-    return result;
-  },
-
-  list() {
-    return new Promise((res) => {
-      setTimeout(() => {
-        res(this.state);
-      });
-    });
+  getBooks() {
+    return this.books;
   },
 
   getBook(id) {
-    return this.state.find((book) => book.id === id);
+    return this.books.find((book) => book.id === id);
   },
 
-  search(query) {
-    return Promise.resolve(this.state.filter((book) => book.title.includes(query)));
+  setBooks(nextBooks) {
+    if (this.books !== nextBooks) {
+      this.books = nextBooks;
+    }
+  },
+
+  searchBooks(query) {
+    return this.books.filter((book) => book.title.includes(query));
+  },
+
+  sortBooks(by) {
+    const books = [...this.books];
+    switch (by) {
+      case 'title':
+        return books.sort((a, b) => a['title'].localeCompare(b['title']));
+      case 'title-reverse':
+        return books.sort((a, b) => b['title'].localeCompare(a['title']));
+      case 'high-rating':
+        return books.sort((a, b) => b['rating'].localeCompare(a['rating']));
+      case 'low-rating':
+        return books.sort((a, b) => a['rating'].localeCompare(b['rating']));
+      default:
+        break;
+    }
   },
 
   addBook(newItem) {
@@ -76,8 +48,8 @@ export default {
           reject(new Error('DUPLICATE_ID'));
           return;
         }
-        const nextState = [
-          ...this.state,
+        const nextBooks = [
+          ...this.books,
           {
             ...newItem,
             id,
@@ -85,34 +57,19 @@ export default {
             notes: [],
           },
         ];
-        this.setState(nextState);
-        setItem(BOOK_MODEL_DATA_KEY, this.state);
-        result(this.state);
+        this.setBooks(nextBooks);
+        setItem(BOOK_MODEL_DATA_KEY, this.books);
+        result(this.books);
       });
     });
   },
 
   isDuplicate(id) {
-    return this.state.some((book) => book.id === id);
-  },
-
-  getSortedList(sortBy) {
-    switch (sortBy) {
-      case 'title':
-        return Promise.resolve(this.state.sort((a, b) => a['title'].localeCompare(b['title'])));
-      case 'title-reverse':
-        return Promise.resolve(this.state.sort((a, b) => b['title'].localeCompare(a['title'])));
-      case 'high-rating':
-        return Promise.resolve(this.state.sort((a, b) => b['rating'].localeCompare(a['rating'])));
-      case 'low-rating':
-        return Promise.resolve(this.state.sort((a, b) => a['rating'].localeCompare(b['rating'])));
-      default:
-        break;
-    }
+    return this.books.some((book) => book.id === id);
   },
 
   getNoteList() {
-    return this.state.reduce((acc, book) => {
+    return this.books.reduce((acc, book) => {
       const { notes, title, authors, thumbnail, id } = book;
       if (notes.length) {
         notes.forEach((note) => {
@@ -132,12 +89,12 @@ export default {
   addNote(id, newNote) {
     const book = this.getBook(id);
     book.notes.push(newNote);
-    setItem(BOOK_MODEL_DATA_KEY, this.state);
+    setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 
   getNote(id) {
     let result;
-    this.state.forEach(({ notes }) => {
+    this.books.forEach(({ notes }) => {
       if (notes.length) {
         notes.forEach((note) => {
           if (note.id === id) {
@@ -154,7 +111,7 @@ export default {
       setTimeout(() => {
         const note = this.getNote(id);
         note.readCount += 1;
-        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        setItem(BOOK_MODEL_DATA_KEY, this.books);
         res(this.getNoteList());
       });
     });
@@ -165,8 +122,8 @@ export default {
       setTimeout(() => {
         const note = this.getNote(id);
         note.isFavorite = !note.isFavorite;
-        setItem(BOOK_MODEL_DATA_KEY, this.state);
-        res(this.state);
+        setItem(BOOK_MODEL_DATA_KEY, this.books);
+        res(this.books);
       });
     });
   },
@@ -176,7 +133,7 @@ export default {
       setTimeout(() => {
         const note = this.getNote(id);
         note.readCount = 0;
-        setItem(BOOK_MODEL_DATA_KEY, this.state);
+        setItem(BOOK_MODEL_DATA_KEY, this.books);
         res(this.getNoteList());
       });
     });
@@ -184,7 +141,7 @@ export default {
 
   removeNote(id) {
     return new Promise((res) => {
-      this.state.forEach(({ notes }) => {
+      this.books.forEach(({ notes }) => {
         if (notes.length) {
           notes.forEach((note, index) => {
             if (note.id === id) {
@@ -193,8 +150,20 @@ export default {
           });
         }
       });
-      setItem(BOOK_MODEL_DATA_KEY, this.state);
+      setItem(BOOK_MODEL_DATA_KEY, this.books);
       res(this.getNoteList());
     });
+  },
+
+  getNumberOfBooks() {
+    return this.books.length;
+  },
+
+  getNumberOfNotes() {
+    let result = 0;
+    this.books.forEach(({ notes }) => {
+      result += notes.length;
+    });
+    return result;
   },
 };
