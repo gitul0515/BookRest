@@ -16,7 +16,7 @@ ModalView.bindElement = function () {
 
 ModalView.bindEvent = function () {
   this.element.addEventListener('click', (e) => this.onClick(e));
-  this.element.addEventListener('submit', (e) => this.onSubmit(e));
+  // this.element.addEventListener('submit', (e) => this.onSubmit(e));
 };
 
 ModalView.onClick = function ({ target }) {
@@ -30,33 +30,15 @@ ModalView.onClick = function ({ target }) {
   }
 };
 
-ModalView.onSubmit = function (e) {
-  e.preventDefault();
-  const input = this.element.querySelector('.modal__input');
-  const { value } = input;
-  if (value.length > 1) {
-    const { dataset } = e.target;
-    this.dispatch('@submit', { value, dataset });
-    this.hide();
-  } else {
-    alert('두 글자 이상 입력하세요.');
-  }
-};
-
 ModalView.render = function (type, content) {
   let html;
-  if (type.indexOf('list') > -1) {
+  if (type.indexOf('list') >= 0) {
     html = this.getListHtml(content);
-  }
-  if (type === 'form') {
-    html = this.getFormHtml(content);
   }
   if (type === 'alert') {
     html = this.getAlertHtml(content);
   }
-  const node = this.createNode(html);
-  this.content.replaceChildren(node);
-
+  this.content.innerHTML = html;
   this.setStyle(type);
   this.show();
 };
@@ -69,7 +51,7 @@ ModalView.getListHtml = function (content) {
       ${items
         .map(
           ({ title, value, icon }) => `
-        <li class="modal__tab-item" data-id=${id} data-${key}="${value}">
+        <li class="modal__tab-item" data-id=${id} data-${key}="${value}" data-title="${title}">
           ${icon ? `<i class="modal__icon ${icon}"></i>` : ``}
           ${title}
         </li>
@@ -80,21 +62,8 @@ ModalView.getListHtml = function (content) {
   `;
 };
 
-ModalView.getFormHtml = function (content) {
-  const { id, title, key, placeholder, buttonIcon } = content;
-  return /* html */ `
-  <h2 class="modal__title">${title}</h2>
-  <form class="modal__form" data-id=${id} data-key=${key}>
-    <input class="modal__input" placeholder="${placeholder}" />
-    <button class="modal__btn">
-      <i class="modal__icon--btn ${buttonIcon}"></i>
-    </button>
-  </form>
-`;
-};
-
 ModalView.getAlertHtml = function (content) {
-  return `<p class="modal__message">${content.message}</p>`;
+  return `<h2 class="modal__message">${content.message}</h2>`;
 };
 
 ModalView.setStyle = function (type) {
@@ -113,10 +82,36 @@ ModalView.hide = function () {
   removeClass(this.content, 'show-up');
 };
 
-ModalView.createNode = function (string) {
-  const template = document.createElement('template');
-  template.innerHTML = string;
-  return template.content;
-};
-
 export default ModalView;
+
+// ModalView.getFormHtml = function (content) {
+//   const { id, title, key, placeholder, buttonIcon } = content;
+//   return /* html */ `
+//   <h2 class="modal__title">${title}</h2>
+//   <form class="modal__form" data-id=${id} data-key=${key}>
+//     <input class="modal__input" placeholder="${placeholder}" />
+//     <button class="modal__btn">
+//       <i class="modal__icon--btn ${buttonIcon}"></i>
+//     </button>
+//   </form>
+// `;
+// };
+
+// ModalView.createNode = function (string) {
+//   const template = document.createElement('template');
+//   template.innerHTML = string;
+//   return template.content;
+// };
+
+// ModalView.onSubmit = function (e) {
+//   e.preventDefault();
+//   const input = this.element.querySelector('.modal__input');
+//   const { value } = input;
+//   if (value.length > 1) {
+//     const { dataset } = e.target;
+//     this.dispatch('@submit', { value, dataset });
+//     this.hide();
+//   } else {
+//     alert('두 글자 이상 입력하세요.');
+//   }
+// };
