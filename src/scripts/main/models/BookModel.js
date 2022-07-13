@@ -1,5 +1,6 @@
 import { getItem, setItem } from '../../utils/storage.js';
 import { initialData } from '../../../data/dummy.js';
+import { removeSpace } from '/src/scripts/utils/format.js';
 
 export const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 
@@ -40,24 +41,23 @@ export default {
     }
   },
 
-  addBook(newItem) {
-    const id = newItem.isbn.replace(' ', '');
+  addBook(newBook) {
+    const id = removeSpace(newBook.isbn);
     return new Promise((result, reject) => {
       setTimeout(() => {
         if (this.isDuplicate(id)) {
           reject(new Error('DUPLICATE_ID'));
           return;
         }
-        const nextBooks = [
+        this.setBooks([
           ...this.books,
           {
-            ...newItem,
+            ...newBook,
             id,
-            rating: '8',
+            rating: '7',
             notes: [],
           },
-        ];
-        this.setBooks(nextBooks);
+        ]);
         setItem(BOOK_MODEL_DATA_KEY, this.books);
         result(this.books);
       });
