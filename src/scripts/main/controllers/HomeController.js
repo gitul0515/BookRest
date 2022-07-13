@@ -1,9 +1,8 @@
-import HomePageView from '../views/HomePageView.js';
-import HomeSearchPageView from '../views/HomeSearchPageView.js';
-import { fetchBookData } from '../../service/api-search.js';
+import HomePage from '../views/homePage/index.js';
+import SearchList from '../views/homePage/SearchList.js';
+import { searchBooks } from '../../apis/searchBooks/index.js';
 import BookModel from '../models/BookModel.js';
-import MainController from './MainController.js';
-import ModalView from '../views/ModalView.js';
+import ModalView from '../views/modal.js';
 
 const page = document.getElementById('page');
 let isInit = false;
@@ -11,39 +10,22 @@ let isInit = false;
 export default {
   init() {
     if (!isInit) {
-      this.setupInnerPage();
-      this.addCustomEvent();
+      this.addEvent();
       isInit = true;
     }
   },
 
-  setupInnerPage() {
-    HomeSearchPageView.setup(page);
-  },
-
   // prettier-ignore
-  addCustomEvent() {
-    HomePageView
-      .on('@clickTab', (e) => this.onClickTab(e.detail.path));
-    HomeSearchPageView
-      .on('@clickPrev', () => this.onclickPrev())
-      .on('@search-api', (e) => this.onSearch(e.detail.word, e.detail.page))
+  addEvent() {
+    HomePage
+      .on('@search-book-api', (e) => this.onSearch(e.detail))
       .on('@clickItem', (e) => this.onClickItem(e.detail.bookData));
   },
 
-  onClickTab(path) {
-    history.pushState(null, null, path);
-    MainController.route();
-  },
-
-  onclickPrev() {
-    history.pushState(null, null, '/home');
-    MainController.route();
-  },
-
-  async onSearch(word, page) {
-    const { documents, meta } = await fetchBookData(word, page);
-    HomeSearchPageView.renderList(documents, meta);
+  async onSearch(payload) {
+    console.log(payload);
+    const data = await searchBooks(payload.searchWord, payload.page);
+    SearchList.render(payload.searchWord, data);
   },
 
   async onClickItem(newItem) {
