@@ -63,7 +63,7 @@ Modal.getListHtml = function (content) {
 };
 
 Modal.getAlertHtml = function (content) {
-  return `<h2 class="modal__message">${content.message}</h2>`;
+  return `<p class="modal__message">${content.message}</p>`;
 };
 
 Modal.setStyle = function (type) {
