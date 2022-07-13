@@ -3,50 +3,26 @@ import { removeParenthesis, removeSpace } from '/src/scripts/utils/format.js';
 
 const SearchList = Object.create(View);
 
-SearchList.setup = function (element, setSearchList) {
+SearchList.setup = function (element, initialState, onNextPage) {
   this.init(element);
-  this.setSearchList = setSearchList;
-  this.initState();
-  this.setEvent();
-};
-
-SearchList.initState = function () {
-  this.state = {
-    searchWord: '',
-    books: [],
-    page: 1,
-    isEndPage: false,
-    observerTarget: null,
-  };
+  this.state = initialState;
+  this.onNextPage = onNextPage;
 };
 
 SearchList.setState = function (nextState) {
   if (this.state !== nextState) {
     this.state = nextState;
+    this.render();
   }
 };
 
-SearchList.setEvent = function () {
-  this.element.addEventListener('click', (e) => this.onClickBook(e));
-};
-
-SearchList.render = function (searchWord, { documents: books, meta }) {
-  if (!books?.length) {
+SearchList.render = function () {
+  console.log(this.state);
+  if (!this.state.books.length) {
     this.element.innerHTML = this.getNoResultHtml();
-    this.initState();
     return;
   }
-
-  const node = this.createNode(this.getListHtml(books));
-  this.element.appendChild(node);
-
-  this.setState({
-    ...this.state,
-    searchWord,
-    books: [...this.state.books, ...books],
-    isEndPage: meta['is_end'],
-  });
-
+  this.element.innerHTML = this.getListHtml(this.state.books); // Todo: 렌더링 최적화 필요
   this.setObserverTarget();
 };
 
@@ -84,16 +60,6 @@ SearchList.getListHtml = function (books) {
     .join('');
 };
 
-SearchList.onClickBook = function (e) {
-  const li = e.target.closest('.search-item');
-  if (li) {
-    const { id } = li.dataset;
-    const clickedBook = this.state.books.find(({ isbn }) => removeSpace(isbn) === id);
-    // this.dispatch('@clickItem', { bookData });
-    console.log(clickedBook);
-  }
-};
-
 SearchList.observer = new IntersectionObserver(
   ([entry]) => {
     if (entry.isIntersecting) {
@@ -105,28 +71,19 @@ SearchList.observer = new IntersectionObserver(
 
 SearchList.onIntersect = function () {
   if (!this.state.isEndPage) {
-    this.setState({
-      ...this.state,
-      page: this.state.page + 1,
-    });
-
-    this.setSearchList({
+    this.onNextPage({
       searchWord: this.state.searchWord,
-      page: this.state.page,
+      page: this.state.page + 1,
     });
   }
 };
 
 SearchList.setObserverTarget = function () {
-  const { observerTarget } = this.state;
   const nextTarget = this.element.querySelector('.search-item:last-child');
   if (nextTarget) {
-    observerTarget && this.observer.unobserve(observerTarget);
-    this.setState({
-      ...this.state,
-      observerTarget: nextTarget,
-    });
-    this.observer.observe(this.state.observerTarget);
+    this.currentTarget && this.observer.unobserve(this.currentTarget);
+    this.currentTarget = nextTarget;
+    this.observer.observe(this.currentTarget);
   }
 };
 

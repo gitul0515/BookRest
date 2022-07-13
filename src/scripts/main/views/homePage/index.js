@@ -1,14 +1,32 @@
 import View from '../common.js';
 import SearchList from './SearchList.js';
+import { removeSpace } from '/src/scripts/utils/format.js';
 
 const HomePage = Object.create(View);
 
 HomePage.setup = function (element) {
   this.init(element);
+  this.initState();
   this.render();
   this.bindElement();
   this.setEvent();
-  SearchList.setup(this.list, this.setSearchList);
+  this.setupSubComponent();
+};
+
+HomePage.initState = function () {
+  this.state = {
+    searchWord: '',
+    books: [],
+    page: 1,
+    isEndPage: false,
+  };
+};
+
+HomePage.setState = function (nextState) {
+  if (this.state !== nextState) {
+    this.state = nextState;
+    SearchList.setState(this.state);
+  }
 };
 
 HomePage.render = function () {
@@ -44,25 +62,34 @@ HomePage.bindElement = function () {
 
 HomePage.setEvent = function () {
   this.form.addEventListener('submit', (e) => this.onSubmit(e));
+  this.list.addEventListener('click', (e) => this.onClickBook(e));
+};
+
+HomePage.setupSubComponent = function () {
+  SearchList.setup(this.list, this.state, this.onNextPage);
 };
 
 HomePage.onSubmit = function (e) {
   e.preventDefault();
   const searchWord = this.input.value;
   if (searchWord) {
-    this.initSearchList();
+    this.initState();
     this.dispatch('@search-book-api', { searchWord, page: 1 });
     this.form.reset();
   }
 };
 
-HomePage.setSearchList = function ({ searchWord, page }) {
+HomePage.onNextPage = function ({ searchWord, page }) {
   HomePage.dispatch('@search-book-api', { searchWord, page });
 };
 
-HomePage.initSearchList = function () {
-  SearchList.element.innerHTML = '';
-  SearchList.initState();
+HomePage.onClickBook = function (e) {
+  const li = e.target.closest('.search-item');
+  if (li) {
+    const { id } = li.dataset;
+    const clickedBook = this.state.books.find(({ isbn }) => removeSpace(isbn) === id);
+    this.dispatch('@clickBook', { clickedBook });
+  }
 };
 
 export default HomePage;
