@@ -1,4 +1,4 @@
-import View from './View.js';
+import View from './common.js';
 
 const SettingView = Object.create(View);
 

@@ -1,25 +1,25 @@
-import View from './View.js';
+import View from './common.js';
 import { addClass, removeClass } from '../../utils/className.js';
 
-const ModalView = Object.create(View);
+const Modal = Object.create(View);
 
-ModalView.setup = function (element) {
+Modal.setup = function (element) {
   this.init(element);
   this.bindElement();
   this.bindEvent();
   return this;
 };
 
-ModalView.bindElement = function () {
+Modal.bindElement = function () {
   this.content = this.element.querySelector('.modal__content');
 };
 
-ModalView.bindEvent = function () {
+Modal.bindEvent = function () {
   this.element.addEventListener('click', (e) => this.onClick(e));
   // this.element.addEventListener('submit', (e) => this.onSubmit(e));
 };
 
-ModalView.onClick = function ({ target }) {
+Modal.onClick = function ({ target }) {
   if (target.matches('#modal')) {
     this.hide();
     return;
@@ -30,7 +30,7 @@ ModalView.onClick = function ({ target }) {
   }
 };
 
-ModalView.render = function (type, content) {
+Modal.render = function (type, content) {
   let html;
   if (type.indexOf('list') >= 0) {
     html = this.getListHtml(content);
@@ -43,7 +43,7 @@ ModalView.render = function (type, content) {
   this.show();
 };
 
-ModalView.getListHtml = function (content) {
+Modal.getListHtml = function (content) {
   const { id, title, key, items } = content;
   return /* html */ `
     <h2 class="modal__title">${title}</h2>
@@ -62,27 +62,27 @@ ModalView.getListHtml = function (content) {
   `;
 };
 
-ModalView.getAlertHtml = function (content) {
+Modal.getAlertHtml = function (content) {
   return `<h2 class="modal__message">${content.message}</h2>`;
 };
 
-ModalView.setStyle = function (type) {
+Modal.setStyle = function (type) {
   removeClass(this.content, this.type);
   this.type = type;
   addClass(this.content, this.type);
 };
 
-ModalView.show = function () {
+Modal.show = function () {
   addClass(this.element, 'show');
   addClass(this.content, 'show-up');
 };
 
-ModalView.hide = function () {
+Modal.hide = function () {
   removeClass(this.element, 'show');
   removeClass(this.content, 'show-up');
 };
 
-export default ModalView;
+export default Modal;
 
 // ModalView.getFormHtml = function (content) {
 //   const { id, title, key, placeholder, buttonIcon } = content;

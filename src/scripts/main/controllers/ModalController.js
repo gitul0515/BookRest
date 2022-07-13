@@ -1,4 +1,4 @@
-import ModalView from '../views/ModalView.js';
+import ModalView from '../views/modal.js';
 import BookController from './BookController.js';
 import NoteController from './NoteController.js';
 

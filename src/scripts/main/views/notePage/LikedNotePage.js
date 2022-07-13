@@ -1,18 +1,18 @@
-import View from './View.js';
+import View from '../common.js';
 
-const FavoriteNotePage = Object.create(View);
+const LikedNotePage = Object.create(View);
 
-FavoriteNotePage.setup = function (element) {
+LikedNotePage.setup = function (element) {
   this.init(element);
   return this;
 };
 
-FavoriteNotePage.render = function () {
+LikedNotePage.render = function () {
   const html = this.getHtml();
   this.replaceChildren(html);
 };
 
-FavoriteNotePage.getHtml = function () {
+LikedNotePage.getHtml = function () {
   return /* html */ `
     <header class="search-page__header">
       <button class="search-page__btn">
@@ -23,4 +23,4 @@ FavoriteNotePage.getHtml = function () {
   `;
 };
 
-export default FavoriteNotePage;
+export default LikedNotePage;

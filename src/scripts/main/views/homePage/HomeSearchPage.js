@@ -1,6 +1,5 @@
-import View from './View.js';
-import { setupIntersectionObserver } from '../../utils/intersectionObserver.js';
-import { throttle } from '../../utils/throttle.js';
+import View from '../common.js';
+import HomePage from './index.js';
 
 const HomeSearchPageView = Object.create(View);
 
@@ -49,22 +48,22 @@ HomeSearchPageView.getHtml = function () {
   `;
 };
 
-HomeSearchPageView.bindElement = function () {
-  this.btn = this.element.querySelector('.search-page__btn');
-  this.form = this.element.querySelector('.search-page__form');
-  this.input = this.element.querySelector('.search-page__input');
-  this.ul = this.element.querySelector('.search-list');
-};
+// HomeSearchPageView.bindElement = function () {
+//   this.btn = this.element.querySelector('.search-page__btn');
+//   this.form = this.element.querySelector('.search-page__form');
+//   this.input = this.element.querySelector('.search-page__input');
+//   this.ul = this.element.querySelector('.search-list');
+// };
 
-HomeSearchPageView.bindEvent = function () {
-  this.btn.addEventListener('click', () => this.onPrevClick());
-  this.form.addEventListener('submit', (e) => this.onSubmit(e));
-  this.ul.addEventListener('click', (e) => this.onClick(e));
-};
+// HomeSearchPageView.bindEvent = function () {
+//   this.btn.addEventListener('click', () => this.onPrevClick());
+//   this.form.addEventListener('submit', (e) => this.onSubmit(e));
+//   this.ul.addEventListener('click', (e) => this.onClick(e));
+// };
 
-HomeSearchPageView.onPrevClick = function () {
-  this.dispatch('@clickPrev');
-};
+// HomeSearchPageView.onPrevClick = function () {
+//   this.dispatch('@clickPrev');
+// };
 
 HomeSearchPageView.onSubmit = function (e) {
   e.preventDefault();
@@ -113,52 +112,46 @@ HomeSearchPageView.renderList = function (data, meta) {
   }
 };
 
-HomeSearchPageView.getListHtml = function (data) {
-  return data
-    .map(({ title, authors, publisher, thumbnail, isbn }) => {
-      return /* html */ `
-        <li class="search-item" data-id=${isbn.replace(' ', '')}>
-          <div class="search-item__thumbnail" >
-            <img 
-              src=${thumbnail} 
-              alt="책 표지 이미지" 
-              onerror="this.src='/src/asset/image/book/book-no.jpg'"
-            >
-          </div>
-          <div class="search-item__description">
-            <h2 class="search-item__title">
-              ${this.getWithoutParenthesis(title)}
-            </h2>
-            <div>
-              <span class="search-item__authors">${authors[0]}</span>
-              <span class="search-item__publisher">${publisher}</span>
-            </div>
-          </div>
-        </li>
-      `;
-    })
-    .join('');
-};
+// HomeSearchPageView.getListHtml = function (data) {
+//   return data
+//     .map(({ title, authors, publisher, thumbnail, isbn }) => {
+//       return /* html */ `
+//         <li class="search-item" data-id=${isbn.replace(' ', '')}>
+//           <div class="search-item__thumbnail" >
+//             <img
+//               src=${thumbnail}
+//               alt="책 표지 이미지"
+//               onerror="this.src='/src/asset/image/book/book-no.jpg'"
+//             >
+//           </div>
+//           <div class="search-item__description">
+//             <h2 class="search-item__title">
+//               ${this.getWithoutParenthesis(title)}
+//             </h2>
+//             <div>
+//               <span class="search-item__authors">${authors[0]}</span>
+//               <span class="search-item__publisher">${publisher}</span>
+//             </div>
+//           </div>
+//         </li>
+//       `;
+//     })
+//     .join('');
+// };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.
-HomeSearchPageView.getWithoutParenthesis = function (title) {
-  const index = title.indexOf('(');
-  return index === -1 ? title : title.slice(0, index);
-};
+// HomeSearchPageView.getWithoutParenthesis = function (title) {
+//   const index = title.indexOf('(');
+//   return index === -1 ? title : title.slice(0, index);
+// };
 
-HomeSearchPageView.onClick = function (e) {
-  const li = e.target.closest('.search-item');
-  if (li) {
-    const { id } = li.dataset;
-    const bookData = this.searchResult.find((book) => book.isbn.replace(' ', '') === id);
-    this.dispatch('@clickItem', { bookData });
-  }
-};
-
-HomeSearchPageView.createNode = function (string) {
-  const template = document.createElement('template');
-  template.innerHTML = string;
-  return template.content;
-};
+// HomeSearchPageView.onClick = function (e) {
+//   const li = e.target.closest('.search-item');
+//   if (li) {
+//     const { id } = li.dataset;
+//     const bookData = this.searchResult.find((book) => book.isbn.replace(' ', '') === id);
+//     this.dispatch('@clickItem', { bookData });
+//   }
+// };
 
 export default HomeSearchPageView;

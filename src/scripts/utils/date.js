@@ -7,7 +7,6 @@ export const getCurrentTime = () => {
   let hour = today.getHours();
   let minute = today.getMinutes();
 
-  // 10 미만인 시와 분을 2자리로 변경
   hour = hour < 10 ? '0' + hour : hour;
   minute = minute < 10 ? '0' + minute : minute;
 

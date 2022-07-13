@@ -1,7 +1,7 @@
-import NotePageView from '../views/NotePageView.js';
-import NoteListView from '../views/NoteListView.js';
-import NoteEditPageView from '../views/NoteEditPageView.js';
-import FavoriteNotePage from '../views/FavoriteNotePage.js';
+import NotePageView from '../views/notePage/index.js';
+import NoteListView from '../views/notePage/NoteList.js';
+import NoteEditPageView from '../views/notePage/NoteEditPage.js';
+import FavoriteNotePage from '../views/notePage/LikedNotePage.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 

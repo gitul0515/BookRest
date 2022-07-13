@@ -1,20 +1,20 @@
-import View from './View.js';
-import ModalView from './ModalView.js';
-import { toggleClass } from '../../utils/className.js';
+import View from '../common.js';
+import ModalView from '../modal.js';
+import { toggleClass } from '../../../utils/className.js';
 
-const NoteListView = Object.create(View);
+const NoteList = Object.create(View);
 
-NoteListView.setup = function (element) {
+NoteList.setup = function (element) {
   this.init(element);
   this.bindEvent();
   return this;
 };
 
-NoteListView.bindEvent = function () {
+NoteList.bindEvent = function () {
   this.element.addEventListener('click', (e) => this.onClick(e));
 };
 
-NoteListView.render = function (notes) {
+NoteList.render = function (notes) {
   if (!Array.isArray(notes)) {
     return;
   }
@@ -28,7 +28,7 @@ NoteListView.render = function (notes) {
   this.replaceChildren(html);
 };
 
-NoteListView.getHtml = function () {
+NoteList.getHtml = function () {
   return this.notes
     .map(
       ({
@@ -98,12 +98,12 @@ NoteListView.getHtml = function () {
     .join('');
 };
 
-NoteListView.getWithoutParenthesis = function (title) {
+NoteList.getWithoutParenthesis = function (title) {
   const index = title.indexOf('(');
   return index === -1 ? title : title.slice(0, index);
 };
 
-NoteListView.onClick = function ({ target }) {
+NoteList.onClick = function ({ target }) {
   const noteItem = target.closest('.note-item');
   if (noteItem) {
     const id = noteItem.dataset.id;
@@ -152,8 +152,8 @@ NoteListView.onClick = function ({ target }) {
   }
 };
 
-NoteListView.getNotFoundHtml = function () {
+NoteList.getNotFoundHtml = function () {
   return ``;
 };
 
-export default NoteListView;
+export default NoteList;

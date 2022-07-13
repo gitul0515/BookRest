@@ -1,21 +1,19 @@
-import View from './View.js';
+import View from '../common.js';
 
-const BookDetailPageView = Object.create(View);
+const BookDetailPage = Object.create(View);
 
-BookDetailPageView.setup = function (element) {
+BookDetailPage.setup = function (element) {
   this.init(element);
   return this;
 };
 
-BookDetailPageView.render = function (data) {
-  const html = this.getHtml(data);
-  BookDetailPageView.replaceChildren(html);
-
+BookDetailPage.render = function (data) {
+  this.element.innerHTML = this.getHtml(data);
   this.bindElement();
-  this.bindEvent();
+  this.setEvent();
 };
 
-BookDetailPageView.getHtml = function (data) {
+BookDetailPage.getHtml = function (data) {
   if (!data) {
     throw new Error('책 data가 존재하지 않습니다.');
   }
@@ -31,7 +29,7 @@ BookDetailPageView.getHtml = function (data) {
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
       </div>
-      <h1 class="detail-page__title">${this.getWithoutParenthesis(title)}</h1>
+      <h1 class="detail-page__title">${this.removeParenthesis(title)}</h1>
       <div class="detail-page__informaion">
         <div class="detail-page__thumbnail">
           <img src="${thumbnail}" alt="썸네일 이미지"/>
@@ -59,7 +57,7 @@ BookDetailPageView.getHtml = function (data) {
   `;
 };
 
-BookDetailPageView.getNoteListHtml = function (notes) {
+BookDetailPage.getNoteListHtml = function (notes) {
   let result = `<button class="button--sort">나중에 작성한 노트부터</button>`;
   result += notes
     .map((note) => {
@@ -105,18 +103,17 @@ BookDetailPageView.getNoteListHtml = function (notes) {
   return result;
 };
 
-// title에서 괄호로 둘러싸인 부분을 제거한다.
-BookDetailPageView.getWithoutParenthesis = function (title) {
+BookDetailPage.removeParenthesis = function (title) {
   const index = title.indexOf('(');
   return index === -1 ? title : title.slice(0, index);
 };
 
-BookDetailPageView.bindElement = function () {
+BookDetailPage.bindElement = function () {
   this.prevBtn = this.element.querySelector('.detail-page__btn--prev');
   this.addBtn = this.element.querySelector('.detail-page__btn--add');
 };
 
-BookDetailPageView.bindEvent = function () {
+BookDetailPage.setEvent = function () {
   this.prevBtn.addEventListener('click', () => {
     this.dispatch('@prevClick');
   });
@@ -127,4 +124,4 @@ BookDetailPageView.bindEvent = function () {
   });
 };
 
-export default BookDetailPageView;
+export default BookDetailPage;

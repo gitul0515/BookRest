@@ -1,14 +1,13 @@
-import View from './View.js';
-import BookPageView from './BookPageView.js';
+import View from '../common.js';
 
-const BookListView = Object.create(View);
+const BookList = Object.create(View);
 
-BookListView.setup = function (element) {
+BookList.setup = function (element) {
   this.init(element);
   return this;
 };
 
-BookListView.render = function (data) {
+BookList.render = function (data) {
   if (!Array.isArray(data) || data.length === 0) {
     return;
   }
@@ -16,7 +15,7 @@ BookListView.render = function (data) {
   this.replaceChildren(html);
 };
 
-BookListView.getHtml = function (data) {
+BookList.getHtml = function (data) {
   return data
     .map(
       ({ title, rating, thumbnail, id }) => /* html */ ` 
@@ -40,7 +39,7 @@ BookListView.getHtml = function (data) {
  * 예2: 평점이 5인 경우, 노란색 별 아이콘 2개를 생성하고
  *     반쪽 별 아이콘 1개를 생성하고, 색깔 없는 별 아이콘 2개를 생성한다.
  */
-BookListView.getRatingHtml = function (_rating) {
+BookList.getRatingHtml = function (_rating) {
   let html = '';
   const rating = parseInt(_rating, 10);
   if (rating % 2 === 0) {
@@ -64,4 +63,4 @@ BookListView.getRatingHtml = function (_rating) {
   return html;
 };
 
-export default BookListView;
+export default BookList;

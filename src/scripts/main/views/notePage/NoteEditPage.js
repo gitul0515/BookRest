@@ -1,25 +1,25 @@
-import View from './View.js';
-import { getCurrentTime } from '../../utils/date.js';
-import { generateId } from '../../utils/uniqueId.js';
+import View from '../common.js';
+import { getCurrentTime } from '../../../utils/date.js';
+import { generateId } from '../../../utils/uniqueId.js';
 
-const NoteEditPageView = Object.create(View);
+const NoteEditPage = Object.create(View);
 
-NoteEditPageView.setup = function (element) {
+NoteEditPage.setup = function (element) {
   this.init(element);
   return this;
 };
 
-NoteEditPageView.render = function (id) {
+NoteEditPage.render = function (id) {
   this.bookId = id;
 
   const html = this.getHtml();
-  NoteEditPageView.replaceChildren(html);
+  this.replaceChildren(html);
 
   this.bindElement();
   this.bindEvent();
 };
 
-NoteEditPageView.getHtml = function () {
+NoteEditPage.getHtml = function () {
   return /* html */ `
     <section class="editor">
       <header class="editor__header">
@@ -45,7 +45,7 @@ NoteEditPageView.getHtml = function () {
   `;
 };
 
-NoteEditPageView.bindElement = function () {
+NoteEditPage.bindElement = function () {
   this.escBtn = this.element.querySelector('.editor__btn--esc');
   this.saveBtn = this.element.querySelector('.editor__btn--save');
   this.pageBtn = this.element.querySelector('.editor__btn--page');
@@ -53,14 +53,14 @@ NoteEditPageView.bindElement = function () {
   this.input = this.element.querySelector('.editor__input');
 };
 
-NoteEditPageView.bindEvent = function () {
+NoteEditPage.bindEvent = function () {
   this.escBtn.addEventListener('click', () => {
     this.dispatch('@escClick');
   });
   this.saveBtn.addEventListener('click', () => this.onSaveClick());
 };
 
-NoteEditPageView.onSaveClick = function () {
+NoteEditPage.onSaveClick = function () {
   if (this.input.value.length > 1) {
     const bookId = this.bookId;
     const newNote = this.createNewNote();
@@ -68,7 +68,7 @@ NoteEditPageView.onSaveClick = function () {
   }
 };
 
-NoteEditPageView.createNewNote = function () {
+NoteEditPage.createNewNote = function () {
   return {
     id: generateId(),
     content: this.input.value,
@@ -79,4 +79,4 @@ NoteEditPageView.createNewNote = function () {
   };
 };
 
-export default NoteEditPageView;
+export default NoteEditPage;

@@ -1,24 +1,24 @@
-import View from './View.js';
-import ModalView from './ModalView.js';
-import BookListView from './BookListView.js';
-import BookModel from '../models/BookModel.js';
+import View from '../common.js';
+import ModalView from '../modal.js';
+import BookList from './BookList.js';
+import BookModel from '../../models/BookModel.js';
 
-const BookPageView = Object.create(View);
+const BookPage = Object.create(View);
 
-BookPageView.setup = function (element) {
+BookPage.setup = function (element) {
   this.init(element);
   this.render();
   this.bindElement();
-  this.bindEvent();
-  BookListView.setup(this.ul);
+  this.setEvent();
+  BookList.setup(this.list);
 };
 
-BookPageView.render = function () {
+BookPage.render = function () {
   const html = this.getHtml();
-  BookPageView.replaceChildren(html);
+  this.replaceChildren(html);
 };
 
-BookPageView.getHtml = function () {
+BookPage.getHtml = function () {
   return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 서재</h1>
@@ -41,27 +41,27 @@ BookPageView.getHtml = function () {
   `;
 };
 
-BookPageView.bindElement = function () {
+BookPage.bindElement = function () {
   this.form = this.element.querySelector('.search-form');
   this.input = this.element.querySelector('.search-form__input');
   this.sortButton = this.element.querySelector('.button--sort');
-  this.ul = this.element.querySelector('.book-list');
+  this.list = this.element.querySelector('.book-list');
 };
 
-BookPageView.bindEvent = function () {
+BookPage.setEvent = function () {
   this.form.addEventListener('submit', (e) => this.onSearch(e));
   this.sortButton.addEventListener('click', () => this.onClickButton());
-  this.ul.addEventListener('click', (e) => this.onClickList(e));
+  this.list.addEventListener('click', (e) => this.onClickList(e));
 };
 
-BookPageView.onSearch = function (e) {
+BookPage.onSearch = function (e) {
   e.preventDefault();
   const { value } = this.input;
   this.dispatch('@search', { value });
   this.input.value = '';
 };
 
-BookPageView.onClickButton = function () {
+BookPage.onClickButton = function () {
   const modalContent = {
     title: '정렬 방법을 선택해주세요.',
     key: 'sort-book-by',
@@ -95,7 +95,7 @@ BookPageView.onClickButton = function () {
   ModalView.render('list-6', modalContent);
 };
 
-BookPageView.onClickList = function (e) {
+BookPage.onClickList = function (e) {
   const li = e.target.closest('li');
   if (li) {
     const { id } = li.dataset;
@@ -103,8 +103,8 @@ BookPageView.onClickList = function (e) {
   }
 };
 
-BookPageView.setSortButtonText = function (sortBy) {
+BookPage.setSortButtonText = function (sortBy) {
   this.sortButton.textContent = sortBy;
 };
 
-export default BookPageView;
+export default BookPage;

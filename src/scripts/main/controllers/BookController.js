@@ -1,7 +1,7 @@
-import BookPageView from '../views/BookPageView.js';
-import BookListView from '../views/BookListView.js';
-import BookDetailPageView from '../views/BookDetailPageView.js';
-import NoteEditPageView from '../views/NoteEditPageView.js';
+import BookPageView from '../views/bookPage/index.js';
+import BookListView from '../views/bookPage/BookList.js';
+import BookDetailPageView from '../views/bookPage/BookDetailPage.js';
+import NoteEditPageView from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 

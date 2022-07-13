@@ -1,21 +1,21 @@
-import View from './View.js';
-import BookModel from '../models/BookModel.js';
+import View from '../common.js';
+import BookModel from '../../models/BookModel.js';
 
-const NotePageView = Object.create(View);
+const NotePage = Object.create(View);
 
-NotePageView.setup = function (element) {
+NotePage.setup = function (element) {
   this.init(element);
   this.render();
 };
 
-NotePageView.render = function () {
+NotePage.render = function () {
   const html = this.getHtml();
   this.replaceChildren(html);
   this.bindElement();
   this.setEvent();
 };
 
-NotePageView.getHtml = function () {
+NotePage.getHtml = function () {
   return /* html */ `
     <header class="header">
       <h1 class="header__title">나의 노트</h1>
@@ -37,17 +37,17 @@ NotePageView.getHtml = function () {
   `;
 };
 
-NotePageView.bindElement = function () {
+NotePage.bindElement = function () {
   this.randomTab = this.element.querySelector('.note__tab-item--random');
   this.favoriteTab = this.element.querySelector('.note__tab-item--favorite');
 };
 
-NotePageView.setEvent = function () {
+NotePage.setEvent = function () {
   this.randomTab.addEventListener('click', (e) => this.onClickTab(e));
   this.favoriteTab.addEventListener('click', (e) => this.onClickTab(e));
 };
 
-NotePageView.onClickTab = function (e) {
+NotePage.onClickTab = function (e) {
   e.preventDefault();
   const tab = e.target.closest('a');
   if (tab) {
@@ -56,4 +56,4 @@ NotePageView.onClickTab = function (e) {
   }
 };
 
-export default NotePageView;
+export default NotePage;

@@ -18,6 +18,12 @@ export default {
     return this;
   },
 
+  createNode(string) {
+    const template = document.createElement('template');
+    template.innerHTML = string;
+    return template.content;
+  },
+
   replaceChildren(html) {
     const template = document.createElement('template');
     template.innerHTML = html;

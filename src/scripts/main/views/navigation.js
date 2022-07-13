@@ -1,9 +1,9 @@
-import View from './View.js';
+import View from './common.js';
 import { addClass, removeClass } from '../../utils/className.js';
 
-const NavigationView = Object.create(View);
+const Navigation = Object.create(View);
 
-NavigationView.setup = function (element) {
+Navigation.setup = function (element) {
   this.init(element);
   this.render();
   this.setEvent();
@@ -11,12 +11,12 @@ NavigationView.setup = function (element) {
   return this;
 };
 
-NavigationView.render = function () {
+Navigation.render = function () {
   const html = this.getHtml();
   this.replaceChildren(html);
 };
 
-NavigationView.getHtml = function () {
+Navigation.getHtml = function () {
   return /* html */ `
     <a class="navigation__tab-link active" href="/">
       <i class="navigation__tab-icon fa-solid fa-house"></i>
@@ -33,7 +33,7 @@ NavigationView.getHtml = function () {
   `;
 };
 
-NavigationView.setEvent = function () {
+Navigation.setEvent = function () {
   this.element.addEventListener('click', (e) => this.onClick(e));
 };
 
@@ -41,7 +41,7 @@ NavigationView.setEvent = function () {
   a 태그를 클릭하면 페이지를 전환한다. 
   클릭 이벤트가 발생했음을 MainController에게 알린다.  
 */
-NavigationView.onClick = function (e) {
+Navigation.onClick = function (e) {
   if (e.target.matches('.navigation__tab-link')) {
     e.preventDefault();
     const page = e.target.getAttribute('href');
@@ -50,18 +50,18 @@ NavigationView.onClick = function (e) {
   }
 };
 
-NavigationView.setTabStyle = function (nextTab) {
+Navigation.setTabStyle = function (nextTab) {
   removeClass(this.currentTab, 'active');
   this.currentTab = nextTab;
   addClass(this.currentTab, 'active');
 };
 
-NavigationView.show = function () {
+Navigation.show = function () {
   this.element.classList.remove('hide');
 };
 
-NavigationView.hide = function () {
+Navigation.hide = function () {
   this.element.classList.add('hide');
 };
 
-export default NavigationView;
+export default Navigation;
