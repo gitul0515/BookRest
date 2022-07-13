@@ -19,8 +19,7 @@ const navigation = document.getElementById('navigation');
 export default {
   init() {
     ModalController.init();
-    NavigationView.setup(navigation) 
-      .on('@click', (e) => this.onClick(e.detail.page));
+    NavigationView.setup(navigation).on('@click', (e) => this.onClick(e.detail.page));
 
     window.addEventListener('popstate', () => this.route());
     this.route();
@@ -61,6 +60,7 @@ export default {
     if (path === '/note') {
       NotePageView.setup(page);
       NoteController.init();
+      NavigationView.show();
       return;
     }
     if (path === '/note/favorite') {
