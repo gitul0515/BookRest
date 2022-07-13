@@ -294,6 +294,9 @@ i {
   margin: 65px 0;
   background-color: var(--color-white);
   padding: 5px 10px;
+  position: relative;
+  top: 26px;
+  cursor: pointer;
 }
 
 .search-item__thumbnail {
@@ -908,13 +911,14 @@ i {
 #modal {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: 500px;
   height: 100%;
   visibility: hidden;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   overflow: hidden;
+  transform: translateX(-50%);
 }
 
 #modal.show {
