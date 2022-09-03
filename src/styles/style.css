@@ -569,7 +569,8 @@ i {
 }
 
 .note-list {
-  margin-bottom: 40px;
+  margin-top: 50px;
+  margin-bottom: 70px;
 }
 
 .note-item {
@@ -684,6 +685,7 @@ i {
 }
 
 .note-item__footer {
+  position: relative;
   margin-top: 6px;
   margin-bottom: -6px;
 }
@@ -718,6 +720,7 @@ i {
 
 .note-item__btn--options {
   position: absolute;
+  bottom: 10px;
   right: 4px;
 }
 
@@ -936,6 +939,12 @@ i {
   border-radius: 20px 20px 0 0;
   transform: translateY(350px);
   transition: transform 0.4s;
+  cursor: pointer;
+}
+
+.modal__content.list-1 {
+  height: calc(1 * 50px + 50px);
+  transform: translateY(1 * 50px + 50px);
 }
 
 .modal__content.list-2 {
