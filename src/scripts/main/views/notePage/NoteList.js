@@ -69,28 +69,9 @@ NoteList.getHtml = function () {
           </div>
         </section>
         <footer class="note-item__footer">
-          <div class="note-item__btns">
-            <button class="note-item__btn note-item__btn--count">
-              ${
-                readCount > 0
-                  ? `<i class="fa-solid fa-check active"></i>`
-                  : `<i class="fa-solid fa-check"></i>`
-              }
-            </button>
-            <button class="note-item__btn note-item__btn--favorite">
-              ${
-                isFavorite
-                  ? `<i class="fa-solid fa-heart active"></i>`
-                  : `<i class="fa-regular fa-heart"></i>`
-              }
-            </button>
-            <button class="note-item__btn note-item__btn--comment">
-              <i class="fa-regular fa-comment-dots"></i>
-            </button>
-            <button class="note-item__btn note-item__btn--options">
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </button>
-          </div>
+          <button class="note-item__btn note-item__btn--options">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
         </footer>
       </li>
     `,
@@ -107,27 +88,6 @@ NoteList.onClick = function ({ target }) {
   const noteItem = target.closest('.note-item');
   if (noteItem) {
     const id = noteItem.dataset.id;
-    if (target.matches('.note-item__btn--count')) {
-      this.dispatch('@count', { id });
-      return;
-    }
-    if (target.matches('.note-item__btn--favorite')) {
-      const heartIcon = target.querySelector('.fa-heart');
-      toggleClass(heartIcon, 'fa-regular', 'fa-solid', 'active');
-      this.dispatch('@favorite', { id });
-      return;
-    }
-    if (target.matches('.note-item__btn--comment')) {
-      const modalContent = {
-        id,
-        title: '메모하기',
-        key: 'note-memo',
-        placeholder: '이 노트에 대한 생각을 적어보세요.',
-        buttonIcon: 'fa-solid fa-pen-to-square',
-      };
-      ModalView.render('form', modalContent);
-      return;
-    }
     if (target.matches('.note-item__btn--options')) {
       const modalContent = {
         id,
@@ -135,18 +95,13 @@ NoteList.onClick = function ({ target }) {
         key: 'note-option',
         items: [
           {
-            title: '노트 읽은 횟수 초기화',
-            value: 'init',
-            icon: 'fa-solid fa-arrow-rotate-left',
-          },
-          {
             title: '노트 삭제',
             value: 'remove',
             icon: 'fa-solid fa-trash',
           },
         ],
       };
-      ModalView.render('list-2', modalContent);
+      ModalView.render('list-1', modalContent);
       return;
     }
   }

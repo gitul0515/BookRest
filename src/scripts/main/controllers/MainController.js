@@ -5,10 +5,7 @@ import BookPageView from '../views/bookPage/index.js';
 import BookDetailPageView from '../views/bookPage/BookDetailPage.js';
 import BookController from './BookController.js';
 import NotePageView from '../views/notePage/index.js';
-import FavoriteNotePage from '../views/notePage/LikedNotePage.js';
 import NoteController from './NoteController.js';
-import SettingView from '../views/SettingView.js';
-import SettingController from './SettingController.js';
 import ModalController from './ModalController.js';
 import NavigationView from '../views/navigation.js';
 import BookModel from '../models/BookModel.js';
@@ -61,16 +58,6 @@ export default {
       NotePageView.setup(page);
       NoteController.init();
       NavigationView.show();
-      return;
-    }
-    if (path === '/note/favorite') {
-      FavoriteNotePage.render();
-      NavigationView.hide();
-      return;
-    }
-    if (path === '/setting') {
-      SettingView.setup(page);
-      SettingController.init();
       return;
     }
   },

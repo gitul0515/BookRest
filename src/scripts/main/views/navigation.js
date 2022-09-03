@@ -27,9 +27,6 @@ Navigation.getHtml = function () {
     <a class="navigation__tab-link" href="/note">
       <i class="navigation__tab-icon fa-solid fa-pen-to-square"></i>
     </a>
-    <a class="navigation__tab-link" href="/setting">
-      <i class="navigation__tab-icon fa-solid fa-square-poll-horizontal"></i>
-    </a>
   `;
 };
 

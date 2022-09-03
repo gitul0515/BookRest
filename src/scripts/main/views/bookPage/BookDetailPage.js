@@ -81,20 +81,9 @@ BookDetailPage.getNoteListHtml = function (notes) {
           </div>
         </section>
         <footer class="note-item__footer">
-          <div class="note-item__btns">
-            <button class="note-item__btn note-item__btn--count">
-              <i class="fa-solid fa-check"></i>
-            </button>
-            <button class="note-item__btn note-item__btn--favorite">
-              <i class="fa-regular fa-heart"></i>
-            </button>
-            <button class="note-item__btn note-item__btn--comment">
-              <i class="fa-regular fa-comment"></i>
-            </button>
-            <button class="note-item__btn note-item__btn--options">
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-            </button>
-          </div>
+          <button class="note-item__btn note-item__btn--options">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
         </footer>
       </li>
   `;
