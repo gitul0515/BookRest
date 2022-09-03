@@ -1,0 +1,12 @@
+{
+  "name": "bookrest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gitul0515/BookNotesApp.git",
+  "author": "gitul0515 <gitul0515@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.2"
+  }
+}
