@@ -5,7 +5,7 @@ export async function searchBooks(searchWord, page) {
     `${API_END_POINT}?sort=accuracy&page=${page}&size=10&query=${searchWord}`,
     {
       headers: {
-        Authorization: `KakaoAK ${API_KEY}`,
+        Authorization: `KakaoAK ${process.env.KAKAO_API_KEY}`,
       },
     },
   );
