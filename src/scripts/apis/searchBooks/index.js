@@ -1,4 +1,4 @@
-import { API_KEY } from './config.js';
+import { API_KEY } from './key.js';
 
 export async function searchBooks(searchWord, page) {
   const res = await fetch(
