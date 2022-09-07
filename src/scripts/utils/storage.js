@@ -4,7 +4,7 @@ export const setItem = (key, value) => {
   try {
     storage.setItem(key, JSON.stringify(value));
   } catch (e) {
-    console.error('localStorage 저장 오류');
+    console.error('localStorage 저장 오류입니다.');
   }
 };
 
@@ -23,4 +23,4 @@ export const getItem = (key, defaultValue) => {
 
 export const removeItem = (key) => {
   storage.removeItem(key);
-}
+};
