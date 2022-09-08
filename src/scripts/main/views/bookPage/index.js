@@ -1,5 +1,5 @@
 import View from '../common.js';
-import ModalView from '../modal.js';
+import Modal from '../modal.js';
 import BookList from './BookList.js';
 import BookModel from '../../models/BookModel.js';
 
@@ -92,7 +92,7 @@ BookPage.onClickButton = function () {
       },
     ],
   };
-  ModalView.render('list-6', modalContent);
+  Modal.render('list-6', modalContent);
 };
 
 BookPage.onClickList = function (e) {

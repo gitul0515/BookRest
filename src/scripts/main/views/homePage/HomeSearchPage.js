@@ -1,9 +1,8 @@
 import View from '../common.js';
-import HomePage from './index.js';
 
-const HomeSearchPageView = Object.create(View);
+const HomeSearchPage = Object.create(View);
 
-HomeSearchPageView.setup = function (element) {
+HomeSearchPage.setup = function (element) {
   this.init(element);
   this.initState();
   const innerFunc = throttle(() => this.addNextPage(), 0);
@@ -11,21 +10,21 @@ HomeSearchPageView.setup = function (element) {
   this.lastItem = null;
 };
 
-HomeSearchPageView.initState = function () {
+HomeSearchPage.initState = function () {
   this.searchWord = null;
   this.searchResult = [];
   this.searchPage = 1;
   this.isEndPage = false;
 };
 
-HomeSearchPageView.render = function () {
+HomeSearchPage.render = function () {
   const html = this.getHtml();
   this.replaceChildren(html);
   this.bindElement();
   this.bindEvent();
 };
 
-HomeSearchPageView.getHtml = function () {
+HomeSearchPage.getHtml = function () {
   return /* html */ `
     <header class="search-page__header">
       <button class="search-page__btn">
@@ -48,24 +47,24 @@ HomeSearchPageView.getHtml = function () {
   `;
 };
 
-// HomeSearchPageView.bindElement = function () {
+// HomeSearchPage.bindElement = function () {
 //   this.btn = this.element.querySelector('.search-page__btn');
 //   this.form = this.element.querySelector('.search-page__form');
 //   this.input = this.element.querySelector('.search-page__input');
 //   this.ul = this.element.querySelector('.search-list');
 // };
 
-// HomeSearchPageView.bindEvent = function () {
+// HomeSearchPage.bindEvent = function () {
 //   this.btn.addEventListener('click', () => this.onPrevClick());
 //   this.form.addEventListener('submit', (e) => this.onSubmit(e));
 //   this.ul.addEventListener('click', (e) => this.onClick(e));
 // };
 
-// HomeSearchPageView.onPrevClick = function () {
+// HomeSearchPage.onPrevClick = function () {
 //   this.dispatch('@clickPrev');
 // };
 
-HomeSearchPageView.onSubmit = function (e) {
+HomeSearchPage.onSubmit = function (e) {
   e.preventDefault();
   const word = this.input.value;
   if (word.length > 1) {
@@ -77,14 +76,14 @@ HomeSearchPageView.onSubmit = function (e) {
   }
 };
 
-HomeSearchPageView.addNextPage = function () {
+HomeSearchPage.addNextPage = function () {
   if (!this.isEndPage) {
     this.searchPage += 1;
     this.dispatch('@search-api', { word: this.searchWord, page: this.searchPage });
   }
 };
 
-HomeSearchPageView.renderList = function (data, meta) {
+HomeSearchPage.renderList = function (data, meta) {
   if (!data) {
     return;
   }
@@ -112,7 +111,7 @@ HomeSearchPageView.renderList = function (data, meta) {
   }
 };
 
-// HomeSearchPageView.getListHtml = function (data) {
+// HomeSearchPage.getListHtml = function (data) {
 //   return data
 //     .map(({ title, authors, publisher, thumbnail, isbn }) => {
 //       return /* html */ `
@@ -140,12 +139,12 @@ HomeSearchPageView.renderList = function (data, meta) {
 // };
 
 // title에서 괄호로 둘러싸인 부분을 제거한다.
-// HomeSearchPageView.getWithoutParenthesis = function (title) {
+// HomeSearchPage.getWithoutParenthesis = function (title) {
 //   const index = title.indexOf('(');
 //   return index === -1 ? title : title.slice(0, index);
 // };
 
-// HomeSearchPageView.onClick = function (e) {
+// HomeSearchPage.onClick = function (e) {
 //   const li = e.target.closest('.search-item');
 //   if (li) {
 //     const { id } = li.dataset;
@@ -154,4 +153,4 @@ HomeSearchPageView.renderList = function (data, meta) {
 //   }
 // };
 
-export default HomeSearchPageView;
+export default HomeSearchPage;

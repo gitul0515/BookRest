@@ -1,7 +1,7 @@
-import BookPageView from '../views/bookPage/index.js';
-import BookListView from '../views/bookPage/BookList.js';
-import BookDetailPageView from '../views/bookPage/BookDetailPage.js';
-import NoteEditPageView from '../views/notePage/NoteEditPage.js';
+import BookPage from '../views/bookPage/index.js';
+import BookList from '../views/bookPage/BookList.js';
+import BookDetailPage from '../views/bookPage/BookDetailPage.js';
+import NoteEditPage from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
@@ -12,39 +12,39 @@ export default {
   init() {
     if (!isInit) {
       this.setupPage();
-      this.addEvent();
+      this.addCustomEvent();
       isInit = true;
     }
     this.getBooks();
   },
 
   setupPage() {
-    BookDetailPageView.setup(page);
-    NoteEditPageView.setup(page);
+    BookDetailPage.setup(page);
+    NoteEditPage.setup(page);
   },
 
   // prettier-ignore
-  addEvent() {
-    BookPageView
+  addCustomEvent() {
+    BookPage
       .on('@search', (e) => this.onSearch(e.detail.value))
       .on('@detailPage', (e) => this.onDetailPage(e.detail.id),
     );
-    BookDetailPageView
+    BookDetailPage
       .on('@prevClick', () => this.onPrevClick()) 
       .on('@addClick', (e) => this.onAddClick(e.detail.id));
-    NoteEditPageView
+    NoteEditPage
       .on('@escClick', () => this.onEscClick()) 
       .on('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
   },
 
   getBooks() {
     const data = BookModel.getBooks();
-    BookListView.render(data);
+    BookList.render(data);
   },
 
   onSearch(query) {
     const data = BookModel.searchBooks(query);
-    BookListView.render(data);
+    BookList.render(data);
   },
 
   async onDetailPage(id) {
@@ -58,9 +58,8 @@ export default {
   },
 
   onAddClick(id) {
-    NoteEditPageView.render(id);
-    history.pushState(null, null, '/book/new-editor');
-    MainController.route();
+    history.pushState(null, null, `/book/${id}/new-note`);
+    MainController.route(id);
   },
 
   // FIXME: url 관련된 버그 (editor 페이지를 history에 남기지 말 것)
@@ -76,7 +75,7 @@ export default {
 
   sortBooks(sortBy, title) {
     const data = BookModel.sortBooks(sortBy);
-    BookListView.render(data);
-    BookPageView.setSortButtonText(title);
+    BookList.render(data);
+    BookPage.setSortButtonText(title);
   },
 };

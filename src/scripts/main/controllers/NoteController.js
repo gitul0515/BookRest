@@ -1,6 +1,6 @@
-import NotePageView from '../views/notePage/index.js';
-import NoteListView from '../views/notePage/NoteList.js';
-import NoteEditPageView from '../views/notePage/NoteEditPage.js';
+import NotePage from '../views/notePage/index.js';
+import NoteList from '../views/notePage/NoteList.js';
+import NoteEditPage from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
@@ -9,19 +9,25 @@ let isInitialize = false;
 
 export default {
   init() {
-    NoteListView.setup(document.querySelector('.note-list'));
-    NoteEditPageView.setup(page);
+    NoteList.setup(document.querySelector('.note-list'));
+    NoteEditPage.setup(page);
+
     !isInitialize && this.addCustomEvent();
     this.fetchNoteList();
   },
 
   // prettier-ignore
   addCustomEvent() {
-    NotePageView
+    NotePage
       .on('@clickNoteTab', (e) => this.onClickTab(e.detail.path));
-    NoteListView
+    NoteList
       .on('@count', (e) => this.addReadCount(e.detail.id))
     isInitialize = true;
+  },
+
+  async fetchNoteList() {
+    const data = await BookModel.getNoteList();
+    NoteList.render(data);
   },
 
   onClickTab(path) {
@@ -29,13 +35,8 @@ export default {
     MainController.route();
   },
 
-  async fetchNoteList() {
-    const data = await BookModel.getNoteList();
-    NoteListView.render(data);
-  },
-
   async removeNote(id) {
     const newNotes = await BookModel.removeNote(id);
-    NoteListView.render(newNotes);
+    NoteList.render(newNotes);
   },
 };

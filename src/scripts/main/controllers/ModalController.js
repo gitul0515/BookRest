@@ -1,4 +1,4 @@
-import ModalView from '../views/modal.js';
+import Modal from '../views/modal.js';
 import BookController from './BookController.js';
 import NoteController from './NoteController.js';
 
@@ -6,7 +6,7 @@ const modal = document.getElementById('modal');
 
 export default {
   init() {
-    ModalView.setup(modal)
+    Modal.setup(modal)
       .on('@click', (e) => this.onClick(e.detail.target))
       .on('@submit', (e) => this.onSubmit(e.detail.value, e.detail.dataset));
   },
@@ -15,7 +15,7 @@ export default {
     if ('sortBookBy' in dataset) {
       const { sortBookBy, title } = dataset;
       BookController.sortBooks(sortBookBy, title);
-      ModalView.hide();
+      Modal.hide();
       return;
     }
     if ('noteOption' in dataset) {
