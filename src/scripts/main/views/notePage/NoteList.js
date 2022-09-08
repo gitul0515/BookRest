@@ -1,6 +1,5 @@
 import View from '../common.js';
 import ModalView from '../modal.js';
-import { toggleClass } from '../../../utils/className.js';
 
 const NoteList = Object.create(View);
 
@@ -21,27 +20,17 @@ NoteList.render = function (notes) {
   this.notes = notes;
   let html;
   if (notes.length) {
-    html = this.getHtml();
+    html = this.getHtml(notes);
   } else {
     html = this.getNotFoundHtml();
   }
   this.replaceChildren(html);
 };
 
-NoteList.getHtml = function () {
-  return this.notes
+NoteList.getHtml = function (notes) {
+  return notes
     .map(
-      ({
-        id,
-        title,
-        authors,
-        thumbnail,
-        createdAt,
-        content,
-        page,
-        readCount,
-        isFavorite,
-      }) => /* html */ `
+      ({ id, title, authors, thumbnail, createdAt, content, page }) => /* html */ `
       <li class="note-item" data-id=${id}>
         <header class="note-item__header">
           <h3 class="note-item__label">
@@ -62,9 +51,6 @@ NoteList.getHtml = function () {
         <section class="note-item__content">
           <p class="note-item__text">${content}</p>
           <div>
-            <span class="note-item__read-count">${
-              readCount > 0 ? `${readCount}번 읽었어요.` : ``
-            }</span>
             <span class="note-item__page">${page > 0 ? `p. ${page}` : ' '}</span>
           </div>
         </section>

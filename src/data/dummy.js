@@ -19,6 +19,10 @@ export const initialData = [
         readCount: 0,
         isFavorite: false,
         comments: ['멋진 글귀네요'],
+        title: '사피엔스',
+        authors: ['유발 하라리'],
+        thumbnail:
+          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844',
       },
       {
         id: '2',
@@ -28,6 +32,10 @@ export const initialData = [
         readCount: 0,
         isFavorite: false,
         comments: [],
+        title: '사피엔스',
+        authors: ['유발 하라리'],
+        thumbnail:
+          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844',
       },
     ],
   },

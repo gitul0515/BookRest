@@ -1,4 +1,6 @@
 import View from '../common.js';
+import NoteList from '../notePage/NoteList.js';
+import { removeParenthesis } from '/src/scripts/utils/format.js';
 
 const BookDetailPage = Object.create(View);
 
@@ -11,6 +13,8 @@ BookDetailPage.render = function (data) {
   this.element.innerHTML = this.getHtml(data);
   this.bindElement();
   this.setEvent();
+  NoteList.setup(this.ul);
+  NoteList.render(data.notes);
 };
 
 BookDetailPage.getHtml = function (data) {
@@ -18,6 +22,7 @@ BookDetailPage.getHtml = function (data) {
     throw new Error('책 data가 존재하지 않습니다.');
   }
   this.data = data;
+
   const { title, authors, publisher, thumbnail, notes } = this.data;
   return /* html */ `
     <header class="detail-page__header">
@@ -29,8 +34,8 @@ BookDetailPage.getHtml = function (data) {
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
       </div>
-      <h1 class="detail-page__title">${this.removeParenthesis(title)}</h1>
-      <div class="detail-page__informaion">
+      <h1 class="detail-page__title">${removeParenthesis(title)}</h1>
+      <div class="detail-page__information">
         <div class="detail-page__thumbnail">
           <img src="${thumbnail}" alt="썸네일 이미지"/>
         </div>
@@ -46,9 +51,7 @@ BookDetailPage.getHtml = function (data) {
     <section class="detail-page__content">
       ${
         notes.length > 0
-          ? `<ul class="detail-page__note-list">
-              ${this.getNoteListHtml(notes)}
-            </ul>`
+          ? `<ul class="note-list"></ul>`
           : `<p class="detail-page__not-found-message">저장한 노트가 없어요...
           <br>지금 첫 노트를 작성해 보세요 :)
           </p>`
@@ -58,7 +61,7 @@ BookDetailPage.getHtml = function (data) {
 };
 
 BookDetailPage.getNoteListHtml = function (notes) {
-  let result = `<button class="button--sort">나중에 작성한 노트부터</button>`;
+  let result = '';
   result += notes
     .map((note) => {
       const { id, createdAt, content, page, readCount } = note;
@@ -74,9 +77,6 @@ BookDetailPage.getNoteListHtml = function (notes) {
         <section class="note-item__content">
           <p class="note-item__text">${content}</p>
           <div>
-            <span class="note-item__read-count">${
-              readCount > 0 ? `${readCount}번 읽었어요.` : ``
-            }</span>
             <span class="note-item__page">${page > 0 ? `p. ${page}` : ''}</span>
           </div>
         </section>
@@ -92,14 +92,10 @@ BookDetailPage.getNoteListHtml = function (notes) {
   return result;
 };
 
-BookDetailPage.removeParenthesis = function (title) {
-  const index = title.indexOf('(');
-  return index === -1 ? title : title.slice(0, index);
-};
-
 BookDetailPage.bindElement = function () {
   this.prevBtn = this.element.querySelector('.detail-page__btn--prev');
   this.addBtn = this.element.querySelector('.detail-page__btn--add');
+  this.ul = this.element.querySelector('.note-list');
 };
 
 BookDetailPage.setEvent = function () {

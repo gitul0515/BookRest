@@ -1,6 +1,7 @@
 import View from '../common.js';
 import { getCurrentTime } from '../../../utils/date.js';
 import { generateId } from '../../../utils/uniqueId.js';
+import BookModel from '../../models/BookModel.js';
 
 const NoteEditPage = Object.create(View);
 
@@ -69,6 +70,7 @@ NoteEditPage.onSaveClick = function () {
 };
 
 NoteEditPage.createNewNote = function () {
+  const book = BookModel.getBook(this.bookId);
   return {
     id: generateId(),
     content: this.input.value,
@@ -76,6 +78,9 @@ NoteEditPage.createNewNote = function () {
     page: this.pageBtn.textContent === '페이지' ? 0 : Number(this.pageBtn.textContent),
     readCount: 0,
     isFavorite: false,
+    authors: book.authors,
+    title: book.title,
+    thumbnail: book.thumbnail,
   };
 };
 
