@@ -86,12 +86,6 @@ export default {
     }, []);
   },
 
-  addNote(id, newNote) {
-    const book = this.getBook(id);
-    book.notes.push(newNote);
-    setItem(BOOK_MODEL_DATA_KEY, this.books);
-  },
-
   getNote(id) {
     let result;
     this.books.forEach(({ notes }) => {
@@ -106,37 +100,10 @@ export default {
     return result;
   },
 
-  addReadCount(id) {
-    return new Promise((res) => {
-      setTimeout(() => {
-        const note = this.getNote(id);
-        note.readCount += 1;
-        setItem(BOOK_MODEL_DATA_KEY, this.books);
-        res(this.getNoteList());
-      });
-    });
-  },
-
-  toggleFavorite(id) {
-    return new Promise((res) => {
-      setTimeout(() => {
-        const note = this.getNote(id);
-        note.isFavorite = !note.isFavorite;
-        setItem(BOOK_MODEL_DATA_KEY, this.books);
-        res(this.books);
-      });
-    });
-  },
-
-  initReadCount(id) {
-    return new Promise((res) => {
-      setTimeout(() => {
-        const note = this.getNote(id);
-        note.readCount = 0;
-        setItem(BOOK_MODEL_DATA_KEY, this.books);
-        res(this.getNoteList());
-      });
-    });
+  addNote(id, newNote) {
+    const book = this.getBook(id);
+    book.notes.push(newNote);
+    setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 
   removeNote(id) {

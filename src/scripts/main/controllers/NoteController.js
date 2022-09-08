@@ -34,16 +34,6 @@ export default {
     NoteListView.render(data);
   },
 
-  async addReadCount(id) {
-    const newNotes = await BookModel.addReadCount(id);
-    NoteListView.render(newNotes);
-  },
-
-  async initReadCount(id) {
-    const newNotes = await BookModel.initReadCount(id);
-    NoteListView.render(newNotes);
-  },
-
   async removeNote(id) {
     const newNotes = await BookModel.removeNote(id);
     NoteListView.render(newNotes);
