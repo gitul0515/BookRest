@@ -7,7 +7,7 @@ export const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 export default {
   books: getItem(BOOK_MODEL_DATA_KEY, initialData),
 
-  getBooks() {
+  getAllBooks() {
     return this.books;
   },
 
@@ -66,6 +66,11 @@ export default {
 
   isDuplicate(id) {
     return this.books.some((book) => book.id === id);
+  },
+
+  deleteBook(id) {
+    const newBooks = this.books.filter((book) => book.id !== id);
+    this.setBooks(newBooks);
   },
 
   getNoteList() {

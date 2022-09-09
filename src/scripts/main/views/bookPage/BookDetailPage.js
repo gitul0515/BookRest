@@ -1,4 +1,5 @@
 import View from '../common.js';
+import Modal from '../modal.js';
 import NoteList from '../notePage/NoteList.js';
 import { removeParenthesis } from '/src/scripts/utils/format.js';
 
@@ -97,6 +98,7 @@ BookDetailPage.getNoteListHtml = function (notes) {
 BookDetailPage.bindElement = function () {
   this.prevBtn = this.element.querySelector('.detail-page__btn--prev');
   this.addBtn = this.element.querySelector('.detail-page__btn--add');
+  this.menuBtn = this.element.querySelector('.detail-page__btn--menu');
   this.ul = this.element.querySelector('.note-list');
 };
 
@@ -108,6 +110,24 @@ BookDetailPage.setEvent = function () {
   this.addBtn.addEventListener('click', () => {
     const { id } = this.data;
     this.dispatch('@addClick', { id });
+  });
+
+  this.menuBtn.addEventListener('click', () => {
+    const { id } = this.data;
+    const modalContent = {
+      id,
+      title: '작업을 선택해주세요.',
+      key: 'book-option',
+      items: [
+        {
+          title: '책 삭제',
+          value: 'remove',
+          icon: 'fa-solid fa-trash',
+        },
+      ],
+    };
+    Modal.render('list-1', modalContent);
+    return;
   });
 };
 

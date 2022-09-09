@@ -18,18 +18,27 @@ export default {
       Modal.hide();
       return;
     }
+    if ('bookOption' in dataset) {
+      const { id, bookOption } = dataset;
+      switch (bookOption) {
+        case 'remove':
+          BookController.deleteBook(id);
+          break;
+        default:
+          throw new Error('Invalid bookOption.');
+      }
+      return;
+    }
     if ('noteOption' in dataset) {
       const { id, noteOption } = dataset;
       switch (noteOption) {
-        case 'init':
-          NoteController.initReadCount(id);
-          break;
         case 'remove':
           NoteController.removeNote(id);
           break;
         default:
           throw new Error('Invalid noteOption.');
       }
+      return;
     }
   },
 

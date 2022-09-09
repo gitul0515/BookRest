@@ -15,7 +15,7 @@ export default {
       this.addCustomEvent();
       isInit = true;
     }
-    this.getBooks();
+    this.getBookList();
   },
 
   setupPage() {
@@ -37,8 +37,8 @@ export default {
       .on('@saveClick', (e) => this.onSaveClick(e.detail.bookId, e.detail.newNote));
   },
 
-  getBooks() {
-    const data = BookModel.getBooks();
+  getBookList() {
+    const data = BookModel.getAllBooks();
     BookList.render(data);
   },
 
@@ -77,5 +77,11 @@ export default {
     const data = BookModel.sortBooks(sortBy);
     BookList.render(data);
     BookPage.setSortButtonText(title);
+  },
+
+  deleteBook(id) {
+    BookModel.deleteBook(id);
+    history.replaceState(null, null, '/book');
+    MainController.route();
   },
 };
