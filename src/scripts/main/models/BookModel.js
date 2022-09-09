@@ -107,19 +107,16 @@ export default {
   },
 
   removeNote(id) {
-    return new Promise((res) => {
-      this.books.forEach(({ notes }) => {
-        if (notes.length) {
-          notes.forEach((note, index) => {
-            if (note.id === id) {
-              notes.splice(index, 1);
-            }
-          });
-        }
-      });
-      setItem(BOOK_MODEL_DATA_KEY, this.books);
-      res(this.getNoteList());
+    this.books.forEach(({ notes }) => {
+      if (notes.length) {
+        notes.forEach((note, index) => {
+          if (note.id === id) {
+            notes.splice(index, 1);
+          }
+        });
+      }
     });
+    setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 
   getNumberOfBooks() {

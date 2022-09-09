@@ -13,6 +13,7 @@ BookDetailPage.render = function (data) {
   this.element.innerHTML = this.getHtml(data);
   this.bindElement();
   this.setEvent();
+
   NoteList.setup(this.ul);
   NoteList.render(data.notes);
 };
@@ -49,12 +50,13 @@ BookDetailPage.getHtml = function (data) {
       </button>
     </header>
     <section class="detail-page__content">
+      <ul class="note-list"></ul>
       ${
-        notes.length > 0
-          ? `<ul class="note-list"></ul>`
-          : `<p class="detail-page__not-found-message">저장한 노트가 없어요...
+        !notes.length
+          ? `<p class="detail-page__not-found-message">저장한 노트가 없어요...
           <br>지금 첫 노트를 작성해 보세요 :)
           </p>`
+          : ''
       }
     </section>
   `;

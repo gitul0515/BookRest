@@ -5,24 +5,22 @@ import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
 
 const page = document.getElementById('page');
-let isInitialize = false;
+let isInit = false;
 
 export default {
   init() {
     NoteList.setup(document.querySelector('.note-list'));
     NoteEditPage.setup(page);
 
-    !isInitialize && this.addCustomEvent();
+    !isInit && this.addCustomEvent();
     this.fetchNoteList();
   },
 
   // prettier-ignore
   addCustomEvent() {
     NotePage
-      .on('@clickNoteTab', (e) => this.onClickTab(e.detail.path));
-    NoteList
-      .on('@count', (e) => this.addReadCount(e.detail.id))
-    isInitialize = true;
+      .on('@clickNoteTab', (e) => this.onTabClick(e.detail.path));
+    isInit = true;
   },
 
   async fetchNoteList() {
@@ -30,13 +28,20 @@ export default {
     NoteList.render(data);
   },
 
-  onClickTab(path) {
+  onTabClick(path) {
     history.pushState(null, null, path);
     MainController.route();
   },
 
-  async removeNote(id) {
-    const newNotes = await BookModel.removeNote(id);
-    NoteList.render(newNotes);
+  removeNote(id) {
+    BookModel.removeNote(id);
+    const bookId = window.location.pathname.split('/')[3];
+    if (bookId) {
+      const book = BookModel.getBook(bookId);
+      NoteList.render(book.notes);
+    } else {
+      const allNotes = BookModel.getNoteList();
+      NoteList.render(allNotes);
+    }
   },
 };
