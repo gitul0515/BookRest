@@ -474,6 +474,7 @@ i {
   margin-right: 10px;
   margin-bottom: 70px;
   padding: 4px;
+  cursor: pointer;
 }
 
 .book-item:nth-child(3n) {
@@ -569,7 +570,7 @@ i {
 }
 
 .note-list {
-  margin-top: 50px;
+  margin-top: 70px;
   margin-bottom: 70px;
 }
 
@@ -766,7 +767,7 @@ i {
   overflow: hidden;
 }
 
-.detail-page__informaion {
+.detail-page__information {
   margin-top: 14px;
   display: flex;
 }
@@ -817,15 +818,6 @@ i {
 
 .detail-page__content .button--sort {
   color: var(--color-grey);
-}
-
-.detail-page__content .note-item__header {
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.detail-page__content .note-item__label {
-  transform: translate(20px, -2px);
 }
 
 .detail-page__not-found-message {
@@ -952,9 +944,9 @@ i {
   transform: translateY(2 * 50px + 50px);
 }
 
-.modal__content.list-6 {
-  height: calc(6 * 50px + 50px);
-  transform: translateY(6 * 50px + 50px);
+.modal__content.list-4 {
+  height: calc(4 * 50px + 50px);
+  transform: translateY(4 * 50px + 50px);
 }
 
 .modal__content.form {
