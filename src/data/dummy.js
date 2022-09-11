@@ -19,6 +19,7 @@ export const initialData = [
         readCount: 0,
         isFavorite: false,
         comments: ['멋진 글귀네요'],
+        bookId: '89349724679788934972464',
         title: '사피엔스',
         authors: ['유발 하라리'],
         thumbnail:

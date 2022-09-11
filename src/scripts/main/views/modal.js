@@ -43,14 +43,14 @@ Modal.render = function (type, content) {
 };
 
 Modal.getListHtml = function (content) {
-  const { id, title, key, items } = content;
+  const { id, title, key, items, bookId } = content;
   return /* html */ `
     <h2 class="modal__title">${title}</h2>
     <ul class="modal__tab-list">
       ${items
         .map(
           ({ title, value, icon }) => `
-        <li class="modal__tab-item" data-id=${id} data-${key}="${value}" data-title="${title}">
+        <li class="modal__tab-item" data-id=${id} data-${key}="${value}" data-title="${title}" data-book-id="${bookId}">
           ${icon ? `<i class="modal__icon ${icon}"></i>` : ``}
           ${title}
         </li>

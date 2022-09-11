@@ -33,10 +33,10 @@ export default {
     MainController.route();
   },
 
-  removeNote(id) {
-    BookModel.removeNote(id);
-    const bookId = window.location.pathname.split('/')[3];
-    if (bookId) {
+  deleteNote(id, bookId) {
+    BookModel.deleteNote(id, bookId);
+    const isBookDetailPage = location.pathname.indexOf('/book/detail/') === 0;
+    if (isBookDetailPage) {
       const book = BookModel.getBook(bookId);
       NoteList.render(book.notes);
     } else {

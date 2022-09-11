@@ -81,6 +81,7 @@ NoteEditPage.createNewNote = function () {
     authors: book.authors,
     title: book.title,
     thumbnail: book.thumbnail,
+    bookId: book.id,
   };
 };
 

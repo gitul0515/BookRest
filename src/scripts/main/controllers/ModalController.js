@@ -30,19 +30,15 @@ export default {
       return;
     }
     if ('noteOption' in dataset) {
-      const { id, noteOption } = dataset;
+      const { id, bookId, noteOption } = dataset;
       switch (noteOption) {
         case 'remove':
-          NoteController.removeNote(id);
+          NoteController.deleteNote(id, bookId);
           break;
         default:
           throw new Error('Invalid noteOption.');
       }
       return;
     }
-  },
-
-  onSubmit(value, dataset) {
-    console.log(value, dataset);
   },
 };

@@ -8,7 +8,7 @@ export default {
   books: getItem(BOOK_MODEL_DATA_KEY, initialData),
 
   getAllBooks() {
-    return this.books;
+    return [...this.books];
   },
 
   getBook(id) {
@@ -71,6 +71,7 @@ export default {
   deleteBook(id) {
     const newBooks = this.books.filter((book) => book.id !== id);
     this.setBooks(newBooks);
+    setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 
   getNoteList() {
@@ -111,16 +112,9 @@ export default {
     setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 
-  removeNote(id) {
-    this.books.forEach(({ notes }) => {
-      if (notes.length) {
-        notes.forEach((note, index) => {
-          if (note.id === id) {
-            notes.splice(index, 1);
-          }
-        });
-      }
-    });
+  deleteNote(id, bookId) {
+    const book = this.getBook(bookId);
+    book.notes = book.notes.filter((note) => note.id !== id);
     setItem(BOOK_MODEL_DATA_KEY, this.books);
   },
 

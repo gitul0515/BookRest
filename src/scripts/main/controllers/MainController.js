@@ -25,9 +25,8 @@ export default {
 
   route() {
     const path = window.location.pathname;
-    console.log(path);
 
-    if (['/', '/home', '/index.html'].includes(path)) {
+    if (['/', '/home'].includes(path)) {
       HomePage.setup(page);
       HomeController.init();
       Navigation.show();

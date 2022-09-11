@@ -30,8 +30,8 @@ NoteList.render = function (notes) {
 NoteList.getHtml = function (notes) {
   return notes
     .map(
-      ({ id, title, authors, thumbnail, createdAt, content, page }) => /* html */ `
-      <li class="note-item" data-id=${id}>
+      ({ id, title, authors, thumbnail, createdAt, content, page, bookId }) => /* html */ `
+      <li class="note-item" data-id=${id} data-book-id=${bookId}>
         <header class="note-item__header">
           <h3 class="note-item__label">
             <i class="fa-solid fa-thumbtack"></i>
@@ -73,10 +73,11 @@ NoteList.getWithoutParenthesis = function (title) {
 NoteList.onClick = function ({ target }) {
   const noteItem = target.closest('.note-item');
   if (noteItem) {
-    const id = noteItem.dataset.id;
+    const { id, bookId } = noteItem.dataset;
     if (target.matches('.note-item__btn--options')) {
       const modalContent = {
         id,
+        bookId,
         title: '작업을 선택해주세요.',
         key: 'note-option',
         items: [
