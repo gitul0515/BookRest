@@ -48,7 +48,7 @@ export default {
   },
 
   async onDetailPage(id) {
-    history.pushState(null, null, `/book/detail/${id}`);
+    history.pushState(null, null, `/book/${id}/detail`);
     MainController.route();
   },
 
@@ -58,7 +58,7 @@ export default {
   },
 
   onAddClick(id) {
-    history.pushState(null, null, `/book/${id}/new-note`);
+    history.pushState(null, null, `/book/${id}/edit`);
     MainController.route(id);
   },
 
@@ -69,7 +69,7 @@ export default {
 
   onSaveClick(id, newNote) {
     BookModel.addNote(id, newNote);
-    history.replaceState(null, null, `/book/detail/${id}`);
+    history.replaceState(null, null, `/book/${id}/detail`);
     MainController.route();
   },
 

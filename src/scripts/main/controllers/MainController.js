@@ -11,13 +11,18 @@ import Navigation from '../views/navigation.js';
 import ModalController from './ModalController.js';
 import BookModel from '../models/BookModel.js';
 
+const regExp = {
+  bookDetailPage: /\/book\/[0-9]{23}\/detail/,
+  bookEditPage: /\/book\/[0-9]{23}\/edit/,
+};
+
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
 
 export default {
   init() {
     ModalController.init();
-    Navigation.setup(navigation).on('@click', (e) => this.onClick(e.detail.page));
+    Navigation.setup(navigation).on('@click', (e) => this.onClick(e.detail.path));
 
     window.addEventListener('popstate', () => this.route());
     this.route();
@@ -26,46 +31,32 @@ export default {
   route() {
     const path = window.location.pathname;
 
-    if (['/', '/home'].includes(path)) {
+    if (path === '/') {
       HomePage.setup(page);
       HomeController.init();
-      Navigation.show();
-      return;
-    }
-    if (path === '/home/search') {
-      HomeSearchPage.render(page);
-      Navigation.hide();
-      return;
     }
     if (path === '/book') {
       BookPage.setup(page);
       BookController.init();
-      Navigation.show();
-      return;
-    }
-    if (path.indexOf('/book/detail/') === 0) {
-      const id = path.split('/')[3];
-      const book = BookModel.getBook(id);
-      BookDetailPage.render(book);
-      Navigation.hide();
-      return;
-    }
-    if (path.indexOf('/book/') === 0) {
-      const id = path.split('/')[2];
-      NoteEditPage.render(id);
-      Navigation.hide();
-      return;
     }
     if (path === '/note') {
       NotePage.setup(page);
       NoteController.init();
-      Navigation.show();
-      return;
     }
+    if (regExp.bookDetailPage.test(path)) {
+      const id = path.split('/')[2];
+      const book = BookModel.getBook(id);
+      BookDetailPage.render(book);
+    }
+    if (regExp.bookEditPage.test(path)) {
+      const id = path.split('/')[2];
+      NoteEditPage.render(id);
+    }
+    Navigation.setState(path);
   },
 
-  onClick(page) {
-    history.pushState(null, null, page);
+  onClick(path) {
+    history.pushState(null, null, path);
     this.route();
   },
 };

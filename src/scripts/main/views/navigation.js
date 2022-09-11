@@ -1,13 +1,14 @@
 import View from './common.js';
 import { addClass, removeClass } from '../../utils/className.js';
 
+const MAIN_PATHS = ['/', '/book', '/note'];
 const Navigation = Object.create(View);
 
 Navigation.setup = function (element) {
   this.init(element);
   this.render();
   this.setEvent();
-  this.currentTab = this.element.firstElementChild;
+  this.initState();
   return this;
 };
 
@@ -34,23 +35,37 @@ Navigation.setEvent = function () {
   this.element.addEventListener('click', (e) => this.onClick(e));
 };
 
-/* 
-  a 태그를 클릭하면 페이지를 전환한다. 
-  클릭 이벤트가 발생했음을 MainController에게 알린다.  
-*/
 Navigation.onClick = function (e) {
   if (e.target.matches('.navigation__tab-link')) {
     e.preventDefault();
-    const page = e.target.getAttribute('href');
-    this.dispatch('@click', { page });
-    this.setTabStyle(e.target);
+    const path = e.target.getAttribute('href');
+    this.dispatch('@click', { path }); // MainController에서 처리
   }
 };
 
-Navigation.setTabStyle = function (nextTab) {
-  removeClass(this.currentTab, 'active');
-  this.currentTab = nextTab;
-  addClass(this.currentTab, 'active');
+Navigation.initState = function () {
+  this.state = {
+    tabs: [...this.element.children],
+    previousTab: this.element.firstElementChild,
+    currentTab: this.element.firstElementChild,
+  };
+};
+
+Navigation.setState = function (path) {
+  if (!MAIN_PATHS.includes(path)) {
+    Navigation.hide();
+    return;
+  }
+  Navigation.show();
+  const index = MAIN_PATHS.indexOf(path);
+  this.state.currentTab = this.state.tabs[index];
+  this.setTabStyle();
+  this.state.previousTab = this.state.currentTab;
+};
+
+Navigation.setTabStyle = function () {
+  removeClass(this.state.previousTab, 'active');
+  addClass(this.state.currentTab, 'active');
 };
 
 Navigation.show = function () {
