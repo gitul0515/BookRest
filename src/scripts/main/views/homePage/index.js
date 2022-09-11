@@ -15,17 +15,19 @@ HomePage.setup = function (element) {
 
 HomePage.initState = function () {
   this.state = {
-    searchWord: '',
-    books: [],
-    page: 1,
-    isEndPage: false,
+    searchResult: {
+      searchWord: '',
+      books: [],
+      page: 1,
+      isEndPage: false,
+    },
   };
 };
 
 HomePage.setState = function (nextState) {
   if (this.state !== nextState) {
     this.state = nextState;
-    SearchList.setState(this.state);
+    SearchList.setState(this.state.searchResult);
   }
 };
 
@@ -87,7 +89,7 @@ HomePage.onClickBook = function (e) {
   const li = e.target.closest('.search-item');
   if (li) {
     const { id } = li.dataset;
-    const clickedBook = this.state.books.find(({ isbn }) => removeSpace(isbn) === id);
+    const clickedBook = this.state.searchResult.books.find(({ isbn }) => removeSpace(isbn) === id);
     this.dispatch('@clickBook', { clickedBook });
   }
 };

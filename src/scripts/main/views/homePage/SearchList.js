@@ -17,7 +17,6 @@ SearchList.setState = function (nextState) {
 };
 
 SearchList.render = function () {
-  console.log(this.state);
   if (!this.state.books.length) {
     this.element.innerHTML = this.getNoResultHtml();
     return;
