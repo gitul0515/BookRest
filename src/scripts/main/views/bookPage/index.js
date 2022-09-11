@@ -67,14 +67,6 @@ BookPage.onClickButton = function () {
     key: 'sort-book-by',
     items: [
       {
-        title: '최근에 읽은 책부터',
-        value: 'new',
-      },
-      {
-        title: '먼저 읽은 책부터',
-        value: 'old',
-      },
-      {
         title: '제목 순서로',
         value: 'title',
       },
@@ -92,7 +84,7 @@ BookPage.onClickButton = function () {
       },
     ],
   };
-  Modal.render('list-6', modalContent);
+  Modal.render('list-4', modalContent);
 };
 
 BookPage.onClickList = function (e) {
