@@ -3,6 +3,7 @@ import NoteList from '../views/notePage/NoteList.js';
 import NoteEditPage from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
 import MainController from './MainController.js';
+import { REGEXP } from '../../constants/regexp.js';
 
 const page = document.getElementById('page');
 let isInit = false;
@@ -35,7 +36,9 @@ export default {
 
   deleteNote(id, bookId) {
     BookModel.deleteNote(id, bookId);
-    const isBookDetailPage = location.pathname.indexOf('/book/detail/') === 0;
+    const path = window.location.pathname;
+    const isBookDetailPage = REGEXP.BOOK_DETAIL_PAGE.test(path);
+
     if (isBookDetailPage) {
       const book = BookModel.getBook(bookId);
       NoteList.render(book.notes);

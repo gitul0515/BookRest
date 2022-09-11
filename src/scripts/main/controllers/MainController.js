@@ -1,5 +1,4 @@
 import HomePage from '../views/homePage/index.js';
-import HomeSearchPage from '../views/homePage/HomeSearchPage.js';
 import HomeController from './HomeController.js';
 import BookPage from '../views/bookPage/index.js';
 import BookDetailPage from '../views/bookPage/BookDetailPage.js';
@@ -10,11 +9,7 @@ import NoteController from './NoteController.js';
 import Navigation from '../views/navigation.js';
 import ModalController from './ModalController.js';
 import BookModel from '../models/BookModel.js';
-
-const regExp = {
-  bookDetailPage: /\/book\/[0-9]{23}\/detail/,
-  bookEditPage: /\/book\/[0-9]{23}\/edit/,
-};
+import { REGEXP } from '../../constants/regexp.js';
 
 const page = document.getElementById('page');
 const navigation = document.getElementById('navigation');
@@ -43,12 +38,12 @@ export default {
       NotePage.setup(page);
       NoteController.init();
     }
-    if (regExp.bookDetailPage.test(path)) {
+    if (REGEXP.BOOK_DETAIL_PAGE.test(path)) {
       const id = path.split('/')[2];
       const book = BookModel.getBook(id);
       BookDetailPage.render(book);
     }
-    if (regExp.bookEditPage.test(path)) {
+    if (REGEXP.BOOK_EDIT_PAGE.test(path)) {
       const id = path.split('/')[2];
       NoteEditPage.render(id);
     }
