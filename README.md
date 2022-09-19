@@ -76,7 +76,7 @@ SearchList.setState = function (nextState) {
 };
 ```
 
-렌더링은 SearchList의 상태를 기반으로 이루어집니다. 
+4. 렌더링은 SearchList의 상태를 기반으로 이루어집니다. 
 
 ```javascript
 SearchList.render = function () {
