@@ -12,15 +12,11 @@
 </div>
 
 
-## No 프레임워크, No 라이브러리
-바닐라 JAVASCRIPT만으로 SPA를 구현했습니다.  
-React, Vue 등 프론트엔드 라이브러리의 핵심 기능을 구현하면서  
-근본적인 원리를 파악하기 위해 노력했습니다.  
-그 결과는 아래와 같습니다.  
+## 바닐라 JAVASCRIPT만으로 SPA를 구현 
+프론트엔드 프레임워크의 핵심 기능을 구현하면서 동작 원리 이해  
 
-
-### 1. 동적 라우팅 
-history API를 사용하여 동적 라우팅을 구현했습니다.  
+### 1. History API를 활용한 동적 라우팅
+ 
 * pushState 및 replaceState 함수로 url을 변경하고  
   변경된 url을 감지하여 화면을 갱신
 * popstate 이벤트를 통해 url의 변경을 감지. 뒤로가기 구현
@@ -28,21 +24,16 @@ history API를 사용하여 동적 라우팅을 구현했습니다.
 
 https://user-images.githubusercontent.com/80658269/189402529-e32d5962-e75f-4c8f-b6bf-7dbff96b5332.mp4
 
-## 2. 상태 기반 렌더링
+### 2. 상태 기반 렌더링
+상태를 갖는 컴포넌트, 상태 변경에 따른 리렌더링 
 
-부모 컴포넌트의 상태(state)가 변경되면,  
-필요에 따라 자식 컴포넌트의 상태를 변경하고,  
-자식 컴포넌트가 리렌더링되도록 구현했습니다.  
-
-예를 들어보겠습니다.  
-책을 검색할 수 있는 페이지입니다.  
+예) HomePage에서는 책을 검색할 수 있습니다.  
 상위 컴포넌트는 HomePage이고, 하위 컴포넌트는 SearchList입니다.  
 
-<img src="https://user-images.githubusercontent.com/80658269/189397171-e7f1db90-96a8-4c1b-90e3-5e1bb86e8a46.png" width="30%" height="400px"  />
+<img src="https://user-images.githubusercontent.com/80658269/191048081-c3f153e5-fb0e-48de-bf27-a5b386554c3d.png" width="30%" height="400px"  />
 
-
-HomePage에서 책을 검색한 뒤(외부 API 사용),  
-검색 결과를 바탕으로 HomePage의 상태를 변경합니다. 
+1. HomePage에서 카카오 API를 통해 책을 검색한 후,  
+   그 결과를 setState 함수를 호출하면서 넘겨줍니다. 
 
 ```javascript
   async onSearch({ searchWord, page }) {
@@ -60,7 +51,8 @@ HomePage에서 책을 검색한 뒤(외부 API 사용),
 
 ```
 
-그리고 하부 컴포넌트인 SearchList로 변경된 상태를 전달합니다.   
+2. HomePage의 setState에서는 자신의 상태를 변경합니다.  
+   그리고 하부 컴포넌트인 SearchList의 setState를 호출합니다. 
 
 ```javascript
 HomePage.setState = function (nextState) {
@@ -72,7 +64,8 @@ HomePage.setState = function (nextState) {
 
 ```
 
-SearchList는 자신의 상태를 변경한 후, 리렌더링을 자동으로 수행합니다. 
+3. SearchList의 setState에서는 상태를 변경한 후,  
+   render 함수를 호출해 렌더링을 수행합니다. 
 
 ```javascript
 SearchList.setState = function (nextState) {
@@ -81,10 +74,14 @@ SearchList.setState = function (nextState) {
     this.render();
   }
 };
+```
 
+렌더링은 SearchList의 상태를 기반으로 이루어집니다. 
+
+```javascript
 SearchList.render = function () {
   if (!this.state.books.length) {
-    this.element.innerHTML = this.getNoResultHtml();
+    this.element.innerHTML = this.getNoResult();
     return;
   }
   this.element.innerHTML = this.getListHtml(this.state.books); 
@@ -92,21 +89,22 @@ SearchList.render = function () {
 };
 ```
 
-이처럼 완전히 동일하지는 않지만,  
-React의 '상태 기반 렌더링'을 JS로 구현하기 위해 노력했습니다. 
 
-## 컴포넌트 재사용 
+## MVC 디자인 패턴을 적용하여 설계 및 구현  
 
-
+![image](https://user-images.githubusercontent.com/80658269/191050276-2d21dcd7-e015-40b4-be96-23e6376d092c.png)
 
 
+## 구현 기능 
 
+- 카카오 API를 통해 **책 검색 및 조회**  
+  IntersectionObserver를 통해 무한스크롤 구현  
+     
+- 책을 **등록**할 수 있고 **정렬, 필터링, 삭제** 기능  
+- 책에 대한 **노트 작성, 등록 및 삭제** 기능  
 
+아래는 시연 영상입니다. 
 
-개발 기간: 22.03.25 ~ 22.05.10  
-리팩토링 기간: 22.06.25 ~ 
-
-
-
+https://user-images.githubusercontent.com/80658269/191052065-c43ff96a-a02f-4487-b637-1196aeb4bc72.mp4
 
 
