@@ -64,7 +64,7 @@ HomePage.setState = function (nextState) {
 
 ```
 
-3. SearchList의 setState에서는 상태를 변경한 후,  
+3. SearchList의 setState에서는 자신의 상태를 변경한 후,  
    render 함수를 호출해 렌더링을 수행합니다. 
 
 ```javascript
