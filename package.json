@@ -5,13 +5,18 @@
   "repository": "https://github.com/gitul0515/BookNotesApp.git",
   "author": "gitul0515 <gitul0515@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "build": "babel src -w -d dist"
+    "build": "webpack -w"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.1",
-    "@babel/preset-env": "^7.19.1"
+    "@babel/preset-env": "^7.19.1",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
   }
 }
