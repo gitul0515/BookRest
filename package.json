@@ -6,7 +6,5 @@
   "author": "gitul0515 <gitul0515@gmail.com>",
   "license": "MIT",
   "type": "module",
-  "dependencies": {
-    "dotenv": "^16.0.2"
-  }
+  "dependencies": {}
 }
