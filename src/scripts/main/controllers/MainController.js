@@ -26,7 +26,7 @@ export default {
   route() {
     const path = window.location.pathname;
 
-    if (path === '/') {
+    if (path === '/' || path === '/index.html') {
       HomePage.setup(page);
       HomeController.init();
     }

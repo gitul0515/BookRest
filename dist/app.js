@@ -487,7 +487,7 @@ var navigation = document.getElementById('navigation');
   route: function route() {
     var path = window.location.pathname;
 
-    if (path === '/') {
+    if (path === '/' || path === '/index.html') {
       _views_homePage_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].setup(page);
       _HomeController_js__WEBPACK_IMPORTED_MODULE_1__["default"].init();
     }
@@ -1636,6 +1636,8 @@ Navigation.initState = function () {
 };
 
 Navigation.setState = function (path) {
+  path = path === '/index.html' ? '/' : path;
+
   if (!MAIN_PATHS.includes(path)) {
     Navigation.hide();
     return;

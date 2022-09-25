@@ -52,6 +52,7 @@ Navigation.initState = function () {
 };
 
 Navigation.setState = function (path) {
+  path = path === '/index.html' ? '/' : path;
   if (!MAIN_PATHS.includes(path)) {
     Navigation.hide();
     return;
