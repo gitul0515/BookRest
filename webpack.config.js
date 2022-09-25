@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   entry: ['@babel/polyfill', './src/scripts/app.js'],
@@ -23,4 +25,9 @@ module.exports = {
   },
   devtool: 'source-map',
   mode: 'development',
+  plugins: [
+    new webpack.DefinePlugin({
+      MY_API_KEY: JSON.stringify(process.env.MY_API_KEY),
+    }),
+  ],
 };
