@@ -108,7 +108,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-// import { API_KEY } from './key.js';
 function searchBooks(_x, _x2) {
   return _searchBooks.apply(this, arguments);
 }
@@ -470,6 +469,7 @@ var navigation = document.getElementById('navigation');
   },
   route: function route() {
     var path = window.location.pathname;
+    console.log(path);
 
     if (path === '/' || path === '/index.html') {
       _views_homePage_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].setup(page);
