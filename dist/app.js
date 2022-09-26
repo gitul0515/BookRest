@@ -469,7 +469,6 @@ var navigation = document.getElementById('navigation');
   },
   route: function route() {
     var path = window.location.pathname;
-    console.log(path);
 
     if (path === '/' || path === '/index.html') {
       _views_homePage_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].setup(page);
