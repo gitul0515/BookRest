@@ -74,17 +74,9 @@ BookPage.onClickButton = function () {
         title: '제목 역순으로',
         value: 'title-reverse',
       },
-      {
-        title: '높은 별점부터',
-        value: 'high-rating',
-      },
-      {
-        title: '낮은 별점부터',
-        value: 'low-rating',
-      },
     ],
   };
-  Modal.render('list-4', modalContent);
+  Modal.render('list-2', modalContent);
 };
 
 BookPage.onClickList = function (e) {

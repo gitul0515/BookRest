@@ -456,7 +456,7 @@ i {
 }
 
 .book-list {
-  margin-top: 65px;
+  margin-top: 75px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -474,6 +474,7 @@ i {
   margin-right: 10px;
   margin-bottom: 70px;
   padding: 4px;
+  padding-bottom: 8px;
   cursor: pointer;
 }
 
@@ -490,24 +491,10 @@ i {
   width: 80%;
   height: 120px;
   position: absolute;
-  top: -45px;
+  top: -50px;
   left: 50%;
   transform: translate(-50%);
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-}
-
-.book-item__rating {
-  display: flex;
-}
-
-.book-item__rating > li {
-  pointer-events: none;
-}
-
-.book-item__rating i {
-  font-size: 14px;
-  color: #efbc1d;
-  margin: 0 0.2px;
 }
 
 .book-item__title {

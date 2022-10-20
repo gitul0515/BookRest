@@ -31,10 +31,6 @@ export default {
         return books.sort((a, b) => a['title'].localeCompare(b['title']));
       case 'title-reverse':
         return books.sort((a, b) => b['title'].localeCompare(a['title']));
-      case 'high-rating':
-        return books.sort((a, b) => b['rating'].localeCompare(a['rating']));
-      case 'low-rating':
-        return books.sort((a, b) => a['rating'].localeCompare(b['rating']));
       default:
         break;
     }
@@ -53,7 +49,6 @@ export default {
           {
             ...newBook,
             id,
-            rating: '7',
             notes: [],
           },
         ]);
