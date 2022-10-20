@@ -35,7 +35,7 @@ BookPage.getHtml = function () {
           title="두 글자 이상 입력하세요"
         >
       </form>
-      <button class="button--sort">제목 순서로</button>
+      ${BookModel.getNumberOfBooks() ? `<button class="button--sort">제목 순서로</button>` : ''}
       <ul class="book-list"></ul>
     </div>
   `;
@@ -50,7 +50,7 @@ BookPage.bindElement = function () {
 
 BookPage.setEvent = function () {
   this.form.addEventListener('submit', (e) => this.onSearch(e));
-  this.sortButton.addEventListener('click', () => this.onClickButton());
+  this.sortButton?.addEventListener('click', () => this.onClickButton());
   this.list.addEventListener('click', (e) => this.onClickList(e));
 };
 
@@ -96,7 +96,9 @@ BookPage.onClickList = function (e) {
 };
 
 BookPage.setSortButtonText = function (sortBy) {
-  this.sortButton.textContent = sortBy;
+  if (this.sortButton) {
+    this.sortButton.textContent = sortBy;
+  }
 };
 
 export default BookPage;
