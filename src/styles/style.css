@@ -885,8 +885,11 @@ i {
 
 .editor__input {
   width: 100%;
-  min-height: 100px;
+  min-height: 200px;
   margin: 20px 0;
+  padding: 20px;
+  line-height: 20px;
+  resize: none;
 }
 
 /* 모달 영역 */
