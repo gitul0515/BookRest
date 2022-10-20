@@ -1,11 +1,10 @@
 import { getItem, setItem } from '../../utils/storage.js';
-import { initialData } from '../../../data/dummy.js';
 import { removeSpace } from '/src/scripts/utils/format.js';
 
 export const BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 
 export default {
-  books: getItem(BOOK_MODEL_DATA_KEY, initialData),
+  books: getItem(BOOK_MODEL_DATA_KEY, []),
 
   getAllBooks() {
     return [...this.books];
