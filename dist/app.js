@@ -40,55 +40,6 @@ __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerat
 
 /***/ }),
 
-/***/ "./src/data/dummy.js":
-/*!***************************!*\
-  !*** ./src/data/dummy.js ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "initialData": () => (/* binding */ initialData)
-/* harmony export */ });
-/* harmony import */ var _scripts_utils_date_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts/utils/date.js */ "./src/scripts/utils/date.js");
-
-var initialData = [{
-  title: '사피엔스',
-  id: '89349724679788934972464',
-  authors: ['유발 하라리'],
-  publisher: '김영사',
-  datetime: '2015-11-24T00:00:00.000+09:00',
-  thumbnail: 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844',
-  rating: '7',
-  notes: [{
-    id: '1',
-    content: '집중하는 삶이 최선의 삶이다.',
-    createdAt: (0,_scripts_utils_date_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTime)(),
-    page: 56,
-    readCount: 0,
-    isFavorite: false,
-    comments: ['멋진 글귀네요'],
-    bookId: '89349724679788934972464',
-    title: '사피엔스',
-    authors: ['유발 하라리'],
-    thumbnail: 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844'
-  }, {
-    id: '2',
-    content: '강렬한 집중, 최고의 성과',
-    createdAt: (0,_scripts_utils_date_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTime)(),
-    page: 137,
-    readCount: 0,
-    isFavorite: false,
-    comments: [],
-    title: '사피엔스',
-    authors: ['유발 하라리'],
-    thumbnail: 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F521598%3Ftimestamp%3D20220411162844'
-  }]
-}];
-
-/***/ }),
-
 /***/ "./src/scripts/apis/searchBooks/index.js":
 /*!***********************************************!*\
   !*** ./src/scripts/apis/searchBooks/index.js ***!
@@ -154,8 +105,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "REGEXP": () => (/* binding */ REGEXP)
 /* harmony export */ });
 var REGEXP = {
-  BOOK_DETAIL_PAGE: /\/book\/[0-9]{23}\/detail/,
-  BOOK_EDIT_PAGE: /\/book\/[0-9]{23}\/edit/
+  BOOK_DETAIL_PAGE: /\/book\/.+\/detail/,
+  BOOK_EDIT_PAGE: /\/book\/.+\/edit/
 };
 
 /***/ }),
@@ -687,8 +638,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utils_storage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/storage.js */ "./src/scripts/utils/storage.js");
-/* harmony import */ var _data_dummy_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/dummy.js */ "./src/data/dummy.js");
-/* harmony import */ var _src_scripts_utils_format_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../src/scripts/utils/format.js */ "./src/scripts/utils/format.js");
+/* harmony import */ var _src_scripts_utils_format_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../src/scripts/utils/format.js */ "./src/scripts/utils/format.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -709,10 +659,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-
 var BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  books: (0,_utils_storage_js__WEBPACK_IMPORTED_MODULE_0__.getItem)(BOOK_MODEL_DATA_KEY, _data_dummy_js__WEBPACK_IMPORTED_MODULE_1__.initialData),
+  books: (0,_utils_storage_js__WEBPACK_IMPORTED_MODULE_0__.getItem)(BOOK_MODEL_DATA_KEY, []),
   getAllBooks: function getAllBooks() {
     return _toConsumableArray(this.books);
   },
@@ -745,16 +694,6 @@ var BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
           return b['title'].localeCompare(a['title']);
         });
 
-      case 'high-rating':
-        return books.sort(function (a, b) {
-          return b['rating'].localeCompare(a['rating']);
-        });
-
-      case 'low-rating':
-        return books.sort(function (a, b) {
-          return a['rating'].localeCompare(b['rating']);
-        });
-
       default:
         break;
     }
@@ -762,7 +701,7 @@ var BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
   addBook: function addBook(newBook) {
     var _this = this;
 
-    var id = (0,_src_scripts_utils_format_js__WEBPACK_IMPORTED_MODULE_2__.removeSpace)(newBook.isbn);
+    var id = (0,_src_scripts_utils_format_js__WEBPACK_IMPORTED_MODULE_1__.removeSpace)(newBook.isbn);
     return new Promise(function (result, reject) {
       setTimeout(function () {
         if (_this.isDuplicate(id)) {
@@ -772,7 +711,6 @@ var BOOK_MODEL_DATA_KEY = 'bookModelDataKey';
 
         _this.setBooks([].concat(_toConsumableArray(_this.books), [_objectSpread(_objectSpread({}, newBook), {}, {
           id: id,
-          rating: '7',
           notes: []
         })]));
 
@@ -996,56 +934,15 @@ BookList.render = function (data) {
 };
 
 BookList.getHtml = function (data) {
-  var _this = this;
-
   return data.map(function (_ref) {
     var title = _ref.title,
-        rating = _ref.rating,
         thumbnail = _ref.thumbnail,
         id = _ref.id;
     return (
       /* html */
-      " \n    <li class=\"book-item\" data-id=".concat(id, ">\n      <div class=\"book-item__img\" >\n        <img src=\"").concat(thumbnail, "\" alt=\"\uCC45 \uD45C\uC9C0 \uC774\uBBF8\uC9C0\" onerror=\"this.src='/src/asset/image/book/book-no.jpg'\">\n      </div>\n      <ul class=\"book-item__rating\">\n        ").concat(_this.getRatingHtml(rating), "\n      </ul>\n      <h3 class=\"book-item__title\">").concat(title, "</h3>\n    </li> \n  ")
+      " \n    <li class=\"book-item\" data-id=".concat(id, ">\n      <div class=\"book-item__img\" >\n        <img src=\"").concat(thumbnail, "\" alt=\"\uCC45 \uD45C\uC9C0 \uC774\uBBF8\uC9C0\" onerror=\"this.src='/src/asset/image/book/book-no.jpg'\">\n      </div>\n      <h3 class=\"book-item__title\">").concat(title, "</h3>\n    </li> \n  ")
     );
   }).join('');
-};
-/* 평점(rating)에 따라 html을 다르게 생성한다.
- * 예1: 평점이 8인 경우, 노란색 별 아이콘 4개를 생성하고
- *     색깔 없는 별 아이콘 1개를 생성한다.
- * 예2: 평점이 5인 경우, 노란색 별 아이콘 2개를 생성하고
- *     반쪽 별 아이콘 1개를 생성하고, 색깔 없는 별 아이콘 2개를 생성한다.
- */
-
-
-BookList.getRatingHtml = function (_rating) {
-  var html = '';
-  var rating = parseInt(_rating, 10);
-
-  if (rating % 2 === 0) {
-    var starCount = rating / 2;
-
-    for (var i = 0; i < starCount; i++) {
-      html += '<li><i class="fa-solid fa-star"></i></li>';
-    }
-
-    for (var _i = 0; _i < 5 - starCount; _i++) {
-      html += '<li><i class="fa-regular fa-star"></i></li>';
-    }
-  } else {
-    var _starCount = Math.floor(rating / 2);
-
-    for (var _i2 = 0; _i2 < _starCount; _i2++) {
-      html += '<li><i class="fa-solid fa-star"></i></li>';
-    }
-
-    html += '<li><i class="fa-solid fa-star-half-stroke"></i></li>';
-
-    for (var _i3 = 0; _i3 < 4 - _starCount; _i3++) {
-      html += '<li><i class="fa-regular fa-star"></i></li>';
-    }
-  }
-
-  return html;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookList);
@@ -1089,7 +986,7 @@ BookPage.render = function () {
 BookPage.getHtml = function () {
   return (
     /* html */
-    "\n    <header class=\"header\">\n      <h1 class=\"header__title\">\uB098\uC758 \uC11C\uC7AC</h1>\n      <h3 class=\"header__message\">".concat(_models_BookModel_js__WEBPACK_IMPORTED_MODULE_3__["default"].getNumberOfBooks(), "\uAD8C\uC758 \uCC45\uC744 \uB2E4 \uC77D\uC73C\uC168\uC5B4\uC694!</h3>\n    </header>\n    <div class=\"content content--book\">\n      <form class=\"search-form\" action=\"\" method=\"get\">\n        <i class=\"fa-solid fa-magnifying-glass\"></i>\n        <input \n          class=\"search-form__input\"\n          type=\"text\" \n          placeholder=\"\uB4F1\uB85D\uD55C \uCC45\uC744 \uAC80\uC0C9\uD574\uBCF4\uC138\uC694\"\n          pattern=\".{2,}\" \n          title=\"\uB450 \uAE00\uC790 \uC774\uC0C1 \uC785\uB825\uD558\uC138\uC694\"\n        >\n      </form>\n      <button class=\"button--sort\">\uC81C\uBAA9 \uC21C\uC11C\uB85C</button>\n      <ul class=\"book-list\"></ul>\n    </div>\n  ")
+    "\n    <header class=\"header\">\n      <h1 class=\"header__title\">\uB098\uC758 \uC11C\uC7AC</h1>\n      <h3 class=\"header__message\">".concat(_models_BookModel_js__WEBPACK_IMPORTED_MODULE_3__["default"].getNumberOfBooks(), "\uAD8C\uC758 \uCC45\uC744 \uB2E4 \uC77D\uC73C\uC168\uC5B4\uC694!</h3>\n    </header>\n    <div class=\"content content--book\">\n      <form class=\"search-form\" action=\"\" method=\"get\">\n        <i class=\"fa-solid fa-magnifying-glass\"></i>\n        <input \n          class=\"search-form__input\"\n          type=\"text\" \n          placeholder=\"\uB4F1\uB85D\uD55C \uCC45\uC744 \uAC80\uC0C9\uD574\uBCF4\uC138\uC694\"\n          pattern=\".{2,}\" \n          title=\"\uB450 \uAE00\uC790 \uC774\uC0C1 \uC785\uB825\uD558\uC138\uC694\"\n        >\n      </form>\n      ").concat(_models_BookModel_js__WEBPACK_IMPORTED_MODULE_3__["default"].getNumberOfBooks() ? "<button class=\"button--sort\">\uC81C\uBAA9 \uC21C\uC11C\uB85C</button>" : '', "\n      <ul class=\"book-list\"></ul>\n    </div>\n  ")
   );
 };
 
@@ -1101,12 +998,13 @@ BookPage.bindElement = function () {
 };
 
 BookPage.setEvent = function () {
-  var _this = this;
+  var _this = this,
+      _this$sortButton;
 
   this.form.addEventListener('submit', function (e) {
     return _this.onSearch(e);
   });
-  this.sortButton.addEventListener('click', function () {
+  (_this$sortButton = this.sortButton) === null || _this$sortButton === void 0 ? void 0 : _this$sortButton.addEventListener('click', function () {
     return _this.onClickButton();
   });
   this.list.addEventListener('click', function (e) {
@@ -1133,15 +1031,9 @@ BookPage.onClickButton = function () {
     }, {
       title: '제목 역순으로',
       value: 'title-reverse'
-    }, {
-      title: '높은 별점부터',
-      value: 'high-rating'
-    }, {
-      title: '낮은 별점부터',
-      value: 'low-rating'
     }]
   };
-  _modal_js__WEBPACK_IMPORTED_MODULE_1__["default"].render('list-4', modalContent);
+  _modal_js__WEBPACK_IMPORTED_MODULE_1__["default"].render('list-2', modalContent);
 };
 
 BookPage.onClickList = function (e) {
@@ -1156,7 +1048,9 @@ BookPage.onClickList = function (e) {
 };
 
 BookPage.setSortButtonText = function (sortBy) {
-  this.sortButton.textContent = sortBy;
+  if (this.sortButton) {
+    this.sortButton.textContent = sortBy;
+  }
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookPage);
