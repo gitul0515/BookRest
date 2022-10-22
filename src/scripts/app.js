@@ -1,5 +1,5 @@
-import MainController from './main/controllers/MainController.js';
+import MainPresenter from './main/presenters/MainPresenter.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  MainController.init();
+  MainPresenter.init();
 });

@@ -39,7 +39,7 @@ Navigation.onClick = function (e) {
   if (e.target.matches('.navigation__tab-link')) {
     e.preventDefault();
     const path = e.target.getAttribute('href');
-    this.dispatch('@click', { path }); // MainController에서 처리
+    this.dispatch('@click', { path });
   }
 };
 

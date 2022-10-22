@@ -1,6 +1,6 @@
 import Modal from '../views/modal.js';
-import BookController from './BookController.js';
-import NoteController from './NoteController.js';
+import BookPresenter from './BookPresenter.js';
+import NotePresenter from './NotePresenter.js';
 
 const modal = document.getElementById('modal');
 
@@ -14,7 +14,7 @@ export default {
   onClick({ dataset }) {
     if ('sortBookBy' in dataset) {
       const { sortBookBy, title } = dataset;
-      BookController.sortBooks(sortBookBy, title);
+      BookPresenter.sortBooks(sortBookBy, title);
       Modal.hide();
       return;
     }
@@ -22,7 +22,7 @@ export default {
       const { id, bookOption } = dataset;
       switch (bookOption) {
         case 'remove':
-          BookController.deleteBook(id);
+          BookPresenter.deleteBook(id);
           break;
         default:
           throw new Error('Invalid bookOption.');
@@ -33,7 +33,7 @@ export default {
       const { id, bookId, noteOption } = dataset;
       switch (noteOption) {
         case 'remove':
-          NoteController.deleteNote(id, bookId);
+          NotePresenter.deleteNote(id, bookId);
           break;
         default:
           throw new Error('Invalid noteOption.');

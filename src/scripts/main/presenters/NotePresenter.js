@@ -2,7 +2,7 @@ import NotePage from '../views/notePage/index.js';
 import NoteList from '../views/notePage/NoteList.js';
 import NoteEditPage from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
-import MainController from './MainController.js';
+import MainPresenter from './MainPresenter.js';
 import { REGEXP } from '../../constants/regexp.js';
 
 const page = document.getElementById('page');
@@ -31,7 +31,7 @@ export default {
 
   onTabClick(path) {
     history.pushState(null, null, path);
-    MainController.route();
+    MainPresenter.route();
   },
 
   deleteNote(id, bookId) {

@@ -3,7 +3,7 @@ import BookList from '../views/bookPage/BookList.js';
 import BookDetailPage from '../views/bookPage/BookDetailPage.js';
 import NoteEditPage from '../views/notePage/NoteEditPage.js';
 import BookModel from '../models/BookModel.js';
-import MainController from './MainController.js';
+import MainPresenter from './MainPresenter.js';
 
 const page = document.getElementById('page');
 let isInit = false;
@@ -49,17 +49,17 @@ export default {
 
   async onDetailPage(id) {
     history.pushState(null, null, `/book/${id}/detail`);
-    MainController.route();
+    MainPresenter.route();
   },
 
   onPrevClick() {
     history.pushState(null, null, '/book');
-    MainController.route();
+    MainPresenter.route();
   },
 
   onAddClick(id) {
     history.pushState(null, null, `/book/${id}/edit`);
-    MainController.route(id);
+    MainPresenter.route(id);
   },
 
   // FIXME: url 관련된 버그 (editor 페이지를 history에 남기지 말 것)
@@ -70,7 +70,7 @@ export default {
   onSaveClick(id, newNote) {
     BookModel.addNote(id, newNote);
     history.replaceState(null, null, `/book/${id}/detail`);
-    MainController.route();
+    MainPresenter.route();
   },
 
   sortBooks(sortBy, title) {
@@ -82,6 +82,6 @@ export default {
   deleteBook(id) {
     BookModel.deleteBook(id);
     history.replaceState(null, null, '/book');
-    MainController.route();
+    MainPresenter.route();
   },
 };

@@ -1,13 +1,13 @@
 import HomePage from '../views/homePage/index.js';
-import HomeController from './HomeController.js';
+import HomePresenter from './HomePresenter.js';
 import BookPage from '../views/bookPage/index.js';
 import BookDetailPage from '../views/bookPage/BookDetailPage.js';
-import BookController from './BookController.js';
+import BookPresenter from './BookPresenter.js';
 import NotePage from '../views/notePage/index.js';
 import NoteEditPage from '../views/notePage/NoteEditPage.js';
-import NoteController from './NoteController.js';
+import NotePresenter from './NotePresenter.js';
 import Navigation from '../views/navigation.js';
-import ModalController from './ModalController.js';
+import ModalPresenter from './ModalPresenter.js';
 import BookModel from '../models/BookModel.js';
 import { REGEXP } from '../../constants/regexp.js';
 
@@ -16,7 +16,7 @@ const navigation = document.getElementById('navigation');
 
 export default {
   init() {
-    ModalController.init();
+    ModalPresenter.init();
     Navigation.setup(navigation).on('@click', (e) => this.onClick(e.detail.path));
 
     window.addEventListener('popstate', () => this.route());
@@ -28,15 +28,15 @@ export default {
 
     if (path === '/' || path === '/index.html') {
       HomePage.setup(page);
-      HomeController.init();
+      HomePresenter.init();
     }
     if (path === '/book') {
       BookPage.setup(page);
-      BookController.init();
+      BookPresenter.init();
     }
     if (path === '/note') {
       NotePage.setup(page);
-      NoteController.init();
+      NotePresenter.init();
     }
     if (REGEXP.BOOK_DETAIL_PAGE.test(path)) {
       const id = path.split('/')[2];
