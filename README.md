@@ -28,11 +28,11 @@ https://user-images.githubusercontent.com/80658269/191052065-c43ff96a-a02f-4487-
 
 ## 폴더 구조
 
-MVC 디자인 패턴을 적용하여 설계 및 구현
+MVP 디자인 패턴을 적용하여 설계 및 구현
 
-![image](https://user-images.githubusercontent.com/80658269/191050276-2d21dcd7-e015-40b4-be96-23e6376d092c.png)
+![image](https://user-images.githubusercontent.com/80658269/197327144-c9e4a7fc-b290-45b6-9771-6942bfea7c8a.png)
   
-![image](https://user-images.githubusercontent.com/80658269/196355810-93842770-7fd8-4fd0-849c-fc6969a2df10.png)
+![image](https://user-images.githubusercontent.com/80658269/197327156-3dfb7d8e-28aa-466f-b6f6-85e88add5faf.png)
 
 
 ## 기타 (배운점)
